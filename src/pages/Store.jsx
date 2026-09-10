@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/Store/ProductCard';
+import { Filter, SlidersHorizontal, ChevronDown, X, RotateCcw } from 'lucide-react';
 
 // Filter Specifications
 const filterSections = [
@@ -30,7 +31,7 @@ const sortOptions = [
   { value: "featured", label: "Featured" },
   { value: "price-asc", label: "Price: Low to High" },
   { value: "price-desc", label: "Price: High to Low" },
-  { value: "newest", label: "Newest" }
+  { value: "newest", label: "Newest Arrivals" }
 ];
 
 export default function Store() {
@@ -82,11 +83,17 @@ export default function Store() {
 
     // Search filter
     const query = searchParams.get('search')?.toLowerCase() || '';
+    const categoryParam = searchParams.get('category');
+    
     if (query) {
       list = list.filter(p =>
         p.name?.toLowerCase().includes(query) ||
         p.category_name?.toLowerCase().includes(query)
       );
+    }
+
+    if (categoryParam) {
+      list = list.filter(p => p.category_name?.toLowerCase() === categoryParam.toLowerCase());
     }
 
     // Categories filter
@@ -152,27 +159,27 @@ export default function Store() {
   const activeFiltersCount = filters.categories.length + filters.price.length;
 
   return (
-    <div className="min-h-screen bg-black text-gray-200 pt-24 md:pt-32 pb-20 px-4 md:px-10 font-sans">
+    <div className="min-h-screen bg-black text-slate-200 pt-28 md:pt-36 pb-20 px-4 md:px-10 font-sans selection:bg-amber-400 selection:text-black">
       <div className="container mx-auto max-w-7xl">
         
         {/* Top Header Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 mb-8 border-b border-gray-800 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 mb-8 border-b border-zinc-800 gap-4">
           <div>
-            <p className="text-sm text-gray-400 mt-1">Showing {filteredProducts.length} items</p>
+            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">Elexoplus Catalog Store</h1>
+            <p className="text-xs text-zinc-400 mt-1">Showing {filteredProducts.length} verified appliances</p>
           </div>
 
-          <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
             {/* Desktop Filter Toggle */}
             <button
+              type="button"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-sm hover:border-yellow-400 transition"
+              className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-white hover:border-amber-400/50 transition cursor-pointer"
             >
-              <svg className="w-4 h-4 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
+              <SlidersHorizontal size={15} className="text-amber-400" />
               <span>{isSidebarOpen ? "Hide Filters" : "Show Filters"}</span>
               {activeFiltersCount > 0 && (
-                <span className="w-5 h-5 bg-yellow-500 text-black rounded-full text-xs font-bold flex items-center justify-center">
+                <span className="w-5 h-5 bg-amber-400 text-black rounded-full text-[10px] font-black flex items-center justify-center">
                   {activeFiltersCount}
                 </span>
               )}
@@ -180,12 +187,14 @@ export default function Store() {
 
             {/* Mobile Filter Button */}
             <button
+              type="button"
               onClick={() => setIsMobileFilterOpen(true)}
-              className="md:hidden flex items-center gap-2 px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white"
+              className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-white cursor-pointer"
             >
+              <Filter size={15} className="text-amber-400" />
               <span>Filter & Sort</span>
               {activeFiltersCount > 0 && (
-                <span className="w-5 h-5 bg-yellow-500 text-black rounded-full text-xs font-bold flex items-center justify-center">
+                <span className="w-5 h-5 bg-amber-400 text-black rounded-full text-[10px] font-black flex items-center justify-center">
                   {activeFiltersCount}
                 </span>
               )}
@@ -194,31 +203,31 @@ export default function Store() {
             {/* Sort Dropdown */}
             <div className="relative" ref={sortDropdownRef}>
               <button
+                type="button"
                 onClick={() => setIsSortOpen(!isSortOpen)}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg text-sm text-white hover:border-gray-500 transition"
+                className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-white hover:border-zinc-700 transition cursor-pointer"
               >
-                <span className="text-gray-400 text-xs">Sort by:</span>
-                <span className="font-semibold text-yellow-400">
+                <span className="text-zinc-400">Sort by:</span>
+                <span className="text-amber-400">
                   {sortOptions.find(o => o.value === sortBy)?.label}
                 </span>
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                <ChevronDown size={14} className="ml-1 text-zinc-400" />
               </button>
 
               {isSortOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-xl shadow-2xl py-2 z-30 animate-fadeIn">
+                <div className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl py-2 z-30 animate-fadeIn overflow-hidden">
                   {sortOptions.map(option => (
                     <button
                       key={option.value}
+                      type="button"
                       onClick={() => {
                         setSortBy(option.value);
                         setIsSortOpen(false);
                       }}
-                      className={`w-full text-left px-4 py-2 text-sm transition ${
+                      className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition ${
                         sortBy === option.value
-                          ? 'bg-yellow-500/10 text-yellow-400 font-semibold'
-                          : 'text-gray-300 hover:bg-gray-800'
+                          ? 'bg-amber-400/10 text-amber-400 font-bold'
+                          : 'text-zinc-300 hover:bg-zinc-800'
                       }`}
                     >
                       {option.label}
@@ -233,30 +242,31 @@ export default function Store() {
         {/* Active Filter Badges */}
         {activeFiltersCount > 0 && (
           <div className="flex flex-wrap items-center gap-2 mb-6">
-            <span className="text-xs text-gray-400 mr-2">Active filters:</span>
+            <span className="text-xs text-zinc-500 mr-2 font-medium">Active filters:</span>
             {filters.categories.map(c => (
               <span
                 key={c}
                 onClick={() => handleFilterToggle('categories', c)}
-                className="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-xs text-yellow-400 flex items-center gap-1.5 cursor-pointer hover:bg-gray-700"
+                className="px-3.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-amber-400 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800 transition"
               >
-                {c} ✕
+                {c} <X size={12} />
               </span>
             ))}
             {filters.price.map(p => (
               <span
                 key={p}
                 onClick={() => handleFilterToggle('price', p)}
-                className="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-xs text-yellow-400 flex items-center gap-1.5 cursor-pointer hover:bg-gray-700"
+                className="px-3.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-amber-400 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800 transition"
               >
-                {filterSections[1].options.find(o => o.value === p)?.label} ✕
+                {filterSections[1].options.find(o => o.value === p)?.label} <X size={12} />
               </span>
             ))}
             <button
+              type="button"
               onClick={clearAllFilters}
-              className="text-xs text-red-400 hover:underline ml-2"
+              className="text-xs text-rose-400 hover:underline ml-2 font-bold flex items-center gap-1 cursor-pointer"
             >
-              Clear all
+              <RotateCcw size={12} /> Clear all
             </button>
           </div>
         )}
@@ -270,10 +280,10 @@ export default function Store() {
               isSidebarOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 pointer-events-none'
             }`}
           >
-            <div className="w-64 space-y-6 pr-4">
+            <div className="w-64 space-y-6 pr-4 bg-zinc-950 p-6 rounded-3xl border border-zinc-900">
               {filterSections.map(section => (
-                <div key={section.id} className="border-b border-gray-800 pb-5">
-                  <h3 className="text-sm font-bold uppercase tracking-wider text-white mb-3">
+                <div key={section.id} className="border-b border-zinc-800/80 pb-5 last:border-b-0 last:pb-0">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-3">
                     {section.name}
                   </h3>
                   <div className="space-y-2.5">
@@ -282,15 +292,15 @@ export default function Store() {
                       return (
                         <label
                           key={option.value}
-                          className="flex items-center gap-3 text-sm text-gray-400 hover:text-white cursor-pointer select-none"
+                          className="flex items-center gap-3 text-xs text-zinc-400 hover:text-white cursor-pointer select-none font-medium"
                         >
                           <input
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => handleFilterToggle(section.id, option.value)}
-                            className="w-4 h-4 rounded border-gray-700 bg-gray-800 accent-yellow-500 cursor-pointer"
+                            className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 accent-amber-400 cursor-pointer"
                           />
-                          <span className={isChecked ? 'text-yellow-400 font-medium' : ''}>
+                          <span className={isChecked ? 'text-amber-400 font-bold' : ''}>
                             {option.label}
                           </span>
                         </label>
@@ -307,7 +317,7 @@ export default function Store() {
             {loading ? (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-pulse">
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="aspect-square bg-gray-900 rounded-xl" />
+                  <div key={i} className="aspect-square bg-zinc-900 rounded-2xl border border-zinc-800" />
                 ))}
               </div>
             ) : paginatedProducts.length > 0 ? (
@@ -321,12 +331,13 @@ export default function Store() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 bg-gray-950 border border-gray-800 rounded-2xl">
-                <p className="text-xl font-semibold text-white mb-2">No Products Found</p>
-                <p className="text-sm text-gray-500 mb-6">Try clearing or adjusting your filter criteria.</p>
+              <div className="text-center py-24 bg-zinc-950 border border-zinc-900 rounded-3xl shadow-xl">
+                <p className="text-xl font-extrabold text-white mb-2">No Products Found</p>
+                <p className="text-xs text-zinc-400 mb-6">Try clearing or adjusting your filter criteria.</p>
                 <button
+                  type="button"
                   onClick={clearAllFilters}
-                  className="px-6 py-2.5 bg-yellow-500 text-black font-bold rounded-full text-sm hover:bg-yellow-400 transition"
+                  className="px-8 py-3 bg-amber-400 text-black font-extrabold rounded-full text-xs uppercase tracking-wider hover:bg-amber-500 transition shadow-lg cursor-pointer"
                 >
                   Reset Filters
                 </button>
@@ -337,9 +348,10 @@ export default function Store() {
             {totalPages > 1 && (
               <div className="flex justify-center items-center gap-2 mt-12">
                 <button
+                  type="button"
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="p-2 rounded-lg bg-gray-900 border border-gray-800 text-white disabled:opacity-40 hover:bg-gray-800 transition"
+                  className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 text-white disabled:opacity-40 hover:bg-amber-400 hover:text-black transition flex items-center justify-center font-bold cursor-pointer"
                 >
                   ❮
                 </button>
@@ -349,11 +361,12 @@ export default function Store() {
                   return (
                     <button
                       key={pageNum}
+                      type="button"
                       onClick={() => setCurrentPage(pageNum)}
-                      className={`w-9 h-9 rounded-lg font-bold text-sm transition ${
+                      className={`w-10 h-10 rounded-xl font-extrabold text-xs transition cursor-pointer ${
                         currentPage === pageNum
-                          ? 'bg-yellow-500 text-black'
-                          : 'bg-gray-900 border border-gray-800 text-gray-400 hover:text-white'
+                          ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20'
+                          : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'
                       }`}
                     >
                       {pageNum}
@@ -362,9 +375,10 @@ export default function Store() {
                 })}
 
                 <button
+                  type="button"
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="p-2 rounded-lg bg-gray-900 border border-gray-800 text-white disabled:opacity-40 hover:bg-gray-800 transition"
+                  className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 text-white disabled:opacity-40 hover:bg-amber-400 hover:text-black transition flex items-center justify-center font-bold cursor-pointer"
                 >
                   ❯
                 </button>
@@ -378,24 +392,25 @@ export default function Store() {
       {isMobileFilterOpen && (
         <div className="fixed inset-0 z-50 md:hidden flex flex-col justify-end">
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setIsMobileFilterOpen(false)}
           />
-          <div className="relative bg-gray-900 border-t border-gray-800 rounded-t-3xl p-6 max-h-[85vh] overflow-y-auto z-10 animate-slideUp">
-            <div className="flex justify-between items-center pb-4 border-b border-gray-800 mb-6">
-              <h2 className="text-lg font-bold text-white">Filters & Sorting</h2>
+          <div className="relative bg-zinc-950 border-t border-zinc-800 rounded-t-3xl p-6 max-h-[85vh] overflow-y-auto z-10 animate-slideUp">
+            <div className="flex justify-between items-center pb-4 border-b border-zinc-800 mb-6">
+              <h2 className="text-base font-black text-white">Filters & Sorting</h2>
               <button
+                type="button"
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="text-gray-400 hover:text-white text-xl p-1"
+                className="text-zinc-400 hover:text-white p-1 cursor-pointer"
               >
-                ✕
+                <X size={20} />
               </button>
             </div>
 
             {/* Mobile Categories & Price Facets */}
             {filterSections.map(section => (
               <div key={section.id} className="mb-6">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-yellow-400 mb-3">
+                <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-3">
                   {section.name}
                 </h3>
                 <div className="space-y-2">
@@ -404,15 +419,15 @@ export default function Store() {
                     return (
                       <label
                         key={option.value}
-                        className="flex items-center gap-3 text-sm text-gray-300 py-1 cursor-pointer"
+                        className="flex items-center gap-3 text-xs text-zinc-300 py-1.5 cursor-pointer font-medium"
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => handleFilterToggle(section.id, option.value)}
-                          className="w-4 h-4 rounded border-gray-700 bg-gray-800 accent-yellow-500"
+                          className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 accent-amber-400 cursor-pointer"
                         />
-                        <span className={isChecked ? 'text-yellow-400 font-semibold' : ''}>
+                        <span className={isChecked ? 'text-amber-400 font-bold' : ''}>
                           {option.label}
                         </span>
                       </label>
@@ -422,16 +437,18 @@ export default function Store() {
               </div>
             ))}
 
-            <div className="flex gap-4 pt-4 border-t border-gray-800">
+            <div className="flex gap-4 pt-4 border-t border-zinc-800">
               <button
+                type="button"
                 onClick={clearAllFilters}
-                className="flex-1 py-3 border border-gray-700 rounded-xl text-sm font-semibold text-gray-300"
+                className="flex-1 py-3.5 border border-zinc-700 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-300 cursor-pointer"
               >
                 Clear All
               </button>
               <button
+                type="button"
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="flex-1 py-3 bg-yellow-500 text-black rounded-xl text-sm font-bold"
+                className="flex-1 py-3.5 bg-amber-400 text-black rounded-xl text-xs font-extrabold uppercase tracking-wider shadow cursor-pointer"
               >
                 Apply
               </button>

@@ -1,48 +1,103 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import logo from '../assets/elexoplus-logo-BJqIBdaq.png';
+import { ShieldCheck, Mail, Phone, MapPin, ArrowRight, Globe, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
 
 export default function Footer() {
-  const footerRef = useRef(null);
-
-  useEffect(() => {
-    if (footerRef.current) {
-      const items = footerRef.current.querySelectorAll('.footer-item');
-      gsap.set(items, { y: 40, opacity: 0 });
-      gsap.to(items, { y: 0, opacity: 1, duration: 1.5, stagger: 0.2, ease: 'power3.out' });
-    }
-  }, []);
+  // Placeholder social media links array - ready to be bound to Admin Panel CMS settings
+  const adminSocialLinks = [
+    { name: 'Facebook', url: 'https://facebook.com', icon: <Facebook size={18} /> },
+    { name: 'Instagram', url: 'https://instagram.com', icon: <Instagram size={18} /> },
+    { name: 'Twitter', url: 'https://twitter.com', icon: <Twitter size={18} /> },
+    { name: 'LinkedIn', url: 'https://linkedin.com', icon: <Linkedin size={18} /> },
+    { name: 'YouTube', url: 'https://youtube.com', icon: <Youtube size={18} /> },
+  ];
 
   return (
-    <footer className="bg-black p-10 text-white font-sans border-t border-white mt-auto">
-      <div ref={footerRef} className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-        <div className="footer-item">
-          <img src="/assets/logo-BJqIBdaq.png" alt="Elexo Logo" className="w-44 mb-3" />
-          <p className="text-gray-400 leading-relaxed">
-            <strong>Address:</strong> 10-481, Bhagat Singh Marg, near RTO ROAD, Sector 9, RIICO INDUSTRIAL AREA, U.I.T, Bhiwadi, Rajasthan 301019
+    <footer className="bg-black text-slate-400 text-sm font-sans border-t border-zinc-800/80 pt-16 pb-12 px-6">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-zinc-800/80">
+        
+        {/* Brand & Mission Column */}
+        <div className="lg:col-span-2 space-y-4">
+          <Link to="/" className="inline-block">
+            <img src={logo} alt="ElexoPlus Logo" className="w-32 object-contain" />
+          </Link>
+          <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
+            ElexoPlus is a premier home appliances manufacturer and B2B distribution ecosystem. Engineered for absolute safety, whisper-quiet efficiency, and robust daily durability.
           </p>
+          <div className="flex items-center gap-2 text-xs text-amber-400 font-bold pt-1">
+            <ShieldCheck size={16} /> ISO Certified Quality & 2-Year Warranty Support
+          </div>
+
+          {/* Admin-Controlled Social Media Links Row */}
+          <div className="pt-2">
+            <span className="text-[11px] font-extrabold uppercase tracking-widest text-zinc-500 block mb-3">Connect With Us</span>
+            <div className="flex items-center space-x-3">
+              {adminSocialLinks.map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-black hover:bg-amber-400 hover:border-amber-400 transition-all duration-200 shadow-sm"
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="footer-item justify-self-center self-center">
-          <h3 className="font-bold text-lg mb-4 justify-self-center">Contact Information</h3>
-          <ul className="space-y-2 text-gray-400">
-            <li>Mail: <a href="mailto:SALES@ELEXOPLUS.IN" className="hover:text-white">SALES@ELEXOPLUS.IN</a></li>
-            <li>Contact: <a href="tel:01493-451354" className="hover:text-white">+91 9257061015</a></li>
-            <li>CIN No.: U47594RJ2025PTC101772</li>
-            <li>Udyam Registration No.: UDYAM-RJ-37-0005128</li>
+
+        {/* Quick Navigation */}
+        <div className="space-y-4">
+          <h5 className="text-white font-extrabold uppercase text-xs tracking-widest">Quick Links</h5>
+          <ul className="space-y-2.5 text-xs">
+            <li><Link to="/" className="hover:text-amber-400 transition">Home</Link></li>
+            <li><Link to="/store" className="hover:text-amber-400 transition">Product Catalog</Link></li>
+            <li><Link to="/about" className="hover:text-amber-400 transition">About Corporate</Link></li>
+            <li><Link to="/contact" className="hover:text-amber-400 transition">Customer Support</Link></li>
           </ul>
         </div>
-        <div className="footer-item justify-self-center">
-          <h3 className="font-bold text-lg mb-4">Important Links</h3>
-          <ul className="space-y-2 text-gray-400 justify-self-center">
-            <li><a href="/store" className="hover:text-white">Products</a></li>
-            <li><a href="/policy" className="hover:text-white">Policies</a></li>
-            <li><a href="/about" className="hover:text-white">About Us</a></li>
-            <li><a href="/contact" className="hover:text-white">Contact Us</a></li>
-            <li><a href="https://b2b.elexoplus.in" className="hover:text-white">B2B Portal</a></li>
+
+        {/* Portals & ERP Network */}
+        <div className="space-y-4">
+          <h5 className="text-white font-extrabold uppercase text-xs tracking-widest">Enterprise Portals</h5>
+          <ul className="space-y-2.5 text-xs">
+            <li><Link to="/b2b-login" className="text-amber-400 hover:underline flex items-center gap-1 font-bold">B2B Dealer Portal <ArrowRight size={12} /></Link></li>
+            <li><Link to="/vendor-portal" className="hover:text-zinc-200 transition">Vendor Onboarding</Link></li>
+            <li><Link to="/track-order" className="hover:text-zinc-200 transition">Track Order & Status</Link></li>
+            <li><Link to="/warranty-registration" className="hover:text-zinc-200 transition">Warranty Activation</Link></li>
           </ul>
         </div>
+
+        {/* Corporate Office & Contact */}
+        <div className="space-y-4">
+          <h5 className="text-white font-extrabold uppercase text-xs tracking-widest">Corporate Office</h5>
+          <ul className="space-y-3 text-xs text-zinc-400">
+            <li className="flex items-start gap-2">
+              <MapPin size={16} className="text-amber-400 shrink-0 mt-0.5" />
+              <span>10/481, Bhagat Singh Marg, near RTO ROAD, Sector 9, RIICO Industrial Area, Bhiwadi, Rajasthan 301019.</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <Phone size={16} className="text-amber-400 shrink-0" />
+              <span>+91 92570-61015</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <Mail size={16} className="text-amber-400 shrink-0" />
+              <span>sales@elexoplus.in</span>
+            </li>
+          </ul>
+        </div>
+
       </div>
-      <div className="container mx-auto mt-8 pt-4 border-t border-gray-700 text-center text-gray-500 text-sm">
-        <p>© 2025 ElexoPlus India Pvt Ltd — All Rights Reserved</p>
+
+      {/* Bottom Legal & Copyright Bar */}
+      <div className="max-w-7xl mx-auto mt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
+        <p>© 2026 Elexo Plus India Private Limited. All rights reserved.</p>
+        <p className="text-center md:text-right">
+          CIN No.: U47594RJ2025PTC101772 | Udyam Reg.: UDYAM-RJ-37-0005128
+        </p>
       </div>
     </footer>
   );

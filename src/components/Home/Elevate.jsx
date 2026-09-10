@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import product from "../../assets/product-BICEL6TG.png";
+import { Sparkles, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 
 export default function Elevate() {
   return (
-    <section className="relative overflow-hidden bg-black py-24 px-6 md:px-14 lg:px-20 font-['Nunito',sans-serif]">
+    <section className="relative overflow-hidden bg-black py-24 px-6 md:px-14 lg:px-20 font-sans border-b border-zinc-800/80">
       {/* Subtle Background Glow Elements */}
-      <div className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-yellow/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-24 -left-24 h-96 w-96 rounded-full bg-amber-500/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 right-0 h-96 w-96 rounded-full bg-zinc-800/40 blur-3xl" />
 
       <div className="container mx-auto max-w-7xl">
@@ -15,15 +15,15 @@ export default function Elevate() {
           {/* Left Content Column */}
           <div className="lg:col-span-6 flex flex-col items-start text-left">
             {/* Top Pill Tag */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-yellow/30 bg-yellow/10 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-yellow">
-              <span className="h-1.5 w-1.5 rounded-full bg-yellow animate-pulse" />
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-amber-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
               Engineered Excellence
             </div>
 
             {/* Headline with Brand Accent */}
             <h2 className="mb-6 text-4xl sm:text-5xl lg:text-6xl font-black uppercase leading-[1.08] tracking-tight text-white">
               Elevate Your <br />
-              <span className="text-yellow drop-shadow-[0_0_24px_rgba(255,230,20,0.25)]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-rose-500 drop-shadow-[0_0_24px_rgba(251,191,36,0.25)]">
                 Everyday
               </span>
             </h2>
@@ -53,10 +53,10 @@ export default function Elevate() {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 to="/store"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-yellow px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-black transition-all duration-200 hover:bg-yellow-400 hover:shadow-[0_0_20px_rgba(255,230,20,0.3)] active:scale-98"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-400 px-8 py-3.5 text-sm font-extrabold uppercase tracking-wider text-black transition-all duration-200 hover:bg-amber-500 hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] active:scale-98"
               >
                 <span>Explore Innovation</span>
-                <span>→</span>
+                <ArrowRight size={16} />
               </Link>
               <Link
                 to="/about"
@@ -70,10 +70,10 @@ export default function Elevate() {
           {/* Right Product Showcase Column */}
           <div className="lg:col-span-6 relative flex items-center justify-center">
             {/* Ambient Radial Spotlight Behind Product */}
-            <div className="absolute h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-tr from-yellow/20 to-transparent blur-2xl" />
+            <div className="absolute h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-gradient-to-tr from-amber-500/20 to-transparent blur-2xl" />
 
             {/* Product Card Container with Subtle Tilt/Float Hover */}
-            <div className="group relative w-full max-w-md sm:max-w-lg rounded-3xl border border-zinc-800/80 bg-gradient-to-b from-zinc-900/60 via-zinc-950 to-black p-6 sm:p-10 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:border-yellow/40">
+            <div className="group relative w-full max-w-md sm:max-w-lg rounded-3xl border border-zinc-800/80 bg-gradient-to-b from-zinc-900/60 via-zinc-950 to-black p-6 sm:p-10 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:border-amber-400/40">
               {/* Product Badge */}
               <div className="absolute top-5 right-5 z-20">
                 <span className="rounded-full border border-white/10 bg-black/70 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-zinc-300 backdrop-blur-md">
@@ -84,20 +84,20 @@ export default function Elevate() {
               {/* Product Image */}
               <div className="relative flex items-center justify-center overflow-hidden py-4">
                 <img
-                  src={product}
+                  src="/assets/Chimney-YOfkthXd.png"
                   alt="Elexoplus product innovation"
                   className="h-auto w-full max-h-[380px] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)] transition-transform duration-700 ease-out group-hover:scale-105"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "/assets/product-BICEL6TG.png";
+                    e.target.src = "https://placehold.co/600x400/1A1A1A/FFFFFF?text=ElexoPlus";
                   }}
                 />
               </div>
 
               {/* Bottom Subtle Brand Accent */}
               <div className="mt-4 flex items-center justify-between border-t border-zinc-800/80 pt-4 text-xs font-semibold text-zinc-400">
-                <span>All-Season Performance</span>
-                <span className="text-yellow">Pure Durability</span>
+                <span className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-emerald-400"/> All-Season Performance</span>
+                <span className="text-amber-400">Pure Durability</span>
               </div>
             </div>
           </div>

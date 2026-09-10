@@ -156,13 +156,13 @@ export default function ProductCarousel({ title }) {
   };
 
   return (
-    <section className="bg-black pt-20 px-4 md:px-8 font-['Nunito',sans-serif] relative selection:bg-yellow selection:text-black">
+    <section className="bg-black pt-20 pb-12 px-4 md:px-8 font-sans relative selection:bg-amber-400 selection:text-black border-b border-zinc-800/80">
       <div className="container mx-auto max-w-7xl">
         
         {/* Header with Title and Custom Controls */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 border-b border-zinc-800/80 pb-4">
           <div>
-            <span className="text-yellow text-[11px] font-extrabold uppercase tracking-widest bg-yellow/10 px-3 py-1 rounded-full border border-yellow/20 inline-block mb-2">
+            <span className="text-amber-400 text-[11px] font-extrabold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block mb-2">
               Explore Collection
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
@@ -177,7 +177,7 @@ export default function ProductCarousel({ title }) {
               disabled={!canScrollLeft}
               className={`w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-200 ${
                 canScrollLeft
-                  ? 'bg-lightGray border-zinc-700 text-white hover:bg-yellow hover:text-black hover:border-yellow shadow-md cursor-pointer active:scale-95'
+                  ? 'bg-zinc-900 border-zinc-700 text-white hover:bg-amber-400 hover:text-black hover:border-amber-400 shadow-md cursor-pointer active:scale-95'
                   : 'bg-zinc-950 border-zinc-800 text-zinc-600 cursor-not-allowed opacity-40'
               }`}
               aria-label="Scroll left"
@@ -191,7 +191,7 @@ export default function ProductCarousel({ title }) {
               disabled={!canScrollRight}
               className={`w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-200 ${
                 canScrollRight
-                  ? 'bg-lightGray border-zinc-700 text-white hover:bg-yellow hover:text-black hover:border-yellow shadow-md cursor-pointer active:scale-95'
+                  ? 'bg-zinc-900 border-zinc-700 text-white hover:bg-amber-400 hover:text-black hover:border-amber-400 shadow-md cursor-pointer active:scale-95'
                   : 'bg-zinc-950 border-zinc-800 text-zinc-600 cursor-not-allowed opacity-40'
               }`}
               aria-label="Scroll right"
@@ -227,7 +227,7 @@ export default function ProductCarousel({ title }) {
               Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-64 md:w-72 bg-lightGray/50 border border-zinc-800 rounded-2xl p-4 animate-pulse"
+                  className="flex-shrink-0 w-64 md:w-72 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-4 animate-pulse"
                 >
                   <div className="w-full aspect-square bg-zinc-800/80 rounded-xl mb-4" />
                   <div className="h-4 bg-zinc-800 rounded w-3/4 mb-2" />
@@ -243,7 +243,7 @@ export default function ProductCarousel({ title }) {
               ))
             ) : (
               <div className="w-full py-16 text-center text-zinc-500 font-medium bg-zinc-950/60 border border-zinc-900 rounded-2xl">
-                No products available.
+                No products available in this catalog view.
               </div>
             )}
           </div>
@@ -253,7 +253,7 @@ export default function ProductCarousel({ title }) {
         {items.length > 0 && (
           <div className="mt-3 w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
             <div
-              className="bg-yellow h-full rounded-full transition-all duration-300 ease-out shadow-[0_0_8px_rgba(255,230,20,0.5)]"
+              className="bg-amber-400 h-full rounded-full transition-all duration-300 ease-out shadow-[0_0_8px_rgba(251,191,36,0.5)]"
               style={{ width: `${Math.max(10, scrollProgress)}%` }}
             />
           </div>

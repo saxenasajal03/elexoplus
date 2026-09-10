@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Star, CheckCircle2, AlertCircle, MessageSquare } from 'lucide-react';
 
 function StarRatingSelector({ rating, setRating, hoverRating, setHoverRating, isInteractive = false }) {
   const stars = [1, 2, 3, 4, 5];
@@ -17,7 +18,7 @@ function StarRatingSelector({ rating, setRating, hoverRating, setHoverRating, is
             onMouseLeave={() => isInteractive && setHoverRating && setHoverRating(0)}
             className={`text-2xl transition-transform duration-150 ${
               isInteractive ? 'cursor-pointer hover:scale-125' : 'cursor-default'
-            } ${isFilled ? 'text-yellow' : 'text-gray-700'}`}
+            } ${isFilled ? 'text-amber-400' : 'text-zinc-800'}`}
             aria-label={`Select ${star} stars`}
           >
             ★
@@ -60,7 +61,6 @@ export default function ProductDetailsTabs({ productData }) {
     }
   }, [productId, tab]);
 
-  // Default to 5.0 when reviews list is empty or sum is 0
   const { averageScore, ratingDistribution } = useMemo(() => {
     if (!reviews || reviews.length === 0) {
       return {
@@ -136,50 +136,52 @@ export default function ProductDetailsTabs({ productData }) {
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-14 p-6 sm:p-10 bg-lightGray text-white rounded-2xl border border-gray-800 font-['Nunito',sans-serif]">
+    <div className="max-w-6xl mx-auto my-16 p-6 sm:p-10 bg-zinc-950 text-white rounded-3xl border border-zinc-800/80 font-sans shadow-2xl">
       {/* Tab Switcher */}
-      <div className="flex border-b border-gray-700 mb-8">
+      <div className="flex border-b border-zinc-800 mb-8 gap-8">
         <button
           type="button"
           onClick={() => setTab('details')}
-          className={`pb-3 px-6 font-bold text-lg transition-all border-b-2 ${
+          className={`pb-4 font-extrabold text-base md:text-lg transition-all border-b-2 cursor-pointer ${
             tab === 'details'
-              ? 'text-yellow border-yellow'
-              : 'text-gray-400 border-transparent hover:text-gray-200'
+              ? 'text-amber-400 border-amber-400'
+              : 'text-zinc-500 border-transparent hover:text-zinc-300'
           }`}
         >
-          Product Overview
+          Product Overview & Specs
         </button>
         <button
           type="button"
           onClick={() => setTab('reviews')}
-          className={`pb-3 px-6 font-bold text-lg transition-all border-b-2 ${
+          className={`pb-4 font-extrabold text-base md:text-lg transition-all border-b-2 cursor-pointer ${
             tab === 'reviews'
-              ? 'text-yellow border-yellow'
-              : 'text-gray-400 border-transparent hover:text-gray-200'
+              ? 'text-amber-400 border-amber-400'
+              : 'text-zinc-500 border-transparent hover:text-zinc-300'
           }`}
         >
-          Rating & Reviews ({reviews.length})
+          Ratings & Reviews ({reviews.length})
         </button>
       </div>
 
       {tab === 'details' ? (
         <div className="space-y-8 animate-fadeIn">
           <div>
-            <h3 className="text-xl font-bold text-white mb-2">Overview</h3>
-            <p className="text-gray-300 leading-relaxed text-base">
-              {productData?.description || "No overview provided."}
+            <h3 className="text-lg font-extrabold text-white mb-3 flex items-center gap-2">
+              <MessageSquare size={18} className="text-amber-400" /> Detailed Description
+            </h3>
+            <p className="text-zinc-400 leading-relaxed text-sm font-medium">
+              {productData?.description || "Engineered for excellence with high-grade components, robust thermal safety insulation, and energy-saving performance."}
             </p>
           </div>
 
           {productData?.specifications?.length > 0 && (
             <div>
-              <h3 className="text-xl font-bold text-white mb-4">Technical Specifications</h3>
+              <h3 className="text-lg font-extrabold text-white mb-4">Technical Specifications</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {productData.specifications.map((s, i) => (
-                  <div key={i} className="bg-black/40 border border-gray-800 p-4 rounded-xl">
-                    <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">{s.spec_label}</p>
-                    <p className="font-bold text-sm text-white mt-1">{s.spec_value}</p>
+                  <div key={i} className="bg-zinc-900/60 border border-zinc-800 p-4 rounded-2xl">
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-extrabold">{s.spec_label}</p>
+                    <p className="font-bold text-xs md:text-sm text-white mt-1">{s.spec_value}</p>
                   </div>
                 ))}
               </div>
@@ -189,14 +191,14 @@ export default function ProductDetailsTabs({ productData }) {
       ) : (
         <div className="space-y-10 animate-fadeIn">
           {/* Top Scorecard */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 bg-black/40 border border-gray-800 p-6 md:p-8 rounded-2xl items-center">
-            <div className="md:col-span-4 text-center md:border-r md:border-gray-800 md:pr-8">
-              <span className="text-5xl font-extrabold text-yellow">{averageScore}</span>
-              <span className="text-xl text-gray-500 font-bold"> / 5.0</span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 bg-zinc-900/50 border border-zinc-800 p-6 md:p-8 rounded-2xl items-center">
+            <div className="md:col-span-4 text-center md:border-r md:border-zinc-800 md:pr-8">
+              <span className="text-5xl font-black text-amber-400">{averageScore}</span>
+              <span className="text-xl text-zinc-500 font-bold"> / 5.0</span>
               <div className="flex justify-center my-2">
                 <StarRatingSelector rating={Math.round(Number(averageScore))} />
               </div>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-zinc-400 font-medium">
                 {reviews.length === 0
                   ? "No reviews yet"
                   : `Based on ${reviews.length} customer review${reviews.length === 1 ? '' : 's'}`}
@@ -209,11 +211,11 @@ export default function ProductDetailsTabs({ productData }) {
                 const count = ratingDistribution[star] || 0;
                 const pct = reviews.length ? Math.round((count / reviews.length) * 100) : star === 5 ? 100 : 0;
                 return (
-                  <div key={star} className="flex items-center gap-3 text-xs text-gray-400">
+                  <div key={star} className="flex items-center gap-3 text-xs text-zinc-400 font-semibold">
                     <span className="w-12 text-right">{star} Star</span>
-                    <div className="flex-1 bg-gray-800 h-2 rounded-full overflow-hidden">
+                    <div className="flex-1 bg-zinc-800 h-2 rounded-full overflow-hidden">
                       <div
-                        className="bg-yellow h-full rounded-full transition-all duration-300"
+                        className="bg-amber-400 h-full rounded-full transition-all duration-300 shadow-[0_0_8px_rgba(251,191,36,0.4)]"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -227,11 +229,11 @@ export default function ProductDetailsTabs({ productData }) {
           {/* Form & Reviews List */}
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {/* Review Form */}
-            <div className="bg-black/30 border border-gray-800 p-6 rounded-2xl">
-              <h4 className="text-lg font-bold text-white mb-4">Write a Review</h4>
+            <div className="bg-zinc-900/40 border border-zinc-800 p-6 sm:p-8 rounded-3xl space-y-4">
+              <h4 className="text-base font-black text-white">Write a Review</h4>
               <form onSubmit={submitReview} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] font-extrabold text-zinc-400 uppercase tracking-wider mb-1.5">
                     Your Rating
                   </label>
                   <StarRatingSelector
@@ -244,7 +246,7 @@ export default function ProductDetailsTabs({ productData }) {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-extrabold text-zinc-400 uppercase tracking-wider mb-1">
                     Your Name
                   </label>
                   <input
@@ -253,12 +255,12 @@ export default function ProductDetailsTabs({ productData }) {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-[#111] border border-gray-700 p-3 rounded-xl text-white text-sm focus:outline-none focus:border-yellow transition"
+                    className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-400 p-3.5 rounded-xl text-white text-xs focus:outline-none transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-extrabold text-zinc-400 uppercase tracking-wider mb-1">
                     Review Message
                   </label>
                   <textarea
@@ -267,47 +269,50 @@ export default function ProductDetailsTabs({ productData }) {
                     rows="3"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                    className="w-full bg-[#111] border border-gray-700 p-3 rounded-xl text-white text-sm focus:outline-none focus:border-yellow transition"
+                    className="w-full bg-zinc-950 border border-zinc-800 focus:border-amber-400 p-3.5 rounded-xl text-white text-xs focus:outline-none transition resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-yellow text-black font-bold py-3 rounded-xl hover:bg-yellow-400 transition text-sm disabled:opacity-50"
+                  className="w-full bg-amber-400 text-black font-extrabold py-3.5 rounded-xl hover:bg-amber-500 transition text-xs uppercase tracking-wider disabled:opacity-50 shadow-lg shadow-amber-400/20 cursor-pointer"
                 >
                   {isSubmitting ? "Submitting..." : "Submit Review"}
                 </button>
 
                 {statusMsg.text && (
-                  <p className={`text-xs text-center font-medium ${statusMsg.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                  <div className={`p-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 ${
+                    statusMsg.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                  }`}>
+                    {statusMsg.type === 'success' ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
                     {statusMsg.text}
-                  </p>
+                  </div>
                 )}
               </form>
             </div>
 
             {/* Reviews List */}
-            <div>
-              <h4 className="text-lg font-bold text-white mb-4">Customer Reviews</h4>
+            <div className="space-y-4">
+              <h4 className="text-base font-black text-white">Customer Reviews</h4>
               {loadingReviews ? (
-                <p className="text-gray-400 text-sm">Loading reviews...</p>
+                <p className="text-zinc-500 text-xs font-medium">Loading reviews...</p>
               ) : reviews.length === 0 ? (
-                <div className="bg-black/30 border border-gray-800 p-8 rounded-2xl text-center text-gray-400">
-                  <p className="font-semibold text-sm text-white"></p>
-                  <p className="text-xs text-gray-500 mt-1">Be the first to rate and review this product!</p>
+                <div className="bg-zinc-900/40 border border-zinc-800 p-8 rounded-3xl text-center text-zinc-500">
+                  <p className="font-bold text-xs text-zinc-300">No reviews written yet.</p>
+                  <p className="text-[11px] text-zinc-500 mt-1">Be the first to rate and review this product!</p>
                 </div>
               ) : (
-                <div className="space-y-3 max-h-[380px] overflow-y-auto pr-2 scrollbar-hide">
+                <div className="space-y-3 max-h-[420px] overflow-y-auto pr-2 scrollbar-hide">
                   {reviews.map((r, i) => (
-                    <div key={r.review_id || i} className="p-4 bg-black/40 border border-gray-800 rounded-xl space-y-1">
+                    <div key={r.review_id || i} className="p-4 bg-zinc-900/60 border border-zinc-800 rounded-2xl space-y-1.5">
                       <div className="flex justify-between items-center">
-                        <span className="font-bold text-sm text-white">{r.reviewer_name}</span>
+                        <span className="font-extrabold text-xs text-white">{r.reviewer_name}</span>
                         <StarRatingSelector rating={parseInt(r.rating || 5, 10)} />
                       </div>
-                      <p className="text-xs text-gray-300 leading-relaxed">{r.comment}</p>
+                      <p className="text-xs text-zinc-400 leading-relaxed font-medium">{r.comment}</p>
                       {r.created_at && (
-                        <p className="text-[10px] text-gray-500">{new Date(r.created_at).toLocaleDateString('en-IN')}</p>
+                        <p className="text-[10px] text-zinc-500 pt-1">{new Date(r.created_at).toLocaleDateString('en-IN')}</p>
                       )}
                     </div>
                   ))}

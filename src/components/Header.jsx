@@ -53,7 +53,7 @@ export default function Header() {
       <header
         className={`fixed ${
           isVisible ? 'top-4 md:top-6' : '-top-full'
-        } left-4 right-4 md:left-10 lg:left-20 md:right-10 lg:right-20 bg-black bg-opacity-90 z-30 p-2 md:p-4 shadow-lg rounded-md border-b-2 border-gray-700 transition-all duration-300 ease-in-out`}
+        } left-4 right-4 md:left-10 lg:left-20 md:right-10 lg:right-20 bg-black bg-opacity-90 z-30 p-2 md:p-4 shadow-lg rounded-md border-b-2 border-gray-700 transition-all duration-300 ease-in-out font-sans`}
       >
         <div className="w-full flex items-center justify-between px-2 md:px-6">
           {/* Hamburger Menu Icon (Mobile) */}
@@ -84,7 +84,7 @@ export default function Header() {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                isActive ? 'text-yellow transition-colors duration-300' : 'text-white hover:text-yellow transition-colors duration-300'
+                isActive ? 'text-amber-400 transition-colors duration-300' : 'text-white hover:text-amber-400 transition-colors duration-300'
               }
             >
               Home
@@ -92,7 +92,7 @@ export default function Header() {
             <NavLink
               to="/store"
               className={({ isActive }) =>
-                isActive ? 'text-yellow transition-colors duration-300' : 'text-white hover:text-yellow transition-colors duration-300'
+                isActive ? 'text-amber-400 transition-colors duration-300' : 'text-white hover:text-amber-400 transition-colors duration-300'
               }
             >
               Products
@@ -100,7 +100,7 @@ export default function Header() {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                isActive ? 'text-yellow transition-colors duration-300' : 'text-white hover:text-yellow transition-colors duration-300'
+                isActive ? 'text-amber-400 transition-colors duration-300' : 'text-white hover:text-amber-400 transition-colors duration-300'
               }
             >
               Contact Us
@@ -108,7 +108,7 @@ export default function Header() {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                isActive ? 'text-yellow transition-colors duration-300' : 'text-white hover:text-yellow transition-colors duration-300'
+                isActive ? 'text-amber-400 transition-colors duration-300' : 'text-white hover:text-amber-400 transition-colors duration-300'
               }
             >
               About Us
@@ -120,7 +120,7 @@ export default function Header() {
             {/* Desktop Search Bar */}
             <form
               onSubmit={handleSearch}
-              className="hidden md:flex relative items-center bg-white/1 border border-white/50 rounded-full px-3 py-1.5 md:px-4 md:py-2"
+              className="hidden md:flex relative items-center bg-white/10 border border-white/30 rounded-full px-3 py-1.5 md:px-4 md:py-2"
             >
               <svg className="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -138,7 +138,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="text-yellow hover:text-white transition-colors duration-300 md:hidden p-1"
+              className="text-amber-400 hover:text-white transition-colors duration-300 md:hidden p-1"
               aria-label="Open search bar"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@ export default function Header() {
             {/* Cart Icon with Counter Badge */}
             <NavLink
               to="/cart"
-              className="text-yellow hover:text-white transition-colors duration-300 relative p-1"
+              className="text-amber-400 hover:text-white transition-colors duration-300 relative p-1"
               aria-label="Shopping Cart"
             >
               <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +172,7 @@ export default function Header() {
                       e.stopPropagation();
                       setProfileDropdown(!profileDropdown);
                     }}
-                    className="w-8 h-8 md:w-9 md:h-9 bg-yellow-500 text-black rounded-full flex items-center justify-center font-bold cursor-pointer hover:scale-105 transition"
+                    className="w-8 h-8 md:w-9 md:h-9 bg-amber-400 text-black rounded-full flex items-center justify-center font-bold cursor-pointer hover:scale-105 transition"
                     aria-label="Open user menu"
                   >
                     {(user?.name?.charAt(0) || user?.email?.charAt(0) || 'U').toUpperCase()}
@@ -181,7 +181,7 @@ export default function Header() {
                   {profileDropdown && (
                     <div
                       onClick={(e) => e.stopPropagation()}
-                      className="absolute right-0 mt-3 w-56 bg-white text-black rounded-xl shadow-2xl overflow-hidden animate-fadeIn border border-gray-200 z-50 text-sm"
+                      className="absolute right-0 mt-3 w-56 bg-white text-black rounded-xl shadow-2xl overflow-hidden border border-gray-200 z-50 text-sm"
                     >
                       <div className="bg-gray-100 px-4 py-3 border-b border-gray-200">
                         <p className="text-xs text-gray-500">Logged in as</p>
@@ -216,7 +216,7 @@ export default function Header() {
                             logout();
                             setProfileDropdown(false);
                           }}
-                          className="text-left px-4 py-2.5 hover:bg-red-50 text-red-600 transition flex items-center gap-2"
+                          className="text-left px-4 py-2.5 hover:bg-red-50 text-red-600 transition flex items-center gap-2 w-full"
                         >
                           🚪 Logout
                         </button>
@@ -228,7 +228,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setAuthOpen(true)}
-                  className="text-yellow hover:text-white transition-colors duration-300 p-1"
+                  className="text-amber-400 hover:text-white transition-colors duration-300 p-1"
                   aria-label="Sign In"
                 >
                   <svg className="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -243,7 +243,7 @@ export default function Header() {
         {/* Mobile Expandable Search Bar */}
         {isMobileSearchOpen && (
           <div className="pt-2 px-2 md:hidden">
-            <form onSubmit={handleSearch} className="flex items-center bg-white/1 border border-white/50 rounded-full px-3 py-1.5 w-full">
+            <form onSubmit={handleSearch} className="flex items-center bg-white/10 border border-white/30 rounded-full px-3 py-1.5 w-full">
               <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -284,28 +284,28 @@ export default function Header() {
           <NavLink
             to="/"
             onClick={() => setIsMenuOpen(false)}
-            className={({ isActive }) => (isActive ? 'text-yellow font-bold' : 'text-white hover:text-yellow')}
+            className={({ isActive }) => (isActive ? 'text-amber-400 font-bold' : 'text-white hover:text-amber-400')}
           >
             Home
           </NavLink>
           <NavLink
             to="/store"
             onClick={() => setIsMenuOpen(false)}
-            className={({ isActive }) => (isActive ? 'text-yellow font-bold' : 'text-white hover:text-yellow')}
+            className={({ isActive }) => (isActive ? 'text-amber-400 font-bold' : 'text-white hover:text-amber-400')}
           >
             Products
           </NavLink>
           <NavLink
             to="/contact"
             onClick={() => setIsMenuOpen(false)}
-            className={({ isActive }) => (isActive ? 'text-yellow font-bold' : 'text-white hover:text-yellow')}
+            className={({ isActive }) => (isActive ? 'text-amber-400 font-bold' : 'text-white hover:text-amber-400')}
           >
             Contact Us
           </NavLink>
           <NavLink
             to="/about"
             onClick={() => setIsMenuOpen(false)}
-            className={({ isActive }) => (isActive ? 'text-yellow font-bold' : 'text-white hover:text-yellow')}
+            className={({ isActive }) => (isActive ? 'text-amber-400 font-bold' : 'text-white hover:text-amber-400')}
           >
             About Us
           </NavLink>

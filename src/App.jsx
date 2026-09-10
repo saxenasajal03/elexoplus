@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
@@ -22,7 +22,7 @@ export default function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <Router>
+        <Router basename="/elexoplus">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -37,8 +37,12 @@ export default function App() {
             <Route path="/warranty-registration" element={<WarrantyRegistration />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/b2b-login" element={<Navigate to="/contact" replace />} />
+            <Route path="/vendor-portal" element={<Navigate to="/contact" replace />} />
+            <Route path="/track-order" element={<Navigate to="/orders" replace />} />
             <Route path="/policy/:policyType" element={<Policy />} />
             <Route path="/policy" element={<Policy />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Footer />
         </Router>
