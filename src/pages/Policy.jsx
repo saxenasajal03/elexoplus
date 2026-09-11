@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 const companyInfo = {
-  address: "10-481, Bhagat Singh Marg, near RTO ROAD, Sector 9, RIICO INDUSTRIAL AREA, U.I.T, Bhiwadi, Rajasthan 301019",
+  address: "10/481, Aravali Vihar, R.H.B. Colony, RIICO Industrial Area, Bhiwadi, Rajasthan - 301019",
   email: "SALES@ELEXOPLUS.IN",
   phone: "+91 9257061015",
   company: "ELEXO PLUS INDIA PVT LTD"

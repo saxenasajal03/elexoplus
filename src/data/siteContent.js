@@ -231,18 +231,18 @@ export const defaultEvents = [
 /* BRANCH OFFICES (Req #20)                                             */
 /* ------------------------------------------------------------------ */
 export const defaultBranches = [
-  { id: 1, name: "Corporate Office & Factory", city: "Bhiwadi", state: "Rajasthan", address: "10/481, Bhagat Singh Marg, near RTO ROAD, Sector 9, RIICO Industrial Area, Bhiwadi, Rajasthan 301019", phone: "+91 92570-61015", email: "sales@elexoplus.in", mapUrl: "https://maps.google.com/?q=Bhiwadi+Rajasthan" },
-  { id: 2, name: "North Regional Sales Office", city: "New Delhi", state: "Delhi", address: "Regional Sales Office, New Delhi NCR", phone: "+91 92570-61015", email: "sales@elexoplus.in", mapUrl: "https://maps.google.com/?q=New+Delhi" },
-  { id: 3, name: "Dehradun Corporate Office", city: "Dehradun", state: "Uttarakhand", address: "Corporate Office, Dehradun, Uttarakhand", phone: "+91 92570-61015", email: "sales@elexoplus.in", mapUrl: "https://maps.google.com/?q=Dehradun" },
+  { id: 1, name: "Corporate Office & Factory", city: "Bhiwadi", state: "Rajasthan", address: "10/481, Aravali Vihar, R.H.B. Colony, RIICO Industrial Area, Bhiwadi, Rajasthan - 301019", phone: "+91 8679509135", email: "sales@elexoplus.in", mapUrl: "https://maps.google.com/?q=Bhiwadi+Rajasthan" },
+  { id: 2, name: "North Regional Sales Office", city: "New Delhi", state: "Delhi", address: "Regional Sales Office, New Delhi NCR", phone: "+91 8679509135", email: "sales@elexoplus.in", mapUrl: "https://maps.google.com/?q=New+Delhi" },
+  { id: 3, name: "Dehradun Corporate Office", city: "Dehradun", state: "Uttarakhand", address: "Corporate Office, Dehradun, Uttarakhand", phone: "+91 8679509135", email: "sales@elexoplus.in", mapUrl: "https://maps.google.com/?q=Dehradun" },
 ];
 
 /* ------------------------------------------------------------------ */
 /* SERVICE CENTERS (Req #88)                                            */
 /* ------------------------------------------------------------------ */
 export const defaultServiceCenters = [
-  { id: 1, name: "ELEXO PLUS Authorized Service — Bhiwadi", territory: "Alwar District, Rajasthan", address: "RIICO Industrial Area, Bhiwadi, Rajasthan", phone: "+91 92570-61015", products: "All Categories" },
-  { id: 2, name: "ELEXO PLUS Authorized Service — Delhi NCR", territory: "Delhi / NCR", address: "New Delhi, Delhi", phone: "+91 92570-61015", products: "All Categories" },
-  { id: 3, name: "ELEXO PLUS Authorized Service — Jaipur", territory: "Jaipur District, Rajasthan", address: "Jaipur, Rajasthan", phone: "+91 92570-61015", products: "Kitchen & Heating Appliances" },
+  { id: 1, name: "ELEXO PLUS Authorized Service — Bhiwadi", territory: "Alwar District, Rajasthan", address: "RIICO Industrial Area, Bhiwadi, Rajasthan", phone: "+91 8679509135", products: "All Categories" },
+  { id: 2, name: "ELEXO PLUS Authorized Service — Delhi NCR", territory: "Delhi / NCR", address: "New Delhi, Delhi", phone: "+91 8679509135", products: "All Categories" },
+  { id: 3, name: "ELEXO PLUS Authorized Service — Jaipur", territory: "Jaipur District, Rajasthan", address: "Jaipur, Rajasthan", phone: "+91 8679509135", products: "Kitchen & Heating Appliances" },
 ];
 
 /* ------------------------------------------------------------------ */
