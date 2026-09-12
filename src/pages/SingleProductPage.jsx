@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import ProductDetailsTabs from '../components/SingleProductPage/ProductDetailsTabs';
-import { ShieldCheck, Truck, ShoppingBag, Check, Star, ArrowLeft } from 'lucide-react';
+import { ShieldCheck, Truck, ShoppingBag, Check, Star, ArrowLeft, Loader2 } from 'lucide-react';
+import { getPricing, formatINR, isInStock } from '../utils/pricing';
 
 export default function SingleProductPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addItemToCart } = useCart();
   const [product, setProduct] = useState(null);
+  const [notFound, setNotFound] = useState(false);
   const [activeImg, setActiveImg] = useState('');
   const [variantIdx, setVariantIdx] = useState(0);
   const [qty, setQty] = useState(1);
@@ -25,41 +27,59 @@ export default function SingleProductPage() {
             p.images?.[0]?.image_url ||
             '/assets/product-BICEL6TG.png';
 
-          const basePrice = parseFloat(p.base_price || 0);
-          const mrpPrice = p.mrp ? parseFloat(p.mrp) : Math.max(basePrice * 1.5, basePrice * 1.3);
-
           setProduct({
             ...p,
-            price: basePrice,
-            mrp: mrpPrice,
             images: p.images?.map((i) => i.image_url) || [mainImg],
           });
           setActiveImg(mainImg);
+        } else {
+          setNotFound(true);
         }
-      });
+      })
+      .catch(() => setNotFound(true));
   }, [id]);
+
+  if (notFound) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center font-sans px-6 text-center">
+        <div>
+          <p className="text-lg font-extrabold text-white mb-2">Product Not Found</p>
+          <p className="text-sm text-zinc-500 mb-6">This product may have been removed or is temporarily unavailable.</p>
+          <button onClick={() => navigate('/store')} className="bg-amber-400 text-black px-6 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+            Back to Catalog
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center font-sans">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 border-4 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+          <Loader2 size={36} className="text-amber-400 animate-spin" />
           <p className="text-amber-400 text-sm font-extrabold tracking-wider uppercase">Loading Product Specification...</p>
         </div>
       </div>
     );
   }
 
+  const { price, mrp, hasDiscount, discountPercent, savings } = getPricing(product);
+  const inStock = isInStock(product);
+
   const handleAddToCart = () => {
+    if (!inStock) return;
     addItemToCart(product, variantIdx, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
   };
 
   const handleBuyNow = () => {
+    if (!inStock) return;
     addItemToCart(product, variantIdx, qty);
     navigate('/cart');
   };
+
 
   return (
     <div className="min-h-screen bg-black text-white pt-28 md:pt-36 px-4 md:px-12 pb-20 font-sans selection:bg-amber-400 selection:text-black">
@@ -114,16 +134,33 @@ export default function SingleProductPage() {
               </div>
             </div>
             
-            <div className="flex items-baseline gap-4 py-2 border-y border-zinc-800/80">
-              <span className="text-3xl md:text-4xl font-black text-amber-400">
-                ₹ {parseFloat(product.price).toLocaleString('en-IN')}
-              </span>
-              <span className="text-lg text-zinc-500 line-through font-bold">
-                ₹ {parseFloat(product.mrp).toLocaleString('en-IN')}
-              </span>
-              <span className="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-md border border-emerald-500/20">
-                Inclusive of all taxes
-              </span>
+            <div className="py-2 border-y border-zinc-800/80 space-y-2">
+              <div className="flex items-baseline gap-3 flex-wrap">
+                {hasDiscount && (
+                  <span className="bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-md">
+                    {discountPercent}% OFF
+                  </span>
+                )}
+                <span className="text-3xl md:text-4xl font-black text-amber-400">
+                  {formatINR(price)}
+                </span>
+                {hasDiscount && (
+                  <span className="text-lg text-zinc-500 line-through font-bold">
+                    M.R.P.: {formatINR(mrp)}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-3 flex-wrap">
+                <span className="bg-emerald-500/10 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-md border border-emerald-500/20">
+                  Inclusive of all taxes
+                </span>
+                {hasDiscount && (
+                  <span className="text-xs font-bold text-emerald-400">You save {formatINR(savings)}</span>
+                )}
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-md border ${inStock ? 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10' : 'text-rose-400 border-rose-500/20 bg-rose-500/10'}`}>
+                  {inStock ? 'In Stock' : 'Out of Stock'}
+                </span>
+              </div>
             </div>
 
             {/* Variants Selector */}
@@ -173,8 +210,13 @@ export default function SingleProductPage() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className={`flex-1 py-3.5 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-lg cursor-pointer ${
-                    added ? 'bg-emerald-600 text-white' : 'bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700'
+                  disabled={!inStock}
+                  className={`flex-1 py-3.5 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-lg ${
+                    !inStock
+                      ? 'bg-zinc-900 text-zinc-600 border border-zinc-800 cursor-not-allowed'
+                      : added
+                      ? 'bg-emerald-600 text-white cursor-pointer'
+                      : 'bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 cursor-pointer'
                   }`}
                 >
                   {added ? <Check size={16} /> : <ShoppingBag size={16} />}
@@ -185,9 +227,14 @@ export default function SingleProductPage() {
               <button
                 type="button"
                 onClick={handleBuyNow}
-                className="w-full bg-amber-400 hover:bg-amber-500 text-black font-extrabold py-4 rounded-full uppercase text-xs tracking-wider transition shadow-xl shadow-amber-400/20 cursor-pointer"
+                disabled={!inStock}
+                className={`w-full font-extrabold py-4 rounded-full uppercase text-xs tracking-wider transition shadow-xl ${
+                  !inStock
+                    ? 'bg-zinc-900 text-zinc-600 border border-zinc-800 cursor-not-allowed'
+                    : 'bg-amber-400 hover:bg-amber-500 text-black shadow-amber-400/20 cursor-pointer'
+                }`}
               >
-                Buy Now — Fast Checkout
+                {inStock ? 'Buy Now — Fast Checkout' : 'Currently Unavailable'}
               </button>
             </div>
 

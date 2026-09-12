@@ -26,7 +26,7 @@ export const B2B_API_BASE = "https://b2b.elexoplus.in/api";
 // Map of CMS section -> future PHP endpoint (kept centralised so the whole
 // site can be re-pointed in one place once the Admin Panel ships new APIs).
 export const CMS_ENDPOINTS = {
-  banners: `${API_BASE}/cms/banners.php`,
+  banners: `${API_BASE}/cms/site_settings.php?key=banners`,
   categories: `${API_BASE}/cms/categories.php`,
   leadership: `${API_BASE}/cms/leadership.php`,
   milestones: `${API_BASE}/cms/milestones.php`,
@@ -37,11 +37,36 @@ export const CMS_ENDPOINTS = {
   branches: `${API_BASE}/cms/branches.php`,
   careers: `${API_BASE}/cms/careers.php`,
   serviceCenters: `${API_BASE}/cms/service_centers.php`,
-  faqs: `${API_BASE}/cms/faqs.php`,
-  testimonials: `${API_BASE}/cms/testimonials.php`,
-  socialLinks: `${API_BASE}/cms/social_links.php`,
-  marketplaceLinks: `${API_BASE}/cms/marketplace_links.php`,
+  faqs: `${API_BASE}/cms/site_settings.php?key=faqs`,
+  testimonials: `${API_BASE}/cms/site_settings.php?key=testimonials`,
+  socialLinks: `${API_BASE}/cms/site_settings.php?key=social_links`,
+  marketplaceLinks: `${API_BASE}/cms/site_settings.php?key=marketplace_links`,
   siteSettings: `${API_BASE}/cms/site_settings.php`,
+  // Req #31-35 — Admin-configurable commercial/payment rule engine.
+  // Until the Admin Panel exists, this reads the same JSON-blob settings
+  // table as everything else above; defaultPaymentSettings below is the
+  // fallback shipped with the site.
+  paymentSettings: `${API_BASE}/cms/site_settings.php?key=payment_settings`,
+};
+
+// Req #31, #32, #33, #34 — Payment / COD / Advance rule engine defaults.
+// These mirror exactly what the Admin Panel will eventually control:
+//   - which payment modes are enabled at all
+//   - the COD handling fee (Req #32 — "Admin-configurable value rather than hard-code it")
+//   - the default advance percentage for the Partial mode (Req #33)
+//   - free-delivery threshold / flat delivery fee
+// The frontend NEVER hardcodes these numbers directly in a page — every
+// page reads them from here (or the live endpoint once built).
+export const defaultPaymentSettings = {
+  modes: {
+    online: { enabled: true, label: 'Pay Online', description: 'UPI, Cards, Netbanking via Razorpay' },
+    cod: { enabled: true, label: 'Cash on Delivery', description: 'Pay in cash when your order arrives' },
+    partial: { enabled: true, label: 'Partial Payment', description: 'Pay a small advance online, rest on delivery' },
+  },
+  cod_fee_flat: 49,           // ₹ flat COD handling fee, admin-configurable
+  partial_advance_percent: 20, // % collected online upfront for Partial mode
+  delivery_fee: 50,            // ₹ flat delivery fee
+  free_delivery_above: 2999,   // ₹ order value above which delivery is free
 };
 
 /**
@@ -63,6 +88,25 @@ export async function getCmsContent(section, fallback) {
     return fallback;
   } catch {
     return fallback;
+  }
+}
+
+export async function getPaymentSettings() {
+  try {
+    const res = await fetch(CMS_ENDPOINTS.paymentSettings);
+    if (!res.ok) return defaultPaymentSettings;
+    const json = await res.json();
+    const live = json?.data;
+    if (!live || typeof live !== 'object' || Array.isArray(live) || Object.keys(live).length === 0) {
+      return defaultPaymentSettings;
+    }
+    return {
+      ...defaultPaymentSettings,
+      ...live,
+      modes: { ...defaultPaymentSettings.modes, ...(live.modes || {}) },
+    };
+  } catch {
+    return defaultPaymentSettings;
   }
 }
 

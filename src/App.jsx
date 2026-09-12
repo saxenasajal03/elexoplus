@@ -4,6 +4,8 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from './components/common/ScrollToTop';
+import RouteLoader from './components/common/RouteLoader';
 
 import Home from './pages/Home';
 import Store from './pages/Store';
@@ -41,6 +43,8 @@ export default function App() {
     <AuthProvider>
       <CartProvider>
         <Router basename="/elexoplus">
+          <ScrollToTop />
+          <RouteLoader />
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />

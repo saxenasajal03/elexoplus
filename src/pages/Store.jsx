@@ -24,6 +24,14 @@ const filterSections = [
       { value: "10001-15000", label: "₹ 10,001 - ₹ 15,000" },
       { value: "15001-99999", label: "Over ₹ 15,000" }
     ]
+  },
+  {
+    id: "availability",
+    name: "Availability",
+    options: [
+      { value: "In Stock", label: "In Stock" },
+      { value: "Out of Stock", label: "Out of Stock" },
+    ]
   }
 ];
 
@@ -42,7 +50,7 @@ export default function Store() {
   // Filter & Layout States
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({ categories: [], price: [] });
+  const [filters, setFilters] = useState({ categories: [], price: [], availability: [] });
   const [sortBy, setSortBy] = useState("featured");
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -112,6 +120,11 @@ export default function Store() {
       });
     }
 
+    // Availability filter
+    if (filters.availability.length > 0) {
+      list = list.filter(p => filters.availability.includes(p.stock_status || 'In Stock'));
+    }
+
     // Sorting
     list.sort((a, b) => {
       const priceA = parseFloat(a.base_price || 0);
@@ -151,12 +164,12 @@ export default function Store() {
   };
 
   const clearAllFilters = () => {
-    setFilters({ categories: [], price: [] });
+    setFilters({ categories: [], price: [], availability: [] });
     setSortBy("featured");
     setCurrentPage(1);
   };
 
-  const activeFiltersCount = filters.categories.length + filters.price.length;
+  const activeFiltersCount = filters.categories.length + filters.price.length + filters.availability.length;
 
   return (
     <div className="min-h-screen bg-black text-slate-200 pt-28 md:pt-36 pb-20 px-4 md:px-10 font-sans selection:bg-amber-400 selection:text-black">
@@ -261,6 +274,15 @@ export default function Store() {
                 {filterSections[1].options.find(o => o.value === p)?.label} <X size={12} />
               </span>
             ))}
+            {filters.availability.map(a => (
+              <span
+                key={a}
+                onClick={() => handleFilterToggle('availability', a)}
+                className="px-3.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-amber-400 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800 transition"
+              >
+                {a} <X size={12} />
+              </span>
+            ))}
             <button
               type="button"
               onClick={clearAllFilters}
@@ -315,9 +337,20 @@ export default function Store() {
           {/* Product Grid Area */}
           <main className="flex-1 w-full">
             {loading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 animate-pulse">
+              <div className={`grid gap-6 grid-cols-2 ${isSidebarOpen ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="aspect-square bg-zinc-900 rounded-2xl border border-zinc-800" />
+                  <div key={i} className="bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800/80">
+                    <div className="aspect-square w-full skeleton-shimmer" />
+                    <div className="p-5 space-y-3">
+                      <div className="h-2.5 w-1/3 rounded skeleton-shimmer" />
+                      <div className="h-4 w-3/4 rounded skeleton-shimmer" />
+                      <div className="h-3 w-1/2 rounded skeleton-shimmer" />
+                      <div className="flex items-center justify-between pt-3 border-t border-zinc-800/80">
+                        <div className="h-5 w-16 rounded skeleton-shimmer" />
+                        <div className="h-8 w-16 rounded-xl skeleton-shimmer" />
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             ) : paginatedProducts.length > 0 ? (

@@ -32,6 +32,10 @@ export const CartProvider = ({ children }) => {
 
       // Extract safest price format
       const itemPrice = parseFloat(product.base_price || product.price || 0);
+      const rawMrp = product.mrp;
+      const itemMrp = rawMrp !== undefined && rawMrp !== null && rawMrp !== '' && parseFloat(rawMrp) > itemPrice
+        ? parseFloat(rawMrp)
+        : null;
 
       // Extract safest image format
       const primaryImage = product.image_url || product.main_image_url || product.images?.[0]?.image_url || product.images?.[0] || product.imageUrl || '/assets/product-BICEL6TG.png';
@@ -51,6 +55,7 @@ export const CartProvider = ({ children }) => {
           category: product.category_name || product.category || 'General',
           base_price: itemPrice,
           price: itemPrice,
+          mrp: itemMrp,
           image_url: primaryImage,
           imageUrl: primaryImage,
           variant_name: variant.variant_name || 'Standard',

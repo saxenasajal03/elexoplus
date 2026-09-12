@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingBag, Star, Check } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { getPricing, formatINR, isInStock } from '../../utils/pricing';
 
 const FALLBACK_IMAGE = '/assets/product-BICEL6TG.png';
 
@@ -14,10 +15,13 @@ export default function ProductCard({ product }) {
     : 'item';
 
   const displayImage = product?.image_url || product?.main_image_url || FALLBACK_IMAGE;
+  const { price, mrp, hasDiscount, discountPercent } = getPricing(product);
+  const inStock = isInStock(product);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!inStock) return;
     addItemToCart(product, 0, 1);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -28,17 +32,31 @@ export default function ProductCard({ product }) {
       to={`/product/${product?.product_id}/${slug}`}
       className="flex-shrink-0 w-64 md:w-72 bg-zinc-950 rounded-2xl overflow-hidden group block font-sans border border-zinc-800/80 hover:border-amber-400/60 transition-all duration-300 shadow-xl relative"
     >
-      {/* Top Badge */}
-      {product?.badge_text && (
-        <div className="absolute top-3 left-3 z-10">
+      {/* Top-left Badge */}
+      <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 items-start">
+        {product?.badge_text && (
           <span className="bg-amber-400 text-black text-[10px] font-black uppercase px-2.5 py-1 rounded-md shadow">
             {product.badge_text}
+          </span>
+        )}
+        {hasDiscount && (
+          <span className="bg-rose-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md shadow">
+            {discountPercent}% OFF
+          </span>
+        )}
+      </div>
+
+      {/* Out of stock ribbon */}
+      {!inStock && (
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-zinc-800 text-zinc-300 text-[10px] font-black uppercase px-2.5 py-1 rounded-md border border-zinc-700">
+            Out of Stock
           </span>
         </div>
       )}
 
       {/* Product Image Box */}
-      <div className="aspect-square w-full bg-zinc-900/80 overflow-hidden flex items-center justify-center p-6 relative">
+      <div className={`aspect-square w-full bg-zinc-900/80 overflow-hidden flex items-center justify-center p-6 relative ${!inStock ? 'opacity-60' : ''}`}>
         <img
           src={displayImage}
           alt={product?.name || 'Product'}
@@ -76,21 +94,29 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Price & Quick Add Footer */}
-        <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
-          <div>
-            <span className="text-[10px] text-zinc-500 block uppercase font-bold">Price</span>
-            <span className="text-amber-400 font-black text-base md:text-lg">
-              ₹ {parseFloat(product?.base_price || 0).toLocaleString('en-IN')}
+        <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between gap-2">
+          <div className="min-w-0">
+            {hasDiscount && (
+              <span className="text-[10px] text-zinc-500 line-through block">
+                M.R.P.: {formatINR(mrp)}
+              </span>
+            )}
+            <span className="text-amber-400 font-black text-base md:text-lg block truncate">
+              {formatINR(price)}
             </span>
+            {!hasDiscount && <span className="text-[9px] text-zinc-600 uppercase font-bold">Inclusive of all taxes</span>}
           </div>
 
           <button
             type="button"
             onClick={handleAddToCart}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition shadow-md ${
-              added 
-                ? 'bg-emerald-600 text-white' 
-                : 'bg-zinc-900 text-white hover:bg-amber-400 hover:text-black border border-zinc-700 hover:border-amber-400'
+            disabled={!inStock}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition shadow-md shrink-0 ${
+              !inStock
+                ? 'bg-zinc-900 text-zinc-600 border border-zinc-800 cursor-not-allowed'
+                : added
+                ? 'bg-emerald-600 text-white'
+                : 'bg-zinc-900 text-white hover:bg-amber-400 hover:text-black border border-zinc-700 hover:border-amber-400 cursor-pointer'
             }`}
           >
             {added ? <Check size={14} /> : <ShoppingBag size={14} />}

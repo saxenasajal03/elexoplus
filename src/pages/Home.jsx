@@ -4,8 +4,9 @@ import Elevate from '../components/Home/Elevate';
 import ProductCarousel from '../components/Home/ProductCarousel';
 import CatalogSection from '../components/Home/CatalogSection';
 import NewsletterSubscription from '../components/Home/NewsletterSubscription';
-import { ShieldCheck, Truck, Headphones, RefreshCw, Award, Zap, CheckCircle } from 'lucide-react';
+import { ShieldCheck, Truck, Headphones, RefreshCw, Award, Zap, CheckCircle, Calendar, MapPin, ArrowRight, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { defaultBlogPosts, defaultEvents } from '../data/siteContent';
 
 export default function Home() {
   return (
@@ -131,7 +132,85 @@ export default function Home() {
         {/* 8. Interactive Multi-Span Catalog Categories Section */}
         <CatalogSection />
 
-        {/* 9. Newsletter Subscription Component */}
+        {/* 9. Blog & Insights Highlights (Admin-CMS controlled) */}
+        <section className="py-16 px-4 md:px-0">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 border-b border-zinc-800/80 pb-4">
+              <div>
+                <span className="text-amber-400 text-[11px] font-extrabold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block mb-2">
+                  From the Blog
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
+                  Guides, Tips & Leadership Thoughts
+                </h2>
+              </div>
+              <Link to="/blog" className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1 shrink-0">
+                View All Articles <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {defaultBlogPosts.slice(0, 3).map((post) => (
+                <Link
+                  key={post.id}
+                  to={`/blog/${post.slug}`}
+                  className="group bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden hover:border-amber-400/40 transition-colors flex flex-col"
+                >
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/1A1A1A/FFFFFF?text=ElexoPlus"; }}
+                    />
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <span className="text-amber-400 text-[10px] font-extrabold uppercase tracking-wider">{post.category}</span>
+                    <h3 className="text-white font-extrabold text-sm mt-2 leading-snug group-hover:text-amber-400 transition-colors line-clamp-2">{post.title}</h3>
+                    <div className="flex items-center justify-between mt-4 pt-3 border-t border-zinc-800 text-[10px] text-zinc-500">
+                      <span className="flex items-center gap-1.5"><User size={11} /> {post.author.split(',')[0]}</span>
+                      <span>{new Date(post.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 10. Upcoming Events Strip (Admin-CMS controlled) */}
+        <section className="py-4 pb-16 px-4 md:px-0">
+          <div className="max-w-7xl mx-auto bg-zinc-950 border border-zinc-800 rounded-3xl p-8 md:p-10">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
+              <div>
+                <span className="text-amber-400 text-[11px] font-extrabold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block mb-2">
+                  What's Happening
+                </span>
+                <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight">Upcoming Events & Launches</h2>
+              </div>
+              <Link to="/events" className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1 shrink-0">
+                View All Events <ArrowRight size={14} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {defaultEvents.slice(0, 3).map((ev) => (
+                <div key={ev.id} className="bg-black/60 border border-zinc-800 rounded-2xl p-5 hover:border-amber-400/40 transition-colors">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 bg-amber-400/10 px-2 py-1 rounded-full border border-amber-400/20">
+                    {ev.type}
+                  </span>
+                  <h4 className="text-white font-bold text-sm mt-3 leading-snug">{ev.title}</h4>
+                  <div className="flex flex-col gap-1.5 mt-3 text-[11px] text-zinc-500">
+                    <span className="flex items-center gap-1.5"><Calendar size={12} className="text-amber-400" /> {new Date(ev.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                    <span className="flex items-center gap-1.5"><MapPin size={12} className="text-amber-400" /> {ev.location}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 11. Newsletter Subscription Component */}
         <NewsletterSubscription />
 
       </div>
