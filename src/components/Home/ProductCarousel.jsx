@@ -227,7 +227,7 @@ export default function ProductCarousel({ title }) {
               Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-64 md:w-72 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-4 animate-pulse"
+                  className="flex-shrink-0 w-44 sm:w-56 md:w-64 lg:w-72 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-4 animate-pulse"
                 >
                   <div className="w-full aspect-square bg-zinc-800/80 rounded-xl mb-4" />
                   <div className="h-4 bg-zinc-800 rounded w-3/4 mb-2" />
@@ -237,7 +237,7 @@ export default function ProductCarousel({ title }) {
               ))
             ) : items.length > 0 ? (
               items.map((p) => (
-                <div key={p.product_id} className="flex-shrink-0 w-64 md:w-72">
+                <div key={p.product_id} className="flex-shrink-0 w-44 sm:w-56 md:w-64 lg:w-72">
                   <ProductCard product={p} />
                 </div>
               ))

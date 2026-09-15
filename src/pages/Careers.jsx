@@ -2,16 +2,41 @@ import React, { useEffect, useState } from 'react';
 import { Briefcase, MapPin, Clock, X } from 'lucide-react';
 import PageHero from '../components/common/PageHero';
 import { getCmsContent, defaultJobs, API_BASE } from '../data/siteContent';
+import { TextField, TextAreaField } from '../components/common/FormField';
+import { validators, validateForm, cleanText, digitsOnly, createSubmitGuard } from '../utils/validation';
+
+const applyGuard = createSubmitGuard(2500);
 
 function ApplyModal({ job, onClose }) {
   const [form, setForm] = useState({ fname: '', lname: '', email: '', phone: '', resume_link: '', message: '' });
   const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const schema = {
+    fname: [validators.name],
+    lname: [validators.name],
+    email: [validators.email],
+    phone: [validators.phoneIN],
+  };
+
+  const setField = (key, transform) => (e) => {
+    const raw = e.target.value;
+    setForm((f) => ({ ...f, [key]: transform ? transform(raw) : cleanText(raw, 255) }));
+    if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
+    if (error) setError('');
+  };
 
   const submit = async (e) => {
     e.preventDefault();
+    const { errors: errs, isValid } = validateForm(form, schema);
+    setErrors(errs);
+    if (!isValid) return;
+    if (!applyGuard()) return;
+
     setLoading(true);
-    setStatus('');
+    setError('');
     try {
       const res = await fetch(`${API_BASE}/career_application.php`, {
         method: 'POST',
@@ -19,9 +44,15 @@ function ApplyModal({ job, onClose }) {
         body: JSON.stringify({ ...form, role: job.title, department: job.department }),
       });
       const data = await res.json().catch(() => ({}));
-      setStatus(data.message || 'Application submitted! Our HR team will review it and reach out.');
+      if (data?.success === true) {
+        setStatus(data.message || 'Application submitted! Our HR team will review it and reach out.');
+      } else if (data?.success === false) {
+        setError(data.message || "We couldn't submit your application. Please email your resume to sales@elexoplus.in.");
+      } else {
+        setError("We couldn't reach our application service right now. Please email your resume to sales@elexoplus.in or call +91 8679509135.");
+      }
     } catch {
-      setStatus('Application submitted! Our HR team will review it and reach out.');
+      setError("We couldn't reach our application service right now. Please email your resume to sales@elexoplus.in or call +91 8679509135.");
     } finally {
       setLoading(false);
     }
@@ -39,15 +70,31 @@ function ApplyModal({ job, onClose }) {
         {status ? (
           <p className="text-amber-400 font-semibold text-sm mt-8">{status}</p>
         ) : (
-          <form onSubmit={submit} className="space-y-3 mt-6">
-            <div className="grid grid-cols-2 gap-3">
-              <input required placeholder="First Name" value={form.fname} onChange={e => setForm({ ...form, fname: e.target.value })} className="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
-              <input required placeholder="Last Name" value={form.lname} onChange={e => setForm({ ...form, lname: e.target.value })} className="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+          <form onSubmit={submit} noValidate className="space-y-4 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <TextField id="ap_fname" label="First Name" required value={form.fname}
+                onChange={setField('fname', (v) => cleanText(v, 100))} error={errors.fname} />
+              <TextField id="ap_lname" label="Last Name" required value={form.lname}
+                onChange={setField('lname', (v) => cleanText(v, 100))} error={errors.lname} />
             </div>
-            <input required type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            <input required type="tel" placeholder="Phone Number" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            <input type="url" placeholder="Resume Link (Google Drive / LinkedIn)" value={form.resume_link} onChange={e => setForm({ ...form, resume_link: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
-            <textarea rows={3} placeholder="Why are you a good fit? (optional)" value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400" />
+            <TextField id="ap_email" label="Email Address" required type="email" placeholder="you@example.com"
+              value={form.email} onChange={setField('email', (v) => cleanText(v, 150))} error={errors.email} />
+            <TextField id="ap_phone" label="Phone Number" required type="tel" inputMode="numeric"
+              placeholder="10-digit mobile" value={form.phone}
+              onChange={setField('phone', (v) => digitsOnly(v, 10))} error={errors.phone} />
+            <TextField id="ap_resume" label="Resume Link" type="url"
+              placeholder="Google Drive / LinkedIn URL" value={form.resume_link}
+              onChange={setField('resume_link')} error={errors.resume_link}
+              hint="Share a publicly viewable link to your resume." />
+            <TextAreaField id="ap_message" label="Why are you a good fit?" rows={3} placeholder="Optional"
+              value={form.message} onChange={setField('message', (v) => cleanText(v, 1000))} error={errors.message} />
+
+            {error && (
+              <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3">
+                <p className="text-rose-300 text-xs">{error}</p>
+              </div>
+            )}
+
             <button type="submit" disabled={loading} className="w-full bg-amber-400 hover:bg-amber-500 text-black font-extrabold py-3.5 rounded-xl text-xs uppercase tracking-wider transition cursor-pointer disabled:opacity-60">
               {loading ? 'Submitting...' : 'Submit Application'}
             </button>

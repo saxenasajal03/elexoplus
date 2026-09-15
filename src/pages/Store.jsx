@@ -294,7 +294,7 @@ export default function Store() {
         )}
 
         {/* Layout Grid (Sidebar + Products) */}
-        <div className="flex gap-8 items-start">
+        <div className="flex gap-4 lg:gap-8 items-start">
           
           {/* Desktop Collapsible Sidebar */}
           <aside
@@ -335,13 +335,13 @@ export default function Store() {
           </aside>
 
           {/* Product Grid Area */}
-          <main className="flex-1 w-full">
+          <main className="flex-1 min-w-0 w-full">
             {loading ? (
-              <div className={`grid gap-6 grid-cols-2 ${isSidebarOpen ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
+              <div className={`grid gap-3 sm:gap-5 lg:gap-6 grid-cols-2 ${isSidebarOpen ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
                 {Array.from({ length: 8 }).map((_, i) => (
                   <div key={i} className="bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800/80">
                     <div className="aspect-square w-full skeleton-shimmer" />
-                    <div className="p-5 space-y-3">
+                    <div className="p-3 sm:p-5 space-y-3">
                       <div className="h-2.5 w-1/3 rounded skeleton-shimmer" />
                       <div className="h-4 w-3/4 rounded skeleton-shimmer" />
                       <div className="h-3 w-1/2 rounded skeleton-shimmer" />
@@ -355,7 +355,7 @@ export default function Store() {
               </div>
             ) : paginatedProducts.length > 0 ? (
               <div
-                className={`grid gap-6 transition-all duration-300 grid-cols-2 ${
+                className={`grid gap-3 sm:gap-5 lg:gap-6 items-stretch transition-all duration-300 grid-cols-2 ${
                   isSidebarOpen ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'
                 }`}
               >

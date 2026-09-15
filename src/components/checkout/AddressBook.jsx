@@ -2,6 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { MapPin, Plus, Pencil, Trash2, Check, Home, Briefcase, X, Loader2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { listAddresses, saveAddress, deleteAddress, setDefaultAddress } from '../../utils/addressService';
+import { validators, validateForm, cleanText, digitsOnly } from '../../utils/validation';
+import { TextField, SelectField } from '../common/FormField';
+
+const INDIAN_STATES = [
+  'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Delhi', 'Goa',
+  'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala',
+  'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha',
+  'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh',
+  'Uttarakhand', 'West Bengal', 'Andaman and Nicobar Islands', 'Chandigarh',
+  'Dadra and Nagar Haveli and Daman and Diu', 'Jammu and Kashmir', 'Ladakh', 'Lakshadweep', 'Puducherry',
+];
 
 const emptyAddress = {
   label: 'Home', full_name: '', phone: '', pincode: '', address_line1: '',
@@ -16,18 +27,25 @@ function AddressForm({ initial, onCancel, onSaved }) {
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const update = (key) => (e) => setForm({ ...form, [key]: e.target.value });
+  const update = (key, transform) => (e) => {
+    const raw = e.target.value;
+    setForm((f) => ({ ...f, [key]: transform ? transform(raw) : cleanText(raw, 255) }));
+    if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
+  };
+
+  const schema = {
+    full_name: [validators.name],
+    phone: [validators.phoneIN],
+    address_line1: [(v) => validators.required(v, 'Address'), (v) => validators.minLength(v, 5, 'Address')],
+    city: [(v) => validators.required(v, 'City')],
+    state: [(v) => validators.required(v, 'State')],
+    pincode: [validators.pincodeIN],
+  };
 
   const validate = () => {
-    const errs = {};
-    if (!form.full_name?.trim()) errs.full_name = 'Required';
-    if (!/^\d{10}$/.test(form.phone || '')) errs.phone = '10-digit phone number';
-    if (!/^\d{6}$/.test(form.pincode || '')) errs.pincode = '6-digit pincode';
-    if (!form.address_line1?.trim()) errs.address_line1 = 'Required';
-    if (!form.city?.trim()) errs.city = 'Required';
-    if (!form.state?.trim()) errs.state = 'Required';
+    const { errors: errs, isValid } = validateForm(form, schema);
     setErrors(errs);
-    return Object.keys(errs).length === 0;
+    return isValid;
   };
 
   const submit = async (e) => {
@@ -39,25 +57,30 @@ function AddressForm({ initial, onCancel, onSaved }) {
     onSaved(saved);
   };
 
-  const inputClass = (field) =>
-    `w-full bg-zinc-900 border rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
-      errors[field] ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-800 focus:ring-amber-400'
-    }`;
-
   return (
-    <form onSubmit={submit} className="space-y-3 bg-zinc-950 border border-zinc-800 rounded-2xl p-5">
-      <div className="grid grid-cols-2 gap-3">
-        <input placeholder="Full Name" value={form.full_name} onChange={update('full_name')} className={inputClass('full_name')} />
-        <input placeholder="Phone Number" value={form.phone} onChange={update('phone')} className={inputClass('phone')} />
+    <form onSubmit={submit} noValidate className="space-y-4 bg-zinc-950 border border-zinc-800 rounded-2xl p-4 sm:p-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <TextField id="addr_full_name" label="Full Name" required value={form.full_name}
+          onChange={update('full_name', (v) => cleanText(v, 150))} error={errors.full_name} />
+        <TextField id="addr_phone" label="Phone Number" required type="tel" inputMode="numeric"
+          placeholder="10-digit mobile" value={form.phone}
+          onChange={update('phone', (v) => digitsOnly(v, 10))} error={errors.phone} />
       </div>
-      <input placeholder="Address Line 1 (House No, Street)" value={form.address_line1} onChange={update('address_line1')} className={inputClass('address_line1')} />
-      <input placeholder="Address Line 2 (Area, Colony) — optional" value={form.address_line2} onChange={update('address_line2')} className={inputClass('address_line2')} />
-      <div className="grid grid-cols-3 gap-3">
-        <input placeholder="City" value={form.city} onChange={update('city')} className={inputClass('city')} />
-        <input placeholder="State" value={form.state} onChange={update('state')} className={inputClass('state')} />
-        <input placeholder="Pincode" value={form.pincode} onChange={update('pincode')} className={inputClass('pincode')} />
+      <TextField id="addr_line1" label="Address Line 1" required placeholder="House No., Street"
+        value={form.address_line1} onChange={update('address_line1')} error={errors.address_line1} />
+      <TextField id="addr_line2" label="Address Line 2" placeholder="Area, Colony (optional)"
+        value={form.address_line2} onChange={update('address_line2')} error={errors.address_line2} />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <TextField id="addr_city" label="City" required value={form.city}
+          onChange={update('city', (v) => cleanText(v, 100))} error={errors.city} />
+        <SelectField id="addr_state" label="State" required
+          options={[{ value: '', label: 'Select State' }, ...INDIAN_STATES.map((st) => ({ value: st, label: st }))]}
+          value={form.state} onChange={update('state')} error={errors.state} />
+        <TextField id="addr_pincode" label="Pincode" required inputMode="numeric" placeholder="6-digit"
+          value={form.pincode} onChange={update('pincode', (v) => digitsOnly(v, 6))} error={errors.pincode} />
       </div>
-      <input placeholder="Landmark (optional)" value={form.landmark} onChange={update('landmark')} className={inputClass('landmark')} />
+      <TextField id="addr_landmark" label="Landmark" placeholder="Optional"
+        value={form.landmark} onChange={update('landmark')} error={errors.landmark} />
 
       <div className="flex items-center gap-2 pt-1">
         <span className="text-xs text-zinc-500 mr-1">Save as:</span>
@@ -75,7 +98,7 @@ function AddressForm({ initial, onCancel, onSaved }) {
         ))}
       </div>
 
-      <div className="flex gap-3 pt-2">
+      <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
         <button type="button" onClick={onCancel} className="flex-1 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition cursor-pointer">
           Cancel
         </button>
