@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PulsingBackground from '../components/PulsingBackground';
+import { ENDPOINTS } from '../data/siteContent';
 
 export default function ContactUs() {
   const [form, setForm] = useState({ name: '', contact: '', email: '', message: '' });
@@ -12,10 +13,10 @@ export default function ContactUs() {
     setLoading(true);
 
     try {
-      const response = await fetch("https://project.interndesire.com/api/contact_form.php", {
+      const response = await fetch(ENDPOINTS.enquiry, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify({ type: 'contact', name: form.name, email: form.email, phone: form.contact, message: form.message })
       });
       const data = await response.json();
 

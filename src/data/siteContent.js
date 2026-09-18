@@ -12,7 +12,7 @@
  * HOW THIS WILL BE WIRED TO PHP LATER (no component changes needed):
  *   Each exported array/object below is shaped EXACTLY like the JSON payload
  *   the future endpoint should return, e.g.
- *     GET https://project.interndesire.com/api/cms/leadership.php  -> { success:true, data:[...] }
+ *     GET https://project.interndesire.com/api_2/cms/content.php?section=leadership
  *   Pages already call `getCmsContent(endpoint, fallbackArray)` (see helper
  *   below) — once an endpoint exists, drop its path into CMS_ENDPOINTS and
  *   the page will automatically prefer live data, falling back to these
@@ -20,43 +20,77 @@
  * ---------------------------------------------------------------------------
  */
 
-export const API_BASE = "https://project.interndesire.com/api";
-export const B2B_API_BASE = "https://b2b.elexoplus.in/api";
+export const API_BASE = "https://project.interndesire.com/api_2";
+export const B2B_API_BASE = "https://b2b.elexoplus.in/api_2";
 
-// Map of CMS section -> future PHP endpoint (kept centralised so the whole
-// site can be re-pointed in one place once the Admin Panel ships new APIs).
+// "Sign in with Google" — public Client ID (safe to expose; see .env.example).
+// The Google button in AuthModal only renders when this is non-empty, so the
+// site works exactly the same with or without it configured.
+export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+
+// ---------------------------------------------------------------------------
+// Named endpoint map for api_2. Kept centralised so the whole site can be
+// re-pointed (e.g. back to the legacy /api/ folder for an emergency rollback,
+// or forward again once migrated) by editing this file alone.
+//
+// Host assignment matches the live split: product catalog + support/CMS
+// endpoints live on project.interndesire.com; anything touching a logged-in
+// customer (auth, addresses, checkout, payment, tracking) lives on
+// b2b.elexoplus.in, same as the legacy customer.php/signup.php did.
+// ---------------------------------------------------------------------------
+export const ENDPOINTS = {
+  // shop — product-catalog host
+  products: `${API_BASE}/shop/products.php`,
+  reviews: `${API_BASE}/shop/reviews.php`,
+  newsletter: `${API_BASE}/shop/newsletter.php`,
+
+  // shop — customer/account host
+  auth: `${B2B_API_BASE}/shop/auth.php`,
+  addresses: `${B2B_API_BASE}/shop/addresses.php`,
+  checkout: `${B2B_API_BASE}/shop/checkout.php`,
+  verifyPayment: `${B2B_API_BASE}/shop/verify-payment.php`,
+  trackOrder: `${B2B_API_BASE}/shop/track-order.php`,
+  myOrders: `${B2B_API_BASE}/shop/my-orders.php`,
+
+  // support
+  warranty: `${API_BASE}/support/warranty.php`,
+  productAuthentication: `${API_BASE}/support/product-authentication.php`,
+  complaint: `${API_BASE}/support/complaint.php`,
+  enquiry: `${API_BASE}/support/enquiry.php`,
+
+  // cms
+  cmsContent: `${API_BASE}/cms/content.php`,
+  cmsSettings: `${API_BASE}/cms/settings.php`,
+};
+
+// Map of CMS section -> query string appended to cms/content.php or
+// cms/settings.php. getCmsContent() below builds the full URL from this.
 export const CMS_ENDPOINTS = {
-  banners: `${API_BASE}/cms/site_settings.php?key=banners`,
-  categories: `${API_BASE}/cms/categories.php`,
-  leadership: `${API_BASE}/cms/leadership.php`,
-  milestones: `${API_BASE}/cms/milestones.php`,
-  gallery: `${API_BASE}/cms/gallery.php`,
-  media: `${API_BASE}/cms/media_resources.php`,
-  blog: `${API_BASE}/cms/blog_posts.php`,
-  events: `${API_BASE}/cms/events.php`,
-  branches: `${API_BASE}/cms/branches.php`,
-  careers: `${API_BASE}/cms/careers.php`,
-  serviceCenters: `${API_BASE}/cms/service_centers.php`,
-  faqs: `${API_BASE}/cms/site_settings.php?key=faqs`,
-  testimonials: `${API_BASE}/cms/site_settings.php?key=testimonials`,
-  socialLinks: `${API_BASE}/cms/site_settings.php?key=social_links`,
-  marketplaceLinks: `${API_BASE}/cms/site_settings.php?key=marketplace_links`,
-  siteSettings: `${API_BASE}/cms/site_settings.php`,
-  // Req #31-35 — Admin-configurable commercial/payment rule engine.
-  // Until the Admin Panel exists, this reads the same JSON-blob settings
-  // table as everything else above; defaultPaymentSettings below is the
-  // fallback shipped with the site.
-  paymentSettings: `${API_BASE}/cms/site_settings.php?key=payment_settings`,
+  categories: `${ENDPOINTS.cmsContent}?section=categories`,
+  leadership: `${ENDPOINTS.cmsContent}?section=leadership`,
+  milestones: `${ENDPOINTS.cmsContent}?section=milestones`,
+  gallery: `${ENDPOINTS.cmsContent}?section=gallery`,
+  media: `${ENDPOINTS.cmsContent}?section=media`,
+  blog: `${ENDPOINTS.cmsContent}?section=blog`,
+  events: `${ENDPOINTS.cmsContent}?section=events`,
+  branches: `${ENDPOINTS.cmsContent}?section=branches`,
+  careers: `${ENDPOINTS.cmsContent}?section=careers`,
+  serviceCenters: `${ENDPOINTS.cmsContent}?section=service_centers`,
+  banners: `${ENDPOINTS.cmsSettings}?key=banners`,
+  faqs: `${ENDPOINTS.cmsSettings}?key=faqs`,
+  testimonials: `${ENDPOINTS.cmsSettings}?key=testimonials`,
+  socialLinks: `${ENDPOINTS.cmsSettings}?key=social_links`,
+  marketplaceLinks: `${ENDPOINTS.cmsSettings}?key=marketplace_links`,
+  siteSettings: ENDPOINTS.cmsSettings,
+  // Req #31-35 — Admin-configurable commercial/payment rule engine, served
+  // (with safe defaults merged in) by api_2/cms/settings.php.
+  paymentSettings: `${ENDPOINTS.cmsSettings}?key=payment_settings`,
 };
 
 // Req #31, #32, #33, #34 — Payment / COD / Advance rule engine defaults.
-// These mirror exactly what the Admin Panel will eventually control:
-//   - which payment modes are enabled at all
-//   - the COD handling fee (Req #32 — "Admin-configurable value rather than hard-code it")
-//   - the default advance percentage for the Partial mode (Req #33)
-//   - free-delivery threshold / flat delivery fee
-// The frontend NEVER hardcodes these numbers directly in a page — every
-// page reads them from here (or the live endpoint once built).
+// These mirror exactly what the Admin Panel (and api_2's payment_settings()
+// helper) controls server-side. The frontend never hardcodes these numbers
+// in a page — every page reads them from here or the live endpoint.
 export const defaultPaymentSettings = {
   modes: {
     online: { enabled: true, label: 'Pay Online', description: 'UPI, Cards, Netbanking via Razorpay' },

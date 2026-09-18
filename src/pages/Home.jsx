@@ -3,6 +3,7 @@ import HeroSection from '../components/Home/HeroSection';
 import Elevate from '../components/Home/Elevate';
 import ProductCarousel from '../components/Home/ProductCarousel';
 import CatalogSection from '../components/Home/CatalogSection';
+import QuickActions from '../components/Home/QuickActions';
 import NewsletterSubscription from '../components/Home/NewsletterSubscription';
 import { ShieldCheck, Truck, Headphones, RefreshCw, Award, Zap, CheckCircle, Calendar, MapPin, ArrowRight, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -210,7 +211,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 11. Newsletter Subscription Component */}
+        {/* 11. Quick Actions — Complaint, Warranty, Bulk Order, Track Order */}
+        <QuickActions />
+
+        {/* 12. Newsletter Subscription Component */}
         <NewsletterSubscription />
 
       </div>

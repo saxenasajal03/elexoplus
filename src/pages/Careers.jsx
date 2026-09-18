@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Briefcase, MapPin, Clock, X } from 'lucide-react';
 import PageHero from '../components/common/PageHero';
-import { getCmsContent, defaultJobs, API_BASE } from '../data/siteContent';
+import { getCmsContent, defaultJobs, ENDPOINTS } from '../data/siteContent';
 import { TextField, TextAreaField } from '../components/common/FormField';
 import { validators, validateForm, cleanText, digitsOnly, createSubmitGuard } from '../utils/validation';
 
@@ -38,10 +38,10 @@ function ApplyModal({ job, onClose }) {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_BASE}/career_application.php`, {
+      const res = await fetch(ENDPOINTS.enquiry, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, role: job.title, department: job.department }),
+        body: JSON.stringify({ ...form, type: 'career', role: job.title, department: job.department }),
       });
       const data = await res.json().catch(() => ({}));
       if (data?.success === true) {

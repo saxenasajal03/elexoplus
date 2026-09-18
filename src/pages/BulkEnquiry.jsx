@@ -3,7 +3,7 @@ import { Building2, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageHero from '../components/common/PageHero';
 import { TextField, TextAreaField, SelectField } from '../components/common/FormField';
-import { API_BASE, defaultCategories } from '../data/siteContent';
+import { ENDPOINTS, defaultCategories } from '../data/siteContent';
 import { validators, validateForm, cleanText, digitsOnly, createSubmitGuard } from '../utils/validation';
 
 const submitGuard = createSubmitGuard(2500);
@@ -46,10 +46,10 @@ export default function BulkEnquiry() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_BASE}/bulk_enquiry.php`, {
+      const res = await fetch(ENDPOINTS.enquiry, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, enquiry_type: 'B2B_BULK' }),
+        body: JSON.stringify({ ...form, type: 'bulk' }),
       });
       const data = await res.json().catch(() => ({}));
       if (data?.success === true) {

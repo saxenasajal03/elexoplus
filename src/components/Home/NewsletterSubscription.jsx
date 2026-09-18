@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, CheckCircle2, AlertCircle, Loader2, Send } from 'lucide-react';
+import { ENDPOINTS } from '../../data/siteContent';
 
 export default function NewsletterSubscription() {
   const [email, setEmail] = useState('');
@@ -14,16 +15,21 @@ export default function NewsletterSubscription() {
     setStatus(null);
 
     try {
-      const res = await fetch("https://project.interndesire.com/api/subscribe.php", {
+      const res = await fetch(ENDPOINTS.newsletter, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
       });
       const data = await res.json();
-      
-      setMsg(data.message || "Thank you for subscribing to Elexoplus updates!");
-      setStatus('success');
-      setEmail('');
+
+      if (data.success) {
+        setMsg(data.message || "Thank you for subscribing to Elexoplus updates!");
+        setStatus('success');
+        setEmail('');
+      } else {
+        setMsg(data.message || "We couldn't subscribe that address. Please check it and try again.");
+        setStatus('error');
+      }
     } catch (err) {
       setMsg("Subscription failed. Please check your network connection.");
       setStatus('error');

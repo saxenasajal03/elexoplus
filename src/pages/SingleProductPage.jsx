@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import ProductDetailsTabs from '../components/SingleProductPage/ProductDetailsTabs';
 import { ShieldCheck, Truck, ShoppingBag, Check, Star, ArrowLeft, Loader2 } from 'lucide-react';
 import { getPricing, formatINR, isInStock } from '../utils/pricing';
+import { ENDPOINTS } from '../data/siteContent';
 
 export default function SingleProductPage() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ export default function SingleProductPage() {
   const [added, setAdded] = useState(false);
 
   useEffect(() => {
-    fetch(`https://project.interndesire.com/api/products.php?product_id=${id}`)
+    fetch(`${ENDPOINTS.products}?product_id=${id}`)
       .then((r) => r.json())
       .then((d) => {
         if (d.success && d.product) {

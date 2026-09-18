@@ -1,10 +1,10 @@
-import { B2B_API_BASE } from '../data/siteContent';
+import { ENDPOINTS } from '../data/siteContent';
 
 /**
  * addressService.js
  * ---------------------------------------------------------------------------
  * Amazon-style saved address book. Tries the real backend endpoint first
- * (b2b.elexoplus.in/api/addresses.php — see backend delivery for the PHP +
+ * (b2b.elexoplus.in/api_2/shop/addresses.php — see the api_2 delivery for the PHP +
  * SQL migration that creates `customer_addresses`), and transparently falls
  * back to a per-user localStorage store if that endpoint isn't reachable
  * yet. This means the checkout flow works TODAY, and silently upgrades to
@@ -33,7 +33,7 @@ function writeLocal(userId, addresses) {
 export async function listAddresses(userId) {
   if (!userId) return [];
   try {
-    const res = await fetch(`${B2B_API_BASE}/addresses.php?user_id=${encodeURIComponent(userId)}`);
+    const res = await fetch(`${ENDPOINTS.addresses}?user_id=${encodeURIComponent(userId)}`);
     if (res.ok) {
       const json = await res.json();
       if (json?.success && Array.isArray(json.data)) return json.data;
@@ -45,7 +45,7 @@ export async function listAddresses(userId) {
 export async function saveAddress(userId, address) {
   const payload = { ...address, user_id: userId };
   try {
-    const res = await fetch(`${B2B_API_BASE}/addresses.php`, {
+    const res = await fetch(ENDPOINTS.addresses, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: address.id ? 'update' : 'add', ...payload }),
@@ -75,7 +75,7 @@ export async function saveAddress(userId, address) {
 
 export async function deleteAddress(userId, addressId) {
   try {
-    const res = await fetch(`${B2B_API_BASE}/addresses.php`, {
+    const res = await fetch(ENDPOINTS.addresses, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'delete', user_id: userId, id: addressId }),
@@ -93,7 +93,7 @@ export async function deleteAddress(userId, addressId) {
 
 export async function setDefaultAddress(userId, addressId) {
   try {
-    const res = await fetch(`${B2B_API_BASE}/addresses.php`, {
+    const res = await fetch(ENDPOINTS.addresses, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'set_default', user_id: userId, id: addressId }),

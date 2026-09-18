@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import ProductCard from '../Store/ProductCard';
+import { ENDPOINTS } from '../../data/siteContent';
 
 const FALLBACK_IMAGE = '/assets/product-BICEL6TG.png';
 
@@ -19,7 +20,7 @@ export default function ProductCarousel({ title }) {
     let isMounted = true;
     setLoading(true);
 
-    fetch("https://project.interndesire.com/api/products.php")
+    fetch(ENDPOINTS.products)
       .then((r) => r.json())
       .then((d) => {
         if (!isMounted) return;

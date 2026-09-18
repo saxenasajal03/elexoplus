@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, ScanLine, CheckCircle2, AlertTriangle } from 'lucide-react';
 import PageHero from '../components/common/PageHero';
-import { API_BASE } from '../data/siteContent';
+import { ENDPOINTS } from '../data/siteContent';
 
 export default function ProductAuthentication() {
   const [serial, setSerial] = useState('');
@@ -16,7 +16,7 @@ export default function ProductAuthentication() {
     setError('');
     setResult(null);
     try {
-      const res = await fetch(`${API_BASE}/product_authentication.php?serial_no=${encodeURIComponent(serial.trim().toUpperCase())}`);
+      const res = await fetch(`${ENDPOINTS.productAuthentication}?serial_no=${encodeURIComponent(serial.trim().toUpperCase())}`);
       if (!res.ok) throw new Error('unreachable');
       const data = await res.json();
       if (data && (data.verified !== undefined || data.success !== undefined)) {

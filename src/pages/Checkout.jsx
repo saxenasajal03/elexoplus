@@ -7,7 +7,7 @@ import AuthGate from '../components/checkout/AuthGate';
 import AddressBook from '../components/checkout/AddressBook';
 import PaymentModeSelector from '../components/checkout/PaymentModeSelector';
 import { getCartTotals, formatINR } from '../utils/pricing';
-import { getPaymentSettings, defaultPaymentSettings, B2B_API_BASE } from '../data/siteContent';
+import { getPaymentSettings, defaultPaymentSettings, ENDPOINTS } from '../data/siteContent';
 
 export default function Checkout() {
   const { cartItems, clearCart } = useCart();
@@ -54,77 +54,60 @@ export default function Checkout() {
   const advanceAmount = selectedMode === 'partial' ? Math.round((grandTotal * settings.partial_advance_percent) / 100) : grandTotal;
   const codDue = grandTotal - advanceAmount;
 
-  const buildAddressString = (a) =>
-    `${a.full_name}, ${a.address_line1}${a.address_line2 ? ', ' + a.address_line2 : ''}, ${a.city}, ${a.state} - ${a.pincode}${a.landmark ? ' (Near ' + a.landmark + ')' : ''} | Phone: ${a.phone}`;
-
   const handlePlaceOrder = async () => {
     setError('');
     if (!selectedAddress) { setError('Please select or add a delivery address.'); return; }
     if (!selectedMode) { setError('Please select a payment method.'); return; }
 
     setPlacing(true);
-    const customerDetails = {
-      name: selectedAddress.full_name,
-      email: user.email,
-      contact: selectedAddress.phone,
-      address: buildAddressString(selectedAddress),
+
+    // Only product_id + quantity are sent — checkout.php looks up the real,
+    // current price itself. Trusting a client-supplied price is how an order
+    // total can be tampered with, so the server never accepts one.
+    const payload = {
+      payment_mode: selectedMode,
+      user_id: user.id,
+      address_id: selectedAddress.id,
+      cartItems: cartItems.map((i) => ({ product_id: i.product_id, quantity: i.quantity })),
     };
 
     try {
+      const res = await fetch(ENDPOINTS.checkout, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.message || 'Could not place your order. Please try again.');
+
       if (selectedMode === 'cod') {
-        // Req #32 — full Cash on Delivery, no upfront online payment.
-        const res = await fetch(`${B2B_API_BASE}/place_cod_order.php`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            customerDetails,
-            cartItems,
-            full_amount: grandTotal,
-            cod_due: grandTotal,
-            payment_terms: 'COD',
-          }),
-        });
-        const data = await res.json();
-        if (!data.success) throw new Error(data.message || 'Could not place your COD order.');
         clearCart();
-        navigate(`/order-success?id=${data.order_id}`);
+        navigate(`/order-success?id=${data.order_id}`, { state: { verify: user.email } });
         return;
       }
 
-      // Req #31 (online) / #33 (partial) — both go through Razorpay for the
-      // upfront-collected portion, using your existing endpoints unchanged.
-      const res = await fetch(`${B2B_API_BASE}/create-razorpay-order.php`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: Math.round(advanceAmount * 100),
-          full_amount: grandTotal,
-          cod_due: codDue,
-          payment_terms: selectedMode === 'partial' ? 'PartialAdvance' : 'Advance',
-          customerDetails,
-          cartItems,
-        }),
-      });
-      const data = await res.json();
-      if (!data.order_id) throw new Error('Payment initialization failed. Please try again.');
-
+      // Online / Partial — hand off to Razorpay using the order + publishable
+      // key the server just issued (never a hardcoded key on the frontend).
       const options = {
-        key: 'rzp_live_Rp0cuYaWQxJjb6',
-        amount: Math.round(advanceAmount * 100),
+        key: data.key_id,
+        amount: data.amount_paisa,
         currency: 'INR',
         name: 'ELEXOPLUS',
         order_id: data.order_id,
         handler: async (response) => {
-          await fetch(`${B2B_API_BASE}/verify-payment.php`, {
+          const verifyRes = await fetch(ENDPOINTS.verifyPayment, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(response),
           });
+          const verifyData = await verifyRes.json().catch(() => ({}));
           clearCart();
-          navigate(`/order-success?id=${response.razorpay_order_id}`);
+          navigate(`/order-success?id=${response.razorpay_order_id}`, {
+            state: { verify: user.email, invoiceNo: verifyData?.invoice_no },
+          });
         },
         modal: { ondismiss: () => setPlacing(false) },
-        prefill: { name: customerDetails.name, email: customerDetails.email, contact: customerDetails.contact },
+        prefill: { name: selectedAddress.full_name, email: user.email, contact: selectedAddress.phone },
         theme: { color: '#F59E0B' },
       };
       new window.Razorpay(options).open();

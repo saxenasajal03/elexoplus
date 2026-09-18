@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MessageSquareWarning, CheckCircle2, AlertCircle, Loader2, Copy, Check } from 'lucide-react';
 import PageHero from '../components/common/PageHero';
 import { TextField, TextAreaField, SelectField } from '../components/common/FormField';
-import { API_BASE } from '../data/siteContent';
+import { ENDPOINTS } from '../data/siteContent';
 import { validators, validateForm, cleanText, digitsOnly, upperAlphaNum, createSubmitGuard } from '../utils/validation';
 
 const COMPLAINT_TYPES = [
@@ -53,7 +53,7 @@ export default function ComplaintRegistration() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch(`${API_BASE}/complaint_registration.php`, {
+      const res = await fetch(ENDPOINTS.complaint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

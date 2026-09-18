@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ShieldCheck, CheckCircle2, AlertCircle, Loader2, PackageCheck } from 'lucide-react';
 import { TextField, SelectField } from '../components/common/FormField';
-import { API_BASE } from '../data/siteContent';
+import { ENDPOINTS } from '../data/siteContent';
 import {
   validators, validateForm, cleanText, digitsOnly, upperAlphaNum, createSubmitGuard,
 } from '../utils/validation';
@@ -36,7 +36,7 @@ export default function WarrantyRegistration() {
 
   // Load the live product catalog for the "Select Product" dropdown.
   useEffect(() => {
-    fetch(`${API_BASE}/products.php`)
+    fetch(`${ENDPOINTS.warranty}?products=1`)
       .then((r) => r.json())
       .then((d) => setProducts(d?.success && Array.isArray(d.products) ? d.products : []))
       .catch(() => setProducts([]))
@@ -55,7 +55,7 @@ export default function WarrantyRegistration() {
     if (validators.serial(serial)) { setSerialStatus(null); setVerifiedProduct(null); return; }
     setSerialStatus('checking');
     try {
-      const res = await fetch(`${API_BASE}/product_authentication.php?serial_no=${encodeURIComponent(serial)}`);
+      const res = await fetch(`${ENDPOINTS.productAuthentication}?serial_no=${encodeURIComponent(serial)}`);
       if (!res.ok) throw new Error('unreachable');
       const data = await res.json();
       if (data?.verified) { setVerifiedProduct(data); setSerialStatus('verified'); }
@@ -94,7 +94,7 @@ export default function WarrantyRegistration() {
     setSubmitting(true);
     setSubmitError('');
     try {
-      const res = await fetch(`${API_BASE}/product_warranty.php`, {
+      const res = await fetch(ENDPOINTS.warranty, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

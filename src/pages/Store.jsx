@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/Store/ProductCard';
 import { Filter, SlidersHorizontal, ChevronDown, X, RotateCcw } from 'lucide-react';
+import { ENDPOINTS } from '../data/siteContent';
 
 // Filter Specifications
 const filterSections = [
@@ -61,7 +62,7 @@ export default function Store() {
   // Fetch product catalog from live API
   useEffect(() => {
     setLoading(true);
-    fetch("https://project.interndesire.com/api/products.php")
+    fetch(ENDPOINTS.products)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.products) {

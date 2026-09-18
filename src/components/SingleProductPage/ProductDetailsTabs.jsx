@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Star, CheckCircle2, AlertCircle, MessageSquare } from 'lucide-react';
+import { ENDPOINTS } from '../../data/siteContent';
 
 function StarRatingSelector({ rating, setRating, hoverRating, setHoverRating, isInteractive = false }) {
   const stars = [1, 2, 3, 4, 5];
@@ -47,7 +48,7 @@ export default function ProductDetailsTabs({ productData }) {
   useEffect(() => {
     if (productId && tab === 'reviews') {
       setLoadingReviews(true);
-      fetch(`https://project.interndesire.com/api/product_reviews.php?product_id=${productId}`)
+      fetch(`${ENDPOINTS.reviews}?product_id=${productId}`)
         .then((r) => r.json())
         .then((d) => {
           if (d.success && d.reviews) {
@@ -98,7 +99,7 @@ export default function ProductDetailsTabs({ productData }) {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch("https://project.interndesire.com/api/product_reviews.php", {
+      const res = await fetch(ENDPOINTS.reviews, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
