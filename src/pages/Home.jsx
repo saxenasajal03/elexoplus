@@ -1,8 +1,8 @@
 import React from 'react';
 import HeroSection from '../components/Home/HeroSection';
-import Elevate from '../components/Home/Elevate';
+import OurMedia from '../components/Home/OurMedia';
+import CategoriesGrid from '../components/Home/CategoriesGrid';
 import ProductCarousel from '../components/Home/ProductCarousel';
-import CatalogSection from '../components/Home/CatalogSection';
 import QuickActions from '../components/Home/QuickActions';
 import NewsletterSubscription from '../components/Home/NewsletterSubscription';
 import { ShieldCheck, Truck, Headphones, RefreshCw, Award, Zap, CheckCircle, Calendar, MapPin, ArrowRight, User } from 'lucide-react';
@@ -57,21 +57,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 3. Our Media — video + image carousel */}
+      <OurMedia />
+
+      {/* 4. Product Categories — moved up, right after Our Media */}
+      <CategoriesGrid />
+
       {/* Outer wrapper matching layout structure */}
       <div className="md:px-20 space-y-4">
-        
-        {/* 3. New Arrivals Product Carousel */}
-        
 
-<ProductCarousel title="New Arrivals & Innovations" />
+        {/* 5. New Arrivals — limited to 8 products */}
+        <ProductCarousel title="New Arrivals & Innovations" limit={8} />
 
-        {/* 4. Elevate Section (Brand Narrative & Flagship Showcase) */}
-        <Elevate />
-
-        {/* 5. Trending Now Carousel */}
-        
-
-<ProductCarousel title="Trending Now in Indian Homes" />
 
         {/* 6. Brand Quality & Certification Showcase (SRS Reference Feature) */}
         <section className="bg-gradient-to-b from-black to-zinc-950 py-16 px-6 border-y border-zinc-900 my-10 rounded-3xl mx-4 md:mx-0">
@@ -125,13 +122,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. Best Sellers Carousel */}
-        
-
-<ProductCarousel title="Best Sellers & Customer Favorites" />
-
-        {/* 8. Interactive Multi-Span Catalog Categories Section */}
-        <CatalogSection />
 
         {/* 9. Blog & Insights Highlights (Admin-CMS controlled) */}
         <section className="py-16 px-4 md:px-0">
@@ -150,12 +140,12 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-6 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
               {defaultBlogPosts.slice(0, 3).map((post) => (
                 <Link
                   key={post.id}
                   to={`/blog/${post.slug}`}
-                  className="group bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden hover:border-amber-400/40 transition-colors flex flex-col"
+                  className="group shrink-0 w-[78vw] sm:w-72 md:w-auto snap-start bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden hover:border-amber-400/40 transition-colors flex flex-col"
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
@@ -194,9 +184,9 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-5 overflow-x-auto md:overflow-visible pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide">
               {defaultEvents.slice(0, 3).map((ev) => (
-                <div key={ev.id} className="bg-black/60 border border-zinc-800 rounded-2xl p-5 hover:border-amber-400/40 transition-colors">
+                <div key={ev.id} className="shrink-0 w-[78vw] sm:w-72 md:w-auto snap-start bg-black/60 border border-zinc-800 rounded-2xl p-5 hover:border-amber-400/40 transition-colors">
                   <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 bg-amber-400/10 px-2 py-1 rounded-full border border-amber-400/20">
                     {ev.type}
                   </span>

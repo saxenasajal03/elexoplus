@@ -5,7 +5,7 @@ import { ENDPOINTS } from '../../data/siteContent';
 
 const FALLBACK_IMAGE = '/assets/product-BICEL6TG.png';
 
-export default function ProductCarousel({ title }) {
+export default function ProductCarousel({ title, limit }) {
   const scrollRef = useRef(null);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +46,7 @@ export default function ProductCarousel({ title }) {
               };
             });
 
-          setItems(sanitized);
+          setItems(limit ? sanitized.slice(0, limit) : sanitized);
         } else {
           setItems([]);
         }
@@ -62,9 +62,7 @@ export default function ProductCarousel({ title }) {
     return () => {
       isMounted = false;
     };
-  }, []);
-
-  // Update button states and trackbar percentage
+  }, [limit]);
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;

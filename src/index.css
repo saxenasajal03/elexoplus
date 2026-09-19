@@ -176,3 +176,14 @@ body {
   background-size: 800px 100%;
   animation: shimmer 1.6s ease-in-out infinite;
 }
+
+/* Used by mobile horizontal-scroll strips (Categories, Blog, Events) so the
+   native scrollbar doesn't clutter the card row while still scrolling by
+   touch/trackpad. */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
