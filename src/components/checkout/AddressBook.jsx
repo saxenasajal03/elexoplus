@@ -58,7 +58,7 @@ function AddressForm({ initial, onCancel, onSaved }) {
   };
 
   return (
-    <form onSubmit={submit} noValidate className="space-y-4 bg-zinc-950 border border-zinc-800 rounded-2xl p-4 sm:p-5">
+    <form onSubmit={submit} noValidate className="space-y-4 bg-white border border-zinc-200 rounded-2xl p-4 sm:p-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <TextField id="addr_full_name" label="Full Name" required value={form.full_name}
           onChange={update('full_name', (v) => cleanText(v, 150))} error={errors.full_name} />
@@ -90,7 +90,7 @@ function AddressForm({ initial, onCancel, onSaved }) {
             type="button"
             onClick={() => setForm({ ...form, label: l })}
             className={`px-3 py-1.5 rounded-full text-xs font-bold transition cursor-pointer ${
-              form.label === l ? 'bg-amber-400 text-black' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'
+              form.label === l ? 'bg-amber-400 text-black' : 'bg-zinc-100 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
             }`}
           >
             {l}
@@ -99,7 +99,7 @@ function AddressForm({ initial, onCancel, onSaved }) {
       </div>
 
       <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
-        <button type="button" onClick={onCancel} className="flex-1 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white transition cursor-pointer">
+        <button type="button" onClick={onCancel} className="flex-1 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider bg-zinc-100 border border-zinc-200 text-zinc-600 hover:text-zinc-900 transition cursor-pointer">
           Cancel
         </button>
         <button type="submit" disabled={saving} className="flex-1 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider bg-amber-400 hover:bg-amber-500 text-black transition cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2">
@@ -176,24 +176,24 @@ export default function AddressBook({ mode = 'select', selectedId, onSelect }) {
             onClick={() => mode === 'select' && onSelect && onSelect(addr)}
             className={`rounded-2xl border p-4 transition-all ${
               mode === 'select' ? 'cursor-pointer' : ''
-            } ${isSelected ? 'border-amber-400 bg-amber-400/5' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-700'}`}
+            } ${isSelected ? 'border-amber-400 bg-amber-400/5' : 'border-zinc-200 bg-white hover:border-zinc-300'}`}
           >
             <div className="flex items-start gap-3">
               {mode === 'select' && (
-                <div className={`w-5 h-5 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center ${isSelected ? 'border-amber-400 bg-amber-400' : 'border-zinc-700'}`}>
+                <div className={`w-5 h-5 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center ${isSelected ? 'border-amber-400 bg-amber-400' : 'border-zinc-300'}`}>
                   {isSelected && <Check size={12} className="text-black" />}
                 </div>
               )}
-              <Icon size={16} className="text-amber-400 shrink-0 mt-0.5" />
+              <Icon size={16} className="text-amber-600 shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-white font-bold text-sm">{addr.full_name}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-full">{addr.label}</span>
+                  <span className="text-zinc-900 font-bold text-sm">{addr.full_name}</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wide bg-zinc-200 text-zinc-500 px-2 py-0.5 rounded-full">{addr.label}</span>
                   {addr.is_default && (
-                    <span className="text-[10px] font-bold uppercase tracking-wide bg-amber-400/10 text-amber-400 border border-amber-400/20 px-2 py-0.5 rounded-full">Default</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wide bg-amber-400/10 text-amber-600 border border-amber-400/20 px-2 py-0.5 rounded-full">Default</span>
                   )}
                 </div>
-                <p className="text-zinc-400 text-xs mt-1.5 leading-relaxed">
+                <p className="text-zinc-500 text-xs mt-1.5 leading-relaxed">
                   {addr.address_line1}{addr.address_line2 ? `, ${addr.address_line2}` : ''}, {addr.city}, {addr.state} - {addr.pincode}
                   {addr.landmark ? ` (Near ${addr.landmark})` : ''}
                 </p>
@@ -202,15 +202,15 @@ export default function AddressBook({ mode = 'select', selectedId, onSelect }) {
             </div>
 
             {mode === 'manage' && (
-              <div className="flex items-center gap-4 mt-3 pt-3 border-t border-zinc-800 pl-8">
-                <button type="button" onClick={(e) => { e.stopPropagation(); setEditing(addr); setShowForm(true); }} className="text-xs font-bold text-zinc-400 hover:text-amber-400 flex items-center gap-1 cursor-pointer">
+              <div className="flex items-center gap-4 mt-3 pt-3 border-t border-zinc-200 pl-8">
+                <button type="button" onClick={(e) => { e.stopPropagation(); setEditing(addr); setShowForm(true); }} className="text-xs font-bold text-zinc-500 hover:text-amber-600 flex items-center gap-1 cursor-pointer">
                   <Pencil size={12} /> Edit
                 </button>
-                <button type="button" onClick={(e) => { e.stopPropagation(); handleDelete(addr.id); }} className="text-xs font-bold text-zinc-400 hover:text-rose-400 flex items-center gap-1 cursor-pointer">
+                <button type="button" onClick={(e) => { e.stopPropagation(); handleDelete(addr.id); }} className="text-xs font-bold text-zinc-500 hover:text-rose-600 flex items-center gap-1 cursor-pointer">
                   <Trash2 size={12} /> Delete
                 </button>
                 {!addr.is_default && (
-                  <button type="button" onClick={(e) => { e.stopPropagation(); handleSetDefault(addr.id); }} className="text-xs font-bold text-zinc-400 hover:text-emerald-400 flex items-center gap-1 cursor-pointer">
+                  <button type="button" onClick={(e) => { e.stopPropagation(); handleSetDefault(addr.id); }} className="text-xs font-bold text-zinc-500 hover:text-emerald-600 flex items-center gap-1 cursor-pointer">
                     <Check size={12} /> Set as Default
                   </button>
                 )}
@@ -223,7 +223,7 @@ export default function AddressBook({ mode = 'select', selectedId, onSelect }) {
       {showForm ? (
         <div className="relative">
           {mode === 'manage' && (
-            <button type="button" onClick={() => { setShowForm(false); setEditing(null); }} className="absolute -top-2 -right-2 z-10 bg-zinc-800 rounded-full p-1 text-zinc-400 hover:text-white cursor-pointer">
+            <button type="button" onClick={() => { setShowForm(false); setEditing(null); }} className="absolute -top-2 -right-2 z-10 bg-zinc-200 rounded-full p-1 text-zinc-500 hover:text-zinc-900 cursor-pointer">
               <X size={14} />
             </button>
           )}
@@ -233,7 +233,7 @@ export default function AddressBook({ mode = 'select', selectedId, onSelect }) {
         <button
           type="button"
           onClick={() => setShowForm(true)}
-          className="w-full border-2 border-dashed border-zinc-800 hover:border-amber-400/50 rounded-2xl py-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-amber-400 text-sm font-bold transition cursor-pointer"
+          className="w-full border-2 border-dashed border-zinc-200 hover:border-amber-400/50 rounded-2xl py-4 flex items-center justify-center gap-2 text-zinc-500 hover:text-amber-600 text-sm font-bold transition cursor-pointer"
         >
           <Plus size={16} /> Add a New Address
         </button>

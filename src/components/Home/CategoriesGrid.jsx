@@ -11,7 +11,7 @@ export default function CategoriesGrid() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-3 mb-1.5">
           <span className="w-6 h-1 bg-amber-400 rounded-full" />
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Product Categories</h2>
+          <h2 className="text-xl sm:text-2xl font-black text-zinc-900 tracking-tight">Product Categories</h2>
         </div>
         <p className="text-zinc-500 text-xs mb-6 pl-9">Explore our top categories</p>
 
@@ -22,9 +22,9 @@ export default function CategoriesGrid() {
               key={cat.id}
               type="button"
               onClick={() => navigate(`/store?category=${encodeURIComponent(cat.name)}`)}
-              className="group relative shrink-0 w-[62vw] sm:w-auto snap-start text-left bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden hover:border-amber-400/50 transition-colors cursor-pointer"
+              className="group relative shrink-0 w-[62vw] sm:w-auto snap-start text-left bg-white border border-zinc-200 rounded-2xl overflow-hidden hover:border-amber-400/50 transition-colors cursor-pointer"
             >
-              <div className="aspect-square w-full bg-zinc-900 overflow-hidden">
+              <div className="aspect-square w-full bg-zinc-100 overflow-hidden">
                 <img
                   src={cat.image}
                   alt={cat.name}
@@ -33,7 +33,7 @@ export default function CategoriesGrid() {
                 />
               </div>
               <div className="p-3.5 pr-14 relative">
-                <h3 className="text-white font-bold text-sm leading-snug">{cat.name}</h3>
+                <h3 className="text-zinc-900 font-bold text-sm leading-snug">{cat.name}</h3>
                 <p className="text-zinc-500 text-[11px] mt-1 line-clamp-1">{cat.tagline}</p>
                 <span className="absolute -top-6 right-3 w-11 h-11 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-amber-300 transition-transform">
                   <ArrowUpRight size={18} strokeWidth={2.5} />

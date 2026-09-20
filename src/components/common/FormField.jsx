@@ -2,23 +2,23 @@ import React from 'react';
 import { AlertCircle } from 'lucide-react';
 
 const baseClass = (hasError) =>
-  `w-full bg-zinc-900 border rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
+  `w-full bg-zinc-100 border rounded-xl px-4 py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 transition ${
     hasError
       ? 'border-rose-500/60 focus:ring-rose-500/40'
-      : 'border-zinc-800 focus:ring-amber-400 focus:border-amber-400/50'
+      : 'border-zinc-200 focus:ring-amber-400 focus:border-amber-400/50'
   }`;
 
 function FieldWrapper({ label, htmlFor, error, hint, required, children }) {
   return (
     <div className="min-w-0">
       {label && (
-        <label htmlFor={htmlFor} className="block text-xs font-bold text-zinc-400 mb-1.5">
-          {label} {required && <span className="text-amber-400">*</span>}
+        <label htmlFor={htmlFor} className="block text-xs font-bold text-zinc-500 mb-1.5">
+          {label} {required && <span className="text-amber-600">*</span>}
         </label>
       )}
       {children}
       {error ? (
-        <p className="text-rose-400 text-[11px] mt-1.5 flex items-start gap-1">
+        <p className="text-rose-600 text-[11px] mt-1.5 flex items-start gap-1">
           <AlertCircle size={11} className="shrink-0 mt-0.5" /> {error}
         </p>
       ) : hint ? (

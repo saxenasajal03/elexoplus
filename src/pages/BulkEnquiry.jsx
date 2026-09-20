@@ -68,11 +68,11 @@ export default function BulkEnquiry() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-black text-slate-100 font-sans flex items-center justify-center px-4 py-24">
-        <div className="max-w-md w-full bg-zinc-950 border border-emerald-500/30 rounded-3xl p-8 sm:p-10 text-center">
-          <CheckCircle2 size={44} className="text-emerald-400 mx-auto mb-5" />
-          <h2 className="text-xl font-extrabold text-white">Enquiry Received</h2>
-          <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
+      <div className="min-h-screen bg-white text-slate-100 font-sans flex items-center justify-center px-4 py-24">
+        <div className="max-w-md w-full bg-white border border-emerald-500/30 rounded-3xl p-8 sm:p-10 text-center">
+          <CheckCircle2 size={44} className="text-emerald-600 mx-auto mb-5" />
+          <h2 className="text-xl font-extrabold text-zinc-900">Enquiry Received</h2>
+          <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
             Thank you, {form.contact_person}. Our B2B sales team will review your requirement and reach out
             within 1-2 business days with pricing and slab details.
           </p>
@@ -82,7 +82,7 @@ export default function BulkEnquiry() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
       <PageHero
         eyebrow="Bulk / B2B Enquiry"
         title="Wholesale Pricing for Dealers & Businesses"
@@ -90,7 +90,7 @@ export default function BulkEnquiry() {
       />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
-        <form onSubmit={submit} noValidate className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 sm:p-7 space-y-5">
+        <form onSubmit={submit} noValidate className="bg-white border border-zinc-200 rounded-2xl p-5 sm:p-7 space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <TextField
               id="company_name" label="Company / Firm Name" required
@@ -153,7 +153,7 @@ export default function BulkEnquiry() {
 
           {error && (
             <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3 flex items-start gap-2">
-              <AlertCircle size={14} className="text-rose-400 shrink-0 mt-0.5" />
+              <AlertCircle size={14} className="text-rose-600 shrink-0 mt-0.5" />
               <p className="text-rose-300 text-xs">{error}</p>
             </div>
           )}
@@ -167,7 +167,7 @@ export default function BulkEnquiry() {
           </button>
 
           <p className="text-[11px] text-zinc-600 text-center">
-            Already a registered dealer? <Link to="/b2b-login" className="text-amber-400 hover:underline">Log in to the B2B Portal</Link> instead.
+            Already a registered dealer? <Link to="/b2b-login" className="text-amber-600 hover:underline">Log in to the B2B Portal</Link> instead.
           </p>
         </form>
       </div>

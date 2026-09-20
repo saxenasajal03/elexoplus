@@ -5,7 +5,7 @@ import { Sparkles, ShieldCheck, ArrowRight, Zap, Award, ChevronLeft, ChevronRigh
 const bannerSlides = [
   {
     id: 1,
-    badge: "Official Elexoplus D2C Store",
+    badge: "Official ElexoPlus D2C Store",
     titlePrimary: "Smart Living,",
     titleHighlight: "Engineered",
     titleSecondary: "for India",
@@ -13,7 +13,7 @@ const bannerSlides = [
     primaryCta: { text: "Explore Products", link: "/store" },
     secondaryCta: { text: "Dealer / Bulk Portal", link: "/b2b-login" },
     image: "/assets/Chimney-YOfkthXd.png",
-    alt: "Elexoplus Flagship Chimney"
+    alt: "ElexoPlus Flagship Chimney"
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const bannerSlides = [
     primaryCta: { text: "Shop Kitchen Range", link: "/store?category=Kitchen+Appliances" },
     secondaryCta: { text: "View Catalog", link: "/store" },
     image: "/assets/Gas_stove-D7GTxQgm.png",
-    alt: "Elexoplus Kitchen Appliance"
+    alt: "ElexoPlus Kitchen Appliance"
   }
 ];
 

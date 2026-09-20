@@ -15,7 +15,7 @@ export default function Gallery() {
   const filtered = activeCategory === 'All' ? items : items.filter(i => i.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
       <PageHero
         eyebrow="Gallery"
         title="A Look Inside ElexoPlus"
@@ -33,7 +33,7 @@ export default function Gallery() {
               className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition cursor-pointer ${
                 activeCategory === cat
                   ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20'
-                  : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'
+                  : 'bg-zinc-100 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
               }`}
             >
               {cat}
@@ -48,7 +48,7 @@ export default function Gallery() {
               key={item.id ?? idx}
               type="button"
               onClick={() => setLightbox(item)}
-              className="block w-full break-inside-avoid rounded-2xl overflow-hidden border border-zinc-800 hover:border-amber-400/50 transition-colors group cursor-pointer"
+              className="block w-full break-inside-avoid rounded-2xl overflow-hidden border border-zinc-200 hover:border-amber-400/50 transition-colors group cursor-pointer"
             >
               <img
                 src={item.image}
@@ -56,8 +56,8 @@ export default function Gallery() {
                 className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/1A1A1A/FFFFFF?text=ElexoPlus"; }}
               />
-              <div className="p-3 bg-zinc-950">
-                <p className="text-xs text-zinc-400 text-left line-clamp-1">{item.caption}</p>
+              <div className="p-3 bg-white">
+                <p className="text-xs text-zinc-500 text-left line-clamp-1">{item.caption}</p>
               </div>
             </button>
           ))}
@@ -67,12 +67,12 @@ export default function Gallery() {
       {/* Lightbox */}
       {lightbox && (
         <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-6"
+          className="fixed inset-0 bg-white/90 z-50 flex items-center justify-center p-6"
           onClick={() => setLightbox(null)}
         >
           <div className="max-w-3xl w-full">
-            <img src={lightbox.image} alt={lightbox.caption} className="w-full rounded-2xl border border-zinc-800" />
-            <p className="text-center text-zinc-300 mt-4 text-sm">{lightbox.caption}</p>
+            <img src={lightbox.image} alt={lightbox.caption} className="w-full rounded-2xl border border-zinc-200" />
+            <p className="text-center text-zinc-600 mt-4 text-sm">{lightbox.caption}</p>
           </div>
         </div>
       )}

@@ -35,7 +35,7 @@ export default function Checkout() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-black pt-28 md:pt-36">
+      <div className="min-h-screen bg-white pt-28 md:pt-36">
         <AuthGate
           title="Log In to Complete Your Order"
           subtitle="For faster, more secure checkout, ElexoPlus requires an account — this lets you save addresses, track orders, and manage warranty claims in one place."
@@ -119,9 +119,9 @@ export default function Checkout() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-28 md:pt-36 px-4 md:px-12 pb-20 font-sans">
+    <div className="min-h-screen bg-white text-zinc-900 pt-28 md:pt-36 px-4 md:px-12 pb-20 font-sans">
       <div className="container mx-auto max-w-5xl">
-        <Link to="/cart" className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-amber-400 mb-6">
+        <Link to="/cart" className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-amber-600 mb-6">
           <ChevronLeft size={14} /> Back to Cart
         </Link>
         <h1 className="text-2xl md:text-3xl font-black mb-8">Checkout</h1>
@@ -130,29 +130,29 @@ export default function Checkout() {
           <div className="lg:col-span-2 space-y-8">
             {/* Step 1 — Delivery Address */}
             <section>
-              <h2 className="text-sm font-extrabold uppercase tracking-wider text-zinc-400 mb-4 flex items-center gap-2">
-                <MapPin size={16} className="text-amber-400" /> 1. Delivery Address
+              <h2 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 mb-4 flex items-center gap-2">
+                <MapPin size={16} className="text-amber-600" /> 1. Delivery Address
               </h2>
               <AddressBook mode="select" selectedId={selectedAddress?.id} onSelect={setSelectedAddress} />
             </section>
 
             {/* Step 2 — Payment Method */}
             <section>
-              <h2 className="text-sm font-extrabold uppercase tracking-wider text-zinc-400 mb-4 flex items-center gap-2">
-                <ShieldCheck size={16} className="text-amber-400" /> 2. Payment Method
+              <h2 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 mb-4 flex items-center gap-2">
+                <ShieldCheck size={16} className="text-amber-600" /> 2. Payment Method
               </h2>
               <PaymentModeSelector settings={settings} selected={selectedMode} onSelect={setSelectedMode} total={total} />
             </section>
           </div>
 
           {/* Order Summary */}
-          <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 h-fit sticky top-32">
+          <div className="bg-white border border-zinc-200 rounded-2xl p-6 h-fit sticky top-32">
             <h2 className="text-lg font-extrabold mb-4">Order Summary</h2>
 
             {savings > 0 && (
               <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2.5 flex items-center gap-2 mb-4">
-                <Tag size={14} className="text-emerald-400 shrink-0" />
-                <p className="text-emerald-400 text-xs font-bold">You're saving {formatINR(savings)} on this order!</p>
+                <Tag size={14} className="text-emerald-600 shrink-0" />
+                <p className="text-emerald-600 text-xs font-bold">You're saving {formatINR(savings)} on this order!</p>
               </div>
             )}
 
@@ -162,31 +162,31 @@ export default function Checkout() {
                   <span>M.R.P. Total</span><span className="line-through">{formatINR(mrpTotal)}</span>
                 </div>
               )}
-              <div className="flex justify-between py-2 border-b border-zinc-800">
-                <span className="text-zinc-400">Subtotal</span><span className="font-bold text-white">{formatINR(subtotal)}</span>
+              <div className="flex justify-between py-2 border-b border-zinc-200">
+                <span className="text-zinc-500">Subtotal</span><span className="font-bold text-zinc-900">{formatINR(subtotal)}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-zinc-800">
-                <span className="text-zinc-400">Delivery</span>
-                <span className={`font-bold ${deliveryFee === 0 ? 'text-emerald-400' : 'text-white'}`}>{deliveryFee === 0 ? 'FREE' : formatINR(deliveryFee)}</span>
+              <div className="flex justify-between py-2 border-b border-zinc-200">
+                <span className="text-zinc-500">Delivery</span>
+                <span className={`font-bold ${deliveryFee === 0 ? 'text-emerald-600' : 'text-zinc-900'}`}>{deliveryFee === 0 ? 'FREE' : formatINR(deliveryFee)}</span>
               </div>
               {codFee > 0 && (
-                <div className="flex justify-between py-2 border-b border-zinc-800">
-                  <span className="text-zinc-400">COD Handling Fee</span><span className="font-bold text-white">{formatINR(codFee)}</span>
+                <div className="flex justify-between py-2 border-b border-zinc-200">
+                  <span className="text-zinc-500">COD Handling Fee</span><span className="font-bold text-zinc-900">{formatINR(codFee)}</span>
                 </div>
               )}
-              <div className="flex justify-between py-3 font-black text-xl text-amber-400">
+              <div className="flex justify-between py-3 font-black text-xl text-amber-600">
                 <span>Total</span><span>{formatINR(grandTotal)}</span>
               </div>
 
               {selectedMode === 'partial' && (
-                <div className="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 space-y-1 text-xs">
-                  <div className="flex justify-between"><span className="text-zinc-400">Pay Now (Online)</span><span className="font-bold text-white">{formatINR(advanceAmount)}</span></div>
-                  <div className="flex justify-between"><span className="text-zinc-400">Pay on Delivery</span><span className="font-bold text-white">{formatINR(codDue)}</span></div>
+                <div className="bg-zinc-100 border border-zinc-200 rounded-xl px-4 py-3 space-y-1 text-xs">
+                  <div className="flex justify-between"><span className="text-zinc-500">Pay Now (Online)</span><span className="font-bold text-zinc-900">{formatINR(advanceAmount)}</span></div>
+                  <div className="flex justify-between"><span className="text-zinc-500">Pay on Delivery</span><span className="font-bold text-zinc-900">{formatINR(codDue)}</span></div>
                 </div>
               )}
             </div>
 
-            {error && <p className="text-rose-400 text-xs mt-4">{error}</p>}
+            {error && <p className="text-rose-600 text-xs mt-4">{error}</p>}
 
             <button
               onClick={handlePlaceOrder}
@@ -202,7 +202,7 @@ export default function Checkout() {
             </button>
             <p className="text-[10px] text-zinc-600 text-center mt-3">
               By placing this order, you agree to our{' '}
-              <Link to="/policy" className="text-zinc-400 hover:text-amber-400 underline">Terms & Policies</Link>.
+              <Link to="/policy" className="text-zinc-500 hover:text-amber-600 underline">Terms & Policies</Link>.
             </p>
           </div>
         </div>

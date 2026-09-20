@@ -13,12 +13,12 @@ export default function AuthGate({ title, subtitle }) {
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-6">
-      <div className="max-w-md w-full bg-zinc-950 border border-zinc-800 rounded-3xl p-10 text-center">
-        <div className="w-14 h-14 rounded-2xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-400 mx-auto mb-5">
+      <div className="max-w-md w-full bg-white border border-zinc-200 rounded-3xl p-10 text-center">
+        <div className="w-14 h-14 rounded-2xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-600 mx-auto mb-5">
           <Lock size={24} />
         </div>
-        <h2 className="text-xl font-extrabold text-white">{title || 'Please Log In to Continue'}</h2>
-        <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
+        <h2 className="text-xl font-extrabold text-zinc-900">{title || 'Please Log In to Continue'}</h2>
+        <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
           {subtitle || 'Log in or create a free account to use saved addresses, track your order, and check out faster.'}
         </p>
         <button

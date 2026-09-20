@@ -38,19 +38,19 @@ export default function PaymentModeSelector({ settings, selected, onSelect, tota
             type="button"
             onClick={() => onSelect(key)}
             className={`w-full text-left rounded-2xl border p-4 transition-all cursor-pointer flex items-start gap-3 ${
-              isSelected ? 'border-amber-400 bg-amber-400/5' : 'border-zinc-800 bg-zinc-950 hover:border-zinc-700'
+              isSelected ? 'border-amber-400 bg-amber-400/5' : 'border-zinc-200 bg-white hover:border-zinc-300'
             }`}
           >
-            <div className={`w-5 h-5 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center ${isSelected ? 'border-amber-400 bg-amber-400' : 'border-zinc-700'}`}>
+            <div className={`w-5 h-5 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center ${isSelected ? 'border-amber-400 bg-amber-400' : 'border-zinc-300'}`}>
               {isSelected && <Check size={12} className="text-black" />}
             </div>
-            <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-amber-400 shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center justify-center text-amber-600 shrink-0">
               <Icon size={16} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-white font-bold text-sm">{mode.label}</span>
-                <span className="text-amber-400 font-black text-sm shrink-0">{formatINR(amountFor(key))}</span>
+                <span className="text-zinc-900 font-bold text-sm">{mode.label}</span>
+                <span className="text-amber-600 font-black text-sm shrink-0">{formatINR(amountFor(key))}</span>
               </div>
               <p className="text-zinc-500 text-xs mt-1">{subtextFor(key)}</p>
             </div>

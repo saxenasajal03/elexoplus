@@ -33,17 +33,17 @@ export default function CartPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-28 md:pt-36 px-4 md:px-12 pb-20 font-sans">
+    <div className="min-h-screen bg-white text-zinc-900 pt-28 md:pt-36 px-4 md:px-12 pb-20 font-sans">
       <div className="container mx-auto max-w-5xl">
         <h1 className="text-2xl md:text-3xl font-black mb-8 flex items-center gap-3">
-          <ShoppingBag className="text-amber-400" size={26} /> Your Cart
+          <ShoppingBag className="text-amber-600" size={26} /> Your Cart
           {itemCount > 0 && <span className="text-sm font-medium text-zinc-500">({itemCount} item{itemCount !== 1 ? 's' : ''})</span>}
         </h1>
 
         {cartItems.length === 0 ? (
-          <div className="text-center py-20 border border-zinc-800 rounded-3xl bg-zinc-950">
+          <div className="text-center py-20 border border-zinc-200 rounded-3xl bg-white">
             <ShoppingBag size={40} className="text-zinc-700 mx-auto mb-4" />
-            <p className="text-zinc-400 mb-6">Your cart is empty.</p>
+            <p className="text-zinc-500 mb-6">Your cart is empty.</p>
             <Link to="/store" className="bg-amber-400 hover:bg-amber-500 text-black px-8 py-3 rounded-full font-extrabold text-xs uppercase tracking-wider transition">
               Start Shopping
             </Link>
@@ -56,13 +56,13 @@ export default function CartPage() {
               ))}
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 h-fit sticky top-32">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-6 h-fit sticky top-32">
               <h2 className="text-lg font-extrabold mb-4">Order Summary</h2>
 
               {savings > 0 && (
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-2.5 flex items-center gap-2 mb-4">
-                  <Tag size={14} className="text-emerald-400 shrink-0" />
-                  <p className="text-emerald-400 text-xs font-bold">You're saving {formatINR(savings)} on this order!</p>
+                  <Tag size={14} className="text-emerald-600 shrink-0" />
+                  <p className="text-emerald-600 text-xs font-bold">You're saving {formatINR(savings)} on this order!</p>
                 </div>
               )}
 
@@ -72,12 +72,12 @@ export default function CartPage() {
                     <span>M.R.P. Total</span><span className="line-through">{formatINR(mrpTotal)}</span>
                   </div>
                 )}
-                <div className="flex justify-between py-2 border-b border-zinc-800">
-                  <span className="text-zinc-400">Subtotal</span><span className="font-bold text-white">{formatINR(subtotal)}</span>
+                <div className="flex justify-between py-2 border-b border-zinc-200">
+                  <span className="text-zinc-500">Subtotal</span><span className="font-bold text-zinc-900">{formatINR(subtotal)}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-zinc-800">
-                  <span className="text-zinc-400">Delivery</span>
-                  <span className={`font-bold ${deliveryFee === 0 ? 'text-emerald-400' : 'text-white'}`}>
+                <div className="flex justify-between py-2 border-b border-zinc-200">
+                  <span className="text-zinc-500">Delivery</span>
+                  <span className={`font-bold ${deliveryFee === 0 ? 'text-emerald-600' : 'text-zinc-900'}`}>
                     {deliveryFee === 0 ? 'FREE' : formatINR(deliveryFee)}
                   </span>
                 </div>
@@ -86,7 +86,7 @@ export default function CartPage() {
                     Add {formatINR(settings.free_delivery_above - subtotal)} more for free delivery
                   </p>
                 )}
-                <div className="flex justify-between py-4 font-black text-xl text-amber-400">
+                <div className="flex justify-between py-4 font-black text-xl text-amber-600">
                   <span>Total</span><span>{formatINR(total)}</span>
                 </div>
               </div>

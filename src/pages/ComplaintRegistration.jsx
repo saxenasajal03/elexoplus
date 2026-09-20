@@ -79,19 +79,19 @@ export default function ComplaintRegistration() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-black text-slate-100 font-sans flex items-center justify-center px-4 py-24">
-        <div className="max-w-md w-full bg-zinc-950 border border-emerald-500/30 rounded-3xl p-8 sm:p-10 text-center">
-          <CheckCircle2 size={44} className="text-emerald-400 mx-auto mb-5" />
-          <h2 className="text-xl font-extrabold text-white">Complaint Registered</h2>
-          <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
+      <div className="min-h-screen bg-white text-slate-100 font-sans flex items-center justify-center px-4 py-24">
+        <div className="max-w-md w-full bg-white border border-emerald-500/30 rounded-3xl p-8 sm:p-10 text-center">
+          <CheckCircle2 size={44} className="text-emerald-600 mx-auto mb-5" />
+          <h2 className="text-xl font-extrabold text-zinc-900">Complaint Registered</h2>
+          <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
             Save the Complaint ID below for reference — it's separate from your Order and Invoice numbers.
           </p>
           <button
             type="button" onClick={copyId}
-            className="mt-6 w-full bg-zinc-900 border border-zinc-800 hover:border-amber-400/40 rounded-xl py-4 text-amber-400 font-black text-xl sm:text-2xl tracking-wide transition cursor-pointer flex items-center justify-center gap-3 break-all"
+            className="mt-6 w-full bg-zinc-100 border border-zinc-200 hover:border-amber-400/40 rounded-xl py-4 text-amber-600 font-black text-xl sm:text-2xl tracking-wide transition cursor-pointer flex items-center justify-center gap-3 break-all"
           >
             {submitted.complaint_id}
-            {copied ? <Check size={16} className="text-emerald-400 shrink-0" /> : <Copy size={16} className="text-zinc-500 shrink-0" />}
+            {copied ? <Check size={16} className="text-emerald-600 shrink-0" /> : <Copy size={16} className="text-zinc-500 shrink-0" />}
           </button>
           <p className="text-xs text-zinc-500 mt-4">Our service team will contact you within 48 hours as per our standard SLA.</p>
         </div>
@@ -100,7 +100,7 @@ export default function ComplaintRegistration() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
       <PageHero
         eyebrow="Service & Complaints"
         title="Register a Complaint"
@@ -108,7 +108,7 @@ export default function ComplaintRegistration() {
       />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
-        <form onSubmit={submit} noValidate className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 sm:p-7 space-y-5">
+        <form onSubmit={submit} noValidate className="bg-white border border-zinc-200 rounded-2xl p-5 sm:p-7 space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <TextField
               id="order_id" label="Order ID" required placeholder="e.g. 12345"
@@ -165,7 +165,7 @@ export default function ComplaintRegistration() {
 
           {error && (
             <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3 flex items-start gap-2">
-              <AlertCircle size={14} className="text-rose-400 shrink-0 mt-0.5" />
+              <AlertCircle size={14} className="text-rose-600 shrink-0 mt-0.5" />
               <p className="text-rose-300 text-xs">{error}</p>
             </div>
           )}

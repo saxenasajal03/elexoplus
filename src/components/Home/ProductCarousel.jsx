@@ -155,16 +155,16 @@ export default function ProductCarousel({ title, limit }) {
   };
 
   return (
-    <section className="bg-black pt-20 pb-12 px-4 md:px-8 font-sans relative selection:bg-amber-400 selection:text-black border-b border-zinc-800/80">
+    <section className="bg-white pt-20 pb-12 px-4 md:px-8 font-sans relative selection:bg-amber-400 selection:text-black border-b border-zinc-200/80">
       <div className="container mx-auto max-w-7xl">
         
         {/* Header with Title and Custom Controls */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 border-b border-zinc-800/80 pb-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4 border-b border-zinc-200/80 pb-4">
           <div>
-            <span className="text-amber-400 text-[11px] font-extrabold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block mb-2">
+            <span className="text-amber-600 text-[11px] font-extrabold uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 inline-block mb-2">
               Explore Collection
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-zinc-900 tracking-tight">
               {title}
             </h2>
           </div>
@@ -176,8 +176,8 @@ export default function ProductCarousel({ title, limit }) {
               disabled={!canScrollLeft}
               className={`w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-200 ${
                 canScrollLeft
-                  ? 'bg-zinc-900 border-zinc-700 text-white hover:bg-amber-400 hover:text-black hover:border-amber-400 shadow-md cursor-pointer active:scale-95'
-                  : 'bg-zinc-950 border-zinc-800 text-zinc-600 cursor-not-allowed opacity-40'
+                  ? 'bg-zinc-100 border-zinc-300 text-zinc-900 hover:bg-amber-400 hover:text-black hover:border-amber-400 shadow-md cursor-pointer active:scale-95'
+                  : 'bg-white border-zinc-200 text-zinc-600 cursor-not-allowed opacity-40'
               }`}
               aria-label="Scroll left"
             >
@@ -190,8 +190,8 @@ export default function ProductCarousel({ title, limit }) {
               disabled={!canScrollRight}
               className={`w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-200 ${
                 canScrollRight
-                  ? 'bg-zinc-900 border-zinc-700 text-white hover:bg-amber-400 hover:text-black hover:border-amber-400 shadow-md cursor-pointer active:scale-95'
-                  : 'bg-zinc-950 border-zinc-800 text-zinc-600 cursor-not-allowed opacity-40'
+                  ? 'bg-zinc-100 border-zinc-300 text-zinc-900 hover:bg-amber-400 hover:text-black hover:border-amber-400 shadow-md cursor-pointer active:scale-95'
+                  : 'bg-white border-zinc-200 text-zinc-600 cursor-not-allowed opacity-40'
               }`}
               aria-label="Scroll right"
             >
@@ -226,12 +226,12 @@ export default function ProductCarousel({ title, limit }) {
               Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className="flex-shrink-0 w-44 sm:w-56 md:w-64 lg:w-72 bg-zinc-900/50 border border-zinc-800 rounded-2xl p-4 animate-pulse"
+                  className="flex-shrink-0 w-44 sm:w-56 md:w-64 lg:w-72 bg-zinc-100/50 border border-zinc-200 rounded-2xl p-4 animate-pulse"
                 >
-                  <div className="w-full aspect-square bg-zinc-800/80 rounded-xl mb-4" />
-                  <div className="h-4 bg-zinc-800 rounded w-3/4 mb-2" />
-                  <div className="h-3 bg-zinc-800 rounded w-1/2 mb-4" />
-                  <div className="h-5 bg-zinc-800 rounded w-1/3" />
+                  <div className="w-full aspect-square bg-zinc-200/80 rounded-xl mb-4" />
+                  <div className="h-4 bg-zinc-200 rounded w-3/4 mb-2" />
+                  <div className="h-3 bg-zinc-200 rounded w-1/2 mb-4" />
+                  <div className="h-5 bg-zinc-200 rounded w-1/3" />
                 </div>
               ))
             ) : items.length > 0 ? (
@@ -241,7 +241,7 @@ export default function ProductCarousel({ title, limit }) {
                 </div>
               ))
             ) : (
-              <div className="w-full py-16 text-center text-zinc-500 font-medium bg-zinc-950/60 border border-zinc-900 rounded-2xl">
+              <div className="w-full py-16 text-center text-zinc-500 font-medium bg-white/60 border border-zinc-200 rounded-2xl">
                 No products available in this catalog view.
               </div>
             )}
@@ -250,7 +250,7 @@ export default function ProductCarousel({ title, limit }) {
 
         {/* Scroll Progress Bar */}
         {items.length > 0 && (
-          <div className="mt-3 w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
+          <div className="mt-3 w-full bg-zinc-100 h-1.5 rounded-full overflow-hidden">
             <div
               className="bg-amber-400 h-full rounded-full transition-all duration-300 ease-out shadow-[0_0_8px_rgba(251,191,36,0.5)]"
               style={{ width: `${Math.max(10, scrollProgress)}%` }}

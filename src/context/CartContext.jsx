@@ -51,7 +51,7 @@ export const CartProvider = ({ children }) => {
         {
           product_id: productId,
           variantKey,
-          name: product.name || 'Elexoplus Appliance',
+          name: product.name || 'ElexoPlus Appliance',
           category: product.category_name || product.category || 'General',
           base_price: itemPrice,
           price: itemPrice,

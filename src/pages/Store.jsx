@@ -173,14 +173,14 @@ export default function Store() {
   const activeFiltersCount = filters.categories.length + filters.price.length + filters.availability.length;
 
   return (
-    <div className="min-h-screen bg-black text-slate-200 pt-28 md:pt-36 pb-20 px-4 md:px-10 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-200 pt-28 md:pt-36 pb-20 px-4 md:px-10 font-sans selection:bg-amber-400 selection:text-black">
       <div className="container mx-auto max-w-7xl">
         
         {/* Top Header Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 mb-8 border-b border-zinc-800 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-6 mb-8 border-b border-zinc-200 gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">Elexoplus Catalog Store</h1>
-            <p className="text-xs text-zinc-400 mt-1">Showing {filteredProducts.length} verified appliances</p>
+            <h1 className="text-2xl md:text-3xl font-black text-zinc-900 tracking-tight">ElexoPlus Catalog Store</h1>
+            <p className="text-xs text-zinc-500 mt-1">Showing {filteredProducts.length} verified appliances</p>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
@@ -188,9 +188,9 @@ export default function Store() {
             <button
               type="button"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-white hover:border-amber-400/50 transition cursor-pointer"
+              className="hidden md:flex items-center gap-2 px-4 py-2.5 bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-bold text-zinc-900 hover:border-amber-400/50 transition cursor-pointer"
             >
-              <SlidersHorizontal size={15} className="text-amber-400" />
+              <SlidersHorizontal size={15} className="text-amber-600" />
               <span>{isSidebarOpen ? "Hide Filters" : "Show Filters"}</span>
               {activeFiltersCount > 0 && (
                 <span className="w-5 h-5 bg-amber-400 text-black rounded-full text-[10px] font-black flex items-center justify-center">
@@ -203,9 +203,9 @@ export default function Store() {
             <button
               type="button"
               onClick={() => setIsMobileFilterOpen(true)}
-              className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-white cursor-pointer"
+              className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-bold text-zinc-900 cursor-pointer"
             >
-              <Filter size={15} className="text-amber-400" />
+              <Filter size={15} className="text-amber-600" />
               <span>Filter & Sort</span>
               {activeFiltersCount > 0 && (
                 <span className="w-5 h-5 bg-amber-400 text-black rounded-full text-[10px] font-black flex items-center justify-center">
@@ -219,17 +219,17 @@ export default function Store() {
               <button
                 type="button"
                 onClick={() => setIsSortOpen(!isSortOpen)}
-                className="flex items-center gap-2 px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-xs font-bold text-white hover:border-zinc-700 transition cursor-pointer"
+                className="flex items-center gap-2 px-4 py-2.5 bg-zinc-100 border border-zinc-200 rounded-xl text-xs font-bold text-zinc-900 hover:border-zinc-300 transition cursor-pointer"
               >
-                <span className="text-zinc-400">Sort by:</span>
-                <span className="text-amber-400">
+                <span className="text-zinc-500">Sort by:</span>
+                <span className="text-amber-600">
                   {sortOptions.find(o => o.value === sortBy)?.label}
                 </span>
-                <ChevronDown size={14} className="ml-1 text-zinc-400" />
+                <ChevronDown size={14} className="ml-1 text-zinc-500" />
               </button>
 
               {isSortOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl py-2 z-30 animate-fadeIn overflow-hidden">
+                <div className="absolute right-0 mt-2 w-48 bg-zinc-100 border border-zinc-200 rounded-2xl shadow-2xl py-2 z-30 animate-fadeIn overflow-hidden">
                   {sortOptions.map(option => (
                     <button
                       key={option.value}
@@ -240,8 +240,8 @@ export default function Store() {
                       }}
                       className={`w-full text-left px-4 py-2.5 text-xs font-semibold transition ${
                         sortBy === option.value
-                          ? 'bg-amber-400/10 text-amber-400 font-bold'
-                          : 'text-zinc-300 hover:bg-zinc-800'
+                          ? 'bg-amber-400/10 text-amber-600 font-bold'
+                          : 'text-zinc-600 hover:bg-zinc-200'
                       }`}
                     >
                       {option.label}
@@ -261,7 +261,7 @@ export default function Store() {
               <span
                 key={c}
                 onClick={() => handleFilterToggle('categories', c)}
-                className="px-3.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-amber-400 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800 transition"
+                className="px-3.5 py-1.5 bg-zinc-100 border border-zinc-200 rounded-full text-xs text-amber-600 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-200 transition"
               >
                 {c} <X size={12} />
               </span>
@@ -270,7 +270,7 @@ export default function Store() {
               <span
                 key={p}
                 onClick={() => handleFilterToggle('price', p)}
-                className="px-3.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-amber-400 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800 transition"
+                className="px-3.5 py-1.5 bg-zinc-100 border border-zinc-200 rounded-full text-xs text-amber-600 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-200 transition"
               >
                 {filterSections[1].options.find(o => o.value === p)?.label} <X size={12} />
               </span>
@@ -279,7 +279,7 @@ export default function Store() {
               <span
                 key={a}
                 onClick={() => handleFilterToggle('availability', a)}
-                className="px-3.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-amber-400 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-800 transition"
+                className="px-3.5 py-1.5 bg-zinc-100 border border-zinc-200 rounded-full text-xs text-amber-600 font-bold flex items-center gap-1.5 cursor-pointer hover:bg-zinc-200 transition"
               >
                 {a} <X size={12} />
               </span>
@@ -287,7 +287,7 @@ export default function Store() {
             <button
               type="button"
               onClick={clearAllFilters}
-              className="text-xs text-rose-400 hover:underline ml-2 font-bold flex items-center gap-1 cursor-pointer"
+              className="text-xs text-rose-600 hover:underline ml-2 font-bold flex items-center gap-1 cursor-pointer"
             >
               <RotateCcw size={12} /> Clear all
             </button>
@@ -303,10 +303,10 @@ export default function Store() {
               isSidebarOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 pointer-events-none'
             }`}
           >
-            <div className="w-64 space-y-6 pr-4 bg-zinc-950 p-6 rounded-3xl border border-zinc-900">
+            <div className="w-64 space-y-6 pr-4 bg-white p-6 rounded-3xl border border-zinc-200">
               {filterSections.map(section => (
-                <div key={section.id} className="border-b border-zinc-800/80 pb-5 last:border-b-0 last:pb-0">
-                  <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-3">
+                <div key={section.id} className="border-b border-zinc-200/80 pb-5 last:border-b-0 last:pb-0">
+                  <h3 className="text-xs font-black uppercase tracking-wider text-amber-600 mb-3">
                     {section.name}
                   </h3>
                   <div className="space-y-2.5">
@@ -315,15 +315,15 @@ export default function Store() {
                       return (
                         <label
                           key={option.value}
-                          className="flex items-center gap-3 text-xs text-zinc-400 hover:text-white cursor-pointer select-none font-medium"
+                          className="flex items-center gap-3 text-xs text-zinc-500 hover:text-zinc-900 cursor-pointer select-none font-medium"
                         >
                           <input
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => handleFilterToggle(section.id, option.value)}
-                            className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 accent-amber-400 cursor-pointer"
+                            className="w-4 h-4 rounded border-zinc-300 bg-zinc-100 accent-amber-400 cursor-pointer"
                           />
-                          <span className={isChecked ? 'text-amber-400 font-bold' : ''}>
+                          <span className={isChecked ? 'text-amber-600 font-bold' : ''}>
                             {option.label}
                           </span>
                         </label>
@@ -340,13 +340,13 @@ export default function Store() {
             {loading ? (
               <div className={`grid gap-3 sm:gap-5 lg:gap-6 grid-cols-2 ${isSidebarOpen ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}>
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="bg-zinc-950 rounded-2xl overflow-hidden border border-zinc-800/80">
+                  <div key={i} className="bg-white rounded-2xl overflow-hidden border border-zinc-200/80">
                     <div className="aspect-square w-full skeleton-shimmer" />
                     <div className="p-3 sm:p-5 space-y-3">
                       <div className="h-2.5 w-1/3 rounded skeleton-shimmer" />
                       <div className="h-4 w-3/4 rounded skeleton-shimmer" />
                       <div className="h-3 w-1/2 rounded skeleton-shimmer" />
-                      <div className="flex items-center justify-between pt-3 border-t border-zinc-800/80">
+                      <div className="flex items-center justify-between pt-3 border-t border-zinc-200/80">
                         <div className="h-5 w-16 rounded skeleton-shimmer" />
                         <div className="h-8 w-16 rounded-xl skeleton-shimmer" />
                       </div>
@@ -365,9 +365,9 @@ export default function Store() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-24 bg-zinc-950 border border-zinc-900 rounded-3xl shadow-xl">
-                <p className="text-xl font-extrabold text-white mb-2">No Products Found</p>
-                <p className="text-xs text-zinc-400 mb-6">Try clearing or adjusting your filter criteria.</p>
+              <div className="text-center py-24 bg-white border border-zinc-200 rounded-3xl shadow-xl">
+                <p className="text-xl font-extrabold text-zinc-900 mb-2">No Products Found</p>
+                <p className="text-xs text-zinc-500 mb-6">Try clearing or adjusting your filter criteria.</p>
                 <button
                   type="button"
                   onClick={clearAllFilters}
@@ -385,7 +385,7 @@ export default function Store() {
                   type="button"
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 text-white disabled:opacity-40 hover:bg-amber-400 hover:text-black transition flex items-center justify-center font-bold cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 disabled:opacity-40 hover:bg-amber-400 hover:text-black transition flex items-center justify-center font-bold cursor-pointer"
                 >
                   ❮
                 </button>
@@ -400,7 +400,7 @@ export default function Store() {
                       className={`w-10 h-10 rounded-xl font-extrabold text-xs transition cursor-pointer ${
                         currentPage === pageNum
                           ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20'
-                          : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white'
+                          : 'bg-zinc-100 border border-zinc-200 text-zinc-500 hover:text-zinc-900'
                       }`}
                     >
                       {pageNum}
@@ -412,7 +412,7 @@ export default function Store() {
                   type="button"
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 text-white disabled:opacity-40 hover:bg-amber-400 hover:text-black transition flex items-center justify-center font-bold cursor-pointer"
+                  className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 disabled:opacity-40 hover:bg-amber-400 hover:text-black transition flex items-center justify-center font-bold cursor-pointer"
                 >
                   ❯
                 </button>
@@ -426,16 +426,16 @@ export default function Store() {
       {isMobileFilterOpen && (
         <div className="fixed inset-0 z-50 md:hidden flex flex-col justify-end">
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-white/80 backdrop-blur-sm"
             onClick={() => setIsMobileFilterOpen(false)}
           />
-          <div className="relative bg-zinc-950 border-t border-zinc-800 rounded-t-3xl p-6 max-h-[85vh] overflow-y-auto z-10 animate-slideUp">
-            <div className="flex justify-between items-center pb-4 border-b border-zinc-800 mb-6">
-              <h2 className="text-base font-black text-white">Filters & Sorting</h2>
+          <div className="relative bg-white border-t border-zinc-200 rounded-t-3xl p-6 max-h-[85vh] overflow-y-auto z-10 animate-slideUp">
+            <div className="flex justify-between items-center pb-4 border-b border-zinc-200 mb-6">
+              <h2 className="text-base font-black text-zinc-900">Filters & Sorting</h2>
               <button
                 type="button"
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="text-zinc-400 hover:text-white p-1 cursor-pointer"
+                className="text-zinc-500 hover:text-zinc-900 p-1 cursor-pointer"
               >
                 <X size={20} />
               </button>
@@ -444,7 +444,7 @@ export default function Store() {
             {/* Mobile Categories & Price Facets */}
             {filterSections.map(section => (
               <div key={section.id} className="mb-6">
-                <h3 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-3">
+                <h3 className="text-xs font-black uppercase tracking-wider text-amber-600 mb-3">
                   {section.name}
                 </h3>
                 <div className="space-y-2">
@@ -453,15 +453,15 @@ export default function Store() {
                     return (
                       <label
                         key={option.value}
-                        className="flex items-center gap-3 text-xs text-zinc-300 py-1.5 cursor-pointer font-medium"
+                        className="flex items-center gap-3 text-xs text-zinc-600 py-1.5 cursor-pointer font-medium"
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => handleFilterToggle(section.id, option.value)}
-                          className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 accent-amber-400 cursor-pointer"
+                          className="w-4 h-4 rounded border-zinc-300 bg-zinc-100 accent-amber-400 cursor-pointer"
                         />
-                        <span className={isChecked ? 'text-amber-400 font-bold' : ''}>
+                        <span className={isChecked ? 'text-amber-600 font-bold' : ''}>
                           {option.label}
                         </span>
                       </label>
@@ -471,11 +471,11 @@ export default function Store() {
               </div>
             ))}
 
-            <div className="flex gap-4 pt-4 border-t border-zinc-800">
+            <div className="flex gap-4 pt-4 border-t border-zinc-200">
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="flex-1 py-3.5 border border-zinc-700 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-300 cursor-pointer"
+                className="flex-1 py-3.5 border border-zinc-300 rounded-xl text-xs font-bold uppercase tracking-wider text-zinc-600 cursor-pointer"
               >
                 Clear All
               </button>

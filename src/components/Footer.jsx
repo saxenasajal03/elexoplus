@@ -131,7 +131,7 @@ export default function Footer() {
 
       {/* Bottom Legal & Copyright Bar */}
       <div className="max-w-7xl mx-auto mt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500">
-        <p>© 2026 Elexo Plus India Private Limited. All rights reserved.</p>
+        <p>© 2026 ElexoPlus India Private Limited. All rights reserved.</p>
         <p className="text-center md:text-right">
           CIN No.: U47594RJ2025PTC101772 | Udyam Reg.: UDYAM-RJ-37-0005128
         </p>

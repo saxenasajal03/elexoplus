@@ -59,16 +59,16 @@ function ApplyModal({ job, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
-        <button type="button" onClick={onClose} className="absolute top-5 right-5 text-zinc-500 hover:text-white cursor-pointer">
+    <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white border border-zinc-200 rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+        <button type="button" onClick={onClose} className="absolute top-5 right-5 text-zinc-500 hover:text-zinc-900 cursor-pointer">
           <X size={20} />
         </button>
-        <h3 className="text-xl font-black text-white">Apply — {job.title}</h3>
+        <h3 className="text-xl font-black text-zinc-900">Apply — {job.title}</h3>
         <p className="text-xs text-zinc-500 mt-1">{job.department} · {job.location}</p>
 
         {status ? (
-          <p className="text-amber-400 font-semibold text-sm mt-8">{status}</p>
+          <p className="text-amber-600 font-semibold text-sm mt-8">{status}</p>
         ) : (
           <form onSubmit={submit} noValidate className="space-y-4 mt-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -114,7 +114,7 @@ export default function Careers() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
       <PageHero
         eyebrow="Careers"
         title="Build the Future of Home Appliances With Us"
@@ -126,13 +126,13 @@ export default function Careers() {
           <p className="text-center text-zinc-500 text-sm">No open positions right now — check back soon.</p>
         )}
         {jobs.map((job, idx) => (
-          <div key={job.id ?? idx} className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 hover:border-amber-400/40 transition-colors flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div key={job.id ?? idx} className="bg-white border border-zinc-200 rounded-2xl p-6 hover:border-amber-400/40 transition-colors flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h3 className="text-white font-extrabold text-lg">{job.title}</h3>
-              <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-zinc-400">
-                <span className="flex items-center gap-1.5"><Briefcase size={14} className="text-amber-400" /> {job.department}</span>
-                <span className="flex items-center gap-1.5"><MapPin size={14} className="text-amber-400" /> {job.location}</span>
-                <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-400" /> {job.type} · {job.experience}</span>
+              <h3 className="text-zinc-900 font-extrabold text-lg">{job.title}</h3>
+              <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-zinc-500">
+                <span className="flex items-center gap-1.5"><Briefcase size={14} className="text-amber-600" /> {job.department}</span>
+                <span className="flex items-center gap-1.5"><MapPin size={14} className="text-amber-600" /> {job.location}</span>
+                <span className="flex items-center gap-1.5"><Clock size={14} className="text-amber-600" /> {job.type} · {job.experience}</span>
               </div>
               <p className="text-zinc-500 text-xs mt-3 leading-relaxed max-w-xl">{job.description}</p>
             </div>

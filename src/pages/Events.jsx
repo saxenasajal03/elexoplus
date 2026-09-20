@@ -13,7 +13,7 @@ export default function Events() {
   const sorted = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
       <PageHero
         eyebrow="Events"
         title="Dealer Meets, Launches & Expos"
@@ -25,7 +25,7 @@ export default function Events() {
           const d = new Date(ev.date);
           const upcoming = d >= new Date();
           return (
-            <div key={ev.id ?? idx} className="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden hover:border-amber-400/40 transition-colors flex flex-col md:flex-row">
+            <div key={ev.id ?? idx} className="bg-white border border-zinc-200 rounded-2xl overflow-hidden hover:border-amber-400/40 transition-colors flex flex-col md:flex-row">
               <div className="md:w-64 shrink-0 aspect-video md:aspect-auto">
                 <img
                   src={ev.image}
@@ -36,15 +36,15 @@ export default function Events() {
               </div>
               <div className="p-6 flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full ${upcoming ? 'bg-amber-400/10 text-amber-400 border border-amber-400/20' : 'bg-zinc-800 text-zinc-500'}`}>
+                  <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full ${upcoming ? 'bg-amber-400/10 text-amber-600 border border-amber-400/20' : 'bg-zinc-200 text-zinc-500'}`}>
                     {upcoming ? 'Upcoming' : 'Past'}
                   </span>
                   <span className="text-[10px] text-zinc-500 flex items-center gap-1"><Tag size={11} /> {ev.type}</span>
                 </div>
-                <h3 className="text-white font-extrabold text-lg">{ev.title}</h3>
-                <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-zinc-400">
-                  <span className="flex items-center gap-1.5"><Calendar size={13} className="text-amber-400" /> {d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-                  <span className="flex items-center gap-1.5"><MapPin size={13} className="text-amber-400" /> {ev.location}</span>
+                <h3 className="text-zinc-900 font-extrabold text-lg">{ev.title}</h3>
+                <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-zinc-500">
+                  <span className="flex items-center gap-1.5"><Calendar size={13} className="text-amber-600" /> {d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                  <span className="flex items-center gap-1.5"><MapPin size={13} className="text-amber-600" /> {ev.location}</span>
                 </div>
                 <p className="text-zinc-500 text-xs mt-3 leading-relaxed">{ev.description}</p>
               </div>

@@ -55,7 +55,7 @@ export default function TrackOrder() {
   const currentStepIndex = order ? Math.max(0, relevantSteps.indexOf(order.status)) : -1;
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black">
       <PageHero
         eyebrow="Track Order"
         title="Where's My Order?"
@@ -63,14 +63,14 @@ export default function TrackOrder() {
       />
 
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
-        <form onSubmit={handleTrack} noValidate className="bg-zinc-950 border border-zinc-800 rounded-2xl p-5 sm:p-6 space-y-4">
+        <form onSubmit={handleTrack} noValidate className="bg-white border border-zinc-200 rounded-2xl p-5 sm:p-6 space-y-4">
           <input
             type="text"
             required
             placeholder="Order ID / Reference (e.g. COD-9F3A1B2C or order_Nxy...)"
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full bg-zinc-100 border border-zinc-200 rounded-xl px-4 py-3.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
           />
           <input
             type="text"
@@ -78,7 +78,7 @@ export default function TrackOrder() {
             placeholder="Registered Email or Phone Number"
             value={verify}
             onChange={(e) => setVerify(e.target.value)}
-            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full bg-zinc-100 border border-zinc-200 rounded-xl px-4 py-3.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-400"
           />
           <button
             type="submit"
@@ -89,16 +89,16 @@ export default function TrackOrder() {
           </button>
         </form>
 
-        {error && <p className="text-rose-400 text-sm mt-5 text-center">{error}</p>}
+        {error && <p className="text-rose-600 text-sm mt-5 text-center">{error}</p>}
 
         {order && (
-          <div className="mt-8 bg-zinc-950 border border-zinc-800 rounded-2xl p-5 sm:p-6">
+          <div className="mt-8 bg-white border border-zinc-200 rounded-2xl p-5 sm:p-6">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div>
                 <p className="text-xs text-zinc-500">Order</p>
-                <p className="text-white font-extrabold text-lg font-mono break-all">{order.order_ref}</p>
+                <p className="text-zinc-900 font-extrabold text-lg font-mono break-all">{order.order_ref}</p>
               </div>
-              <span className="bg-amber-400/10 text-amber-400 border border-amber-400/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase shrink-0">
+              <span className="bg-amber-400/10 text-amber-600 border border-amber-400/20 px-3 py-1.5 rounded-full text-xs font-bold uppercase shrink-0">
                 {order.status}
               </span>
             </div>
@@ -108,37 +108,37 @@ export default function TrackOrder() {
               {relevantSteps.map((step, idx) => (
                 <div key={step} className="flex-1 flex flex-col items-center relative">
                   {idx > 0 && (
-                    <div className={`absolute top-3 -left-1/2 w-full h-0.5 ${idx <= currentStepIndex ? 'bg-amber-400' : 'bg-zinc-800'}`} />
+                    <div className={`absolute top-3 -left-1/2 w-full h-0.5 ${idx <= currentStepIndex ? 'bg-amber-400' : 'bg-zinc-200'}`} />
                   )}
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center z-10 ${idx <= currentStepIndex ? 'bg-amber-400 text-black' : 'bg-zinc-800 text-zinc-500'}`}>
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center z-10 ${idx <= currentStepIndex ? 'bg-amber-400 text-black' : 'bg-zinc-200 text-zinc-500'}`}>
                     {idx <= currentStepIndex ? <CheckCircle2 size={14} /> : <span className="text-[10px]">{idx + 1}</span>}
                   </div>
-                  <span className={`text-[9px] sm:text-[10px] mt-2 font-bold uppercase tracking-wide text-center ${idx <= currentStepIndex ? 'text-amber-400' : 'text-zinc-600'}`}>{step}</span>
+                  <span className={`text-[9px] sm:text-[10px] mt-2 font-bold uppercase tracking-wide text-center ${idx <= currentStepIndex ? 'text-amber-600' : 'text-zinc-600'}`}>{step}</span>
                 </div>
               ))}
             </div>
 
             {/* Payment summary */}
-            <div className="mt-6 pt-5 border-t border-zinc-800 grid grid-cols-3 gap-3 text-center">
+            <div className="mt-6 pt-5 border-t border-zinc-200 grid grid-cols-3 gap-3 text-center">
               <div>
                 <p className="text-[10px] text-zinc-500 uppercase">Order Total</p>
-                <p className="text-sm font-bold text-white mt-0.5">{formatINR(order.full_amount)}</p>
+                <p className="text-sm font-bold text-zinc-900 mt-0.5">{formatINR(order.full_amount)}</p>
               </div>
               <div>
                 <p className="text-[10px] text-zinc-500 uppercase">Paid</p>
-                <p className="text-sm font-bold text-emerald-400 mt-0.5">{formatINR(order.advance_paid)}</p>
+                <p className="text-sm font-bold text-emerald-600 mt-0.5">{formatINR(order.advance_paid)}</p>
               </div>
               <div>
                 <p className="text-[10px] text-zinc-500 uppercase">Due on Delivery</p>
-                <p className="text-sm font-bold text-amber-400 mt-0.5">{formatINR(order.cod_due)}</p>
+                <p className="text-sm font-bold text-amber-600 mt-0.5">{formatINR(order.cod_due)}</p>
               </div>
             </div>
 
             {items.length > 0 && (
-              <div className="mt-6 pt-5 border-t border-zinc-800 space-y-2">
+              <div className="mt-6 pt-5 border-t border-zinc-200 space-y-2">
                 {items.map((item, idx) => (
                   <div key={idx} className="flex justify-between text-xs">
-                    <span className="text-zinc-300">{item.name || 'Product'} × {item.quantity}</span>
+                    <span className="text-zinc-600">{item.name || 'Product'} × {item.quantity}</span>
                     <span className="text-zinc-500">{formatINR(item.price_at_purchase * item.quantity)}</span>
                   </div>
                 ))}
@@ -147,25 +147,25 @@ export default function TrackOrder() {
 
             {order.tracking_id && (
               <p className="text-xs text-zinc-500 text-center mt-5">
-                AWB / Tracking ID: <span className="text-zinc-300 font-mono">{order.tracking_id}</span> ({order.courier || 'Delhivery'})
+                AWB / Tracking ID: <span className="text-zinc-600 font-mono">{order.tracking_id}</span> ({order.courier || 'Delhivery'})
               </p>
             )}
 
             {courierUnavailable && (
               <div className="mt-5 bg-amber-500/5 border border-amber-500/30 rounded-xl px-4 py-3 flex items-start gap-2">
-                <AlertTriangle size={15} className="text-amber-400 shrink-0 mt-0.5" />
-                <p className="text-xs text-zinc-300">
+                <AlertTriangle size={15} className="text-amber-600 shrink-0 mt-0.5" />
+                <p className="text-xs text-zinc-600">
                   Live courier status is temporarily unavailable. Your order status above is still accurate — please check back shortly for shipment scans.
                 </p>
               </div>
             )}
 
             {scans.length > 0 && (
-              <div className="mt-6 pt-5 border-t border-zinc-800 space-y-4">
-                <h4 className="text-white font-bold text-sm flex items-center gap-2"><PackageSearch size={16} className="text-amber-400" /> Shipment History</h4>
+              <div className="mt-6 pt-5 border-t border-zinc-200 space-y-4">
+                <h4 className="text-zinc-900 font-bold text-sm flex items-center gap-2"><PackageSearch size={16} className="text-amber-600" /> Shipment History</h4>
                 {scans.map((s, idx) => (
                   <div key={idx} className="border-l-2 border-amber-400/40 pl-4 py-0.5">
-                    <p className="font-bold text-xs text-amber-400">{s.detail || s.status}</p>
+                    <p className="font-bold text-xs text-amber-600">{s.detail || s.status}</p>
                     <p className="text-[11px] text-zinc-500">{s.location} — {s.time ? new Date(s.time).toLocaleString('en-IN') : ''}</p>
                   </div>
                 ))}

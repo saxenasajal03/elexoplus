@@ -111,18 +111,18 @@ export default function WarrantyRegistration() {
 
   if (result) {
     return (
-      <div className="min-h-screen bg-black text-slate-100 font-sans flex items-center justify-center px-4 py-24">
-        <div className="max-w-md w-full bg-zinc-950 border border-emerald-500/30 rounded-3xl p-8 sm:p-10 text-center">
-          <CheckCircle2 size={44} className="text-emerald-400 mx-auto mb-5" />
-          <h2 className="text-xl font-extrabold text-white">Warranty Registered</h2>
-          <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
+      <div className="min-h-screen bg-white text-slate-100 font-sans flex items-center justify-center px-4 py-24">
+        <div className="max-w-md w-full bg-white border border-emerald-500/30 rounded-3xl p-8 sm:p-10 text-center">
+          <CheckCircle2 size={44} className="text-emerald-600 mx-auto mb-5" />
+          <h2 className="text-xl font-extrabold text-zinc-900">Warranty Registered</h2>
+          <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
             Your product warranty has been activated and linked to serial{' '}
-            <span className="text-white font-mono break-all">{form.serial_no}</span>.
+            <span className="text-zinc-900 font-mono break-all">{form.serial_no}</span>.
           </p>
           {(result.warranty_start || result.warranty_end) && (
-            <div className="mt-6 bg-zinc-900 border border-zinc-800 rounded-xl p-4 grid grid-cols-2 gap-3 text-xs">
-              <div><p className="text-zinc-500">Valid From</p><p className="text-white font-bold mt-0.5">{result.warranty_start || '—'}</p></div>
-              <div><p className="text-zinc-500">Valid Until</p><p className="text-white font-bold mt-0.5">{result.warranty_end || '—'}</p></div>
+            <div className="mt-6 bg-zinc-100 border border-zinc-200 rounded-xl p-4 grid grid-cols-2 gap-3 text-xs">
+              <div><p className="text-zinc-500">Valid From</p><p className="text-zinc-900 font-bold mt-0.5">{result.warranty_start || '—'}</p></div>
+              <div><p className="text-zinc-500">Valid Until</p><p className="text-zinc-900 font-bold mt-0.5">{result.warranty_end || '—'}</p></div>
             </div>
           )}
           <p className="text-xs text-zinc-500 mt-5">A confirmation has been sent to {form.customer_email}.</p>
@@ -132,10 +132,10 @@ export default function WarrantyRegistration() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-amber-400 selection:text-black pt-28 md:pt-36 pb-20 px-4 sm:px-6">
+    <div className="min-h-screen bg-white text-slate-100 font-sans selection:bg-amber-400 selection:text-black pt-28 md:pt-36 pb-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-black text-amber-400 tracking-tight">Product Warranty</h1>
-        <p className="text-zinc-400 text-sm mt-2">Register your purchase to activate protection.</p>
+        <h1 className="text-3xl sm:text-4xl font-black text-amber-600 tracking-tight">Product Warranty</h1>
+        <p className="text-zinc-500 text-sm mt-2">Register your purchase to activate protection.</p>
 
         <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
           <SelectField
@@ -155,7 +155,7 @@ export default function WarrantyRegistration() {
             ]}
           />
           {!productsLoading && products.length === 0 && (
-            <p className="text-amber-400/80 text-[11px] -mt-3">
+            <p className="text-amber-600/80 text-[11px] -mt-3">
               Product list is temporarily unavailable. You can still register using your serial number —
               our team will match the product manually.
             </p>
@@ -189,17 +189,17 @@ export default function WarrantyRegistration() {
           )}
           {serialStatus === 'verified' && verifiedProduct && (
             <div className="-mt-2 bg-emerald-500/5 border border-emerald-500/30 rounded-xl px-4 py-3 flex items-start gap-2">
-              <PackageCheck size={15} className="text-emerald-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-zinc-300">
-                Verified genuine — <span className="text-white font-bold">{verifiedProduct.product_name}</span>
+              <PackageCheck size={15} className="text-emerald-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-zinc-600">
+                Verified genuine — <span className="text-zinc-900 font-bold">{verifiedProduct.product_name}</span>
                 {verifiedProduct.model ? ` (${verifiedProduct.model})` : ''}
               </p>
             </div>
           )}
           {serialStatus === 'unverified' && (
             <div className="-mt-2 bg-rose-500/5 border border-rose-500/30 rounded-xl px-4 py-3 flex items-start gap-2">
-              <AlertCircle size={15} className="text-rose-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-zinc-300">
+              <AlertCircle size={15} className="text-rose-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-zinc-600">
                 We couldn't find this serial in our records. Please double-check it — if you're confident
                 it's correct, continue and our team will verify it against your invoice.
               </p>
@@ -207,8 +207,8 @@ export default function WarrantyRegistration() {
           )}
           {serialStatus === 'unavailable' && (
             <div className="-mt-2 bg-amber-500/5 border border-amber-500/30 rounded-xl px-4 py-3 flex items-start gap-2">
-              <AlertCircle size={15} className="text-amber-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-zinc-300">
+              <AlertCircle size={15} className="text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-zinc-600">
                 Our verification service is temporarily unreachable, so we couldn't confirm this serial
                 right now. You can still continue — we'll verify it when processing your registration.
               </p>
@@ -282,7 +282,7 @@ export default function WarrantyRegistration() {
 
           {submitError && (
             <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-3 flex items-start gap-2">
-              <AlertCircle size={14} className="text-rose-400 shrink-0 mt-0.5" />
+              <AlertCircle size={14} className="text-rose-600 shrink-0 mt-0.5" />
               <p className="text-rose-300 text-xs">{submitError}</p>
             </div>
           )}

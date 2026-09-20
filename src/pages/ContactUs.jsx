@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PulsingBackground from '../components/PulsingBackground';
 import { ENDPOINTS } from '../data/siteContent';
 
 export default function ContactUs() {
@@ -43,19 +42,18 @@ export default function ContactUs() {
   return (
     <>
       {/* Background Orbs Animation */}
-      <PulsingBackground />
 
       {/* Main Content Wrapper */}
-      <div className="relative z-10 min-h-screen bg-transparent text-gray-200 p-4 md:p-8 pt-24 md:pt-32 font-sans pb-20">
+      <div className="relative z-10 min-h-screen bg-transparent text-gray-700 p-4 md:p-8 pt-24 md:pt-32 font-sans pb-20">
         <div className="container mx-auto max-w-6xl">
           
           {/* Top Hero Banner */}
-          <div className="w-full max-w-5xl text-center mx-auto mb-16 md:my-16 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-gray-700/50 shadow-lg">
+          <div className="w-full max-w-5xl text-center mx-auto mb-16 md:my-16 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-gray-300/50 shadow-lg">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">
               We're Here to Help
             </h1>
-            <p className="text-base md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Your satisfaction is our priority at Elexoplus. Whether you're looking for product information, need technical assistance, or have feedback to share, we value your input. Please don't hesitate to connect with us – we're just a message or call away!
+            <p className="text-base md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Your satisfaction is our priority at ElexoPlus. Whether you're looking for product information, need technical assistance, or have feedback to share, we value your input. Please don't hesitate to connect with us – we're just a message or call away!
             </p>
             <button
               type="button"
@@ -68,7 +66,7 @@ export default function ContactUs() {
 
           {/* Section Header */}
           <div className="border-b-2 border-white/40 mb-8 w-max">
-            <h2 className="text-3xl font-bold text-white mb-2 pr-7 md:pr-10">
+            <h2 className="text-3xl font-bold text-zinc-900 mb-2 pr-7 md:pr-10">
               Find Us
             </h2>
           </div>
@@ -93,7 +91,7 @@ export default function ContactUs() {
 
             {/* Column 2: Form */}
             <div id="contact-form-section" className="p-0 order-1 md:order-2">
-              <h2 className="text-3xl font-light text-gray-100 mb-8 text-center md:text-left">
+              <h2 className="text-3xl font-light text-gray-800 mb-8 text-center md:text-left">
                 We're Just a Message Away
               </h2>
 
@@ -106,7 +104,7 @@ export default function ContactUs() {
                     placeholder="Name"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full p-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
                   />
                 </div>
 
@@ -118,7 +116,7 @@ export default function ContactUs() {
                     placeholder="Contact"
                     value={form.contact}
                     onChange={(e) => setForm({ ...form, contact: e.target.value })}
-                    className="w-full p-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
                   />
                 </div>
 
@@ -130,7 +128,7 @@ export default function ContactUs() {
                     placeholder="Email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full p-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
                   />
                 </div>
 
@@ -142,7 +140,7 @@ export default function ContactUs() {
                     placeholder="Message"
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full p-4 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
                   ></textarea>
                 </div>
 

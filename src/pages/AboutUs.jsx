@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import PulsingBackground from '../components/PulsingBackground';
 
 // Custom SVG Icons
 const InnovationIcon = ({ className = "w-10 h-10" }) => (
@@ -27,15 +26,14 @@ export default function AboutUs() {
   return (
     <>
       {/* Background Orbs Animation */}
-      <PulsingBackground />
 
       {/* Main Content Container */}
-      <div className="relative z-10 min-h-screen bg-transparent text-gray-200 p-4 md:p-8 pt-24 md:pt-32 font-sans">
+      <div className="relative z-10 min-h-screen bg-transparent text-gray-700 p-4 md:p-8 pt-24 md:pt-32 font-sans">
         <div className="container mx-auto max-w-5xl space-y-20 md:space-y-24">
 
           {/* Hero Section */}
           <div className="text-center animate-fadeInSlideUp">
-            <p className="fancy-underline text-lg md:text-xl text-gray-300 uppercase tracking-widest mb-6">
+            <p className="fancy-underline text-lg md:text-xl text-gray-600 uppercase tracking-widest mb-6">
               ABOUT US
             </p>
             <h1 className="text-4xl md:text-6xl font-extrabold text-yellow mb-4 text-glow-yellow">
@@ -44,9 +42,9 @@ export default function AboutUs() {
           </div>
 
           {/* Our Story Section */}
-          <div className="backdrop-blur-md bg-opacity-70 p-8 md:p-12 rounded-2xl border border-gray-700/50 shadow-lg animate-fadeInSlideUp animate-delay-200">
-            <h2 className="text-3xl font-bold text-white mb-6">Our Journey</h2>
-            <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
+          <div className="backdrop-blur-md bg-opacity-70 p-8 md:p-12 rounded-2xl border border-gray-300/50 shadow-lg animate-fadeInSlideUp animate-delay-200">
+            <h2 className="text-3xl font-bold text-zinc-900 mb-6">Our Journey</h2>
+            <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
               <p>
                 Our journey began in 1996 with the founding of Oswal Electric & Electronic, originally known as Nakoda Traders, by the late Shri Baleshwar Kumar Jain and Mr. Rohit Kumar Jain. From our humble beginnings as traders specializing in heating appliance spare parts, we swiftly garnered a reputation for reliability and excellence throughout Rajasthan.
               </p>
@@ -73,7 +71,7 @@ export default function AboutUs() {
             {/* Our Mission Card */}
             <div className="backdrop-blur-md bg-opacity-70 p-8 rounded-2xl border border-yellow-400/30 shadow-lg">
               <h2 className="text-3xl font-bold text-yellow mb-4">OUR MISSION</h2>
-              <ul className="space-y-4 text-gray-300 text-lg list-disc list-inside">
+              <ul className="space-y-4 text-gray-600 text-lg list-disc list-inside">
                 <li>
                   We will strive to become leading manufacturers of Home Appliances products by Consistently raising the standards in product utility, innovation and durability.
                 </li>
@@ -87,9 +85,9 @@ export default function AboutUs() {
             </div>
 
             {/* Our Vision Card */}
-            <div className="backdrop-blur-md bg-opacity-70 p-8 rounded-2xl border border-gray-700 shadow-lg">
+            <div className="backdrop-blur-md bg-opacity-70 p-8 rounded-2xl border border-gray-300 shadow-lg">
               <h2 className="text-3xl font-bold text-yellow mb-4">OUR VISION</h2>
-              <ul className="space-y-4 text-gray-300 text-lg list-disc list-inside">
+              <ul className="space-y-4 text-gray-600 text-lg list-disc list-inside">
                 <li>
                   To provide consumer new innovation, technology, best product quality, service at affordable price.
                 </li>
@@ -102,43 +100,43 @@ export default function AboutUs() {
 
           {/* Core Values Section */}
           <div className="animate-fadeInSlideUp animate-delay-600">
-            <h2 className="text-4xl font-bold text-center text-white mb-16">
+            <h2 className="text-4xl font-bold text-center text-zinc-900 mb-16">
               Our Core <span className="text-yellow-400">Values</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {/* Value 1: Innovation */}
               <div className="text-center p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center w-20 h-20 bg-gray-800 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
+                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
                   <InnovationIcon className="w-10 h-10 text-yellow-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Innovation</h3>
-                <p className="text-gray-400">Constantly pushing boundaries and challenging the status quo.</p>
+                <h3 className="text-2xl font-bold text-zinc-900 mb-2">Innovation</h3>
+                <p className="text-gray-500">Constantly pushing boundaries and challenging the status quo.</p>
               </div>
 
               {/* Value 2: Integrity */}
               <div className="text-center p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center w-20 h-20 bg-gray-800 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
+                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
                   <IntegrityIcon className="w-10 h-10 text-yellow-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Integrity</h3>
-                <p className="text-gray-400">Doing the right thing, always. Our business is built on trust.</p>
+                <h3 className="text-2xl font-bold text-zinc-900 mb-2">Integrity</h3>
+                <p className="text-gray-500">Doing the right thing, always. Our business is built on trust.</p>
               </div>
 
               {/* Value 3: Quality */}
               <div className="text-center p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center w-20 h-20 bg-gray-800 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
+                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
                   <QualityIcon className="w-10 h-10 text-yellow-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Quality</h3>
-                <p className="text-gray-400">Unwavering commitment to exceptional products and service.</p>
+                <h3 className="text-2xl font-bold text-zinc-900 mb-2">Quality</h3>
+                <p className="text-gray-500">Unwavering commitment to exceptional products and service.</p>
               </div>
             </div>
           </div>
 
           {/* Call to Action Section */}
           <div className="backdrop-blur-md bg-opacity-70 text-center p-10 md:p-16 rounded-2xl border border-yellow-400/30 shadow-lg animate-fadeInSlideUp animate-delay-800">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to build the future together?</h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4">Ready to build the future together?</h2>
+            <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
               We're always looking for passionate partners and brilliant minds. Let's connect.
             </p>
             <button 

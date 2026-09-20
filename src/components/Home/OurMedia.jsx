@@ -23,11 +23,11 @@ export default function OurMedia() {
           <div className="flex items-center gap-3">
             <span className="w-6 h-1 bg-amber-400 rounded-full" />
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Our Media</h2>
+              <h2 className="text-xl sm:text-2xl font-black text-zinc-900 tracking-tight">Our Media</h2>
               <p className="text-zinc-500 text-xs mt-0.5">Watch, learn & get inspired</p>
             </div>
           </div>
-          <Link to="/gallery" className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1 shrink-0">
+          <Link to="/gallery" className="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1 shrink-0">
             View All <ArrowRight size={13} />
           </Link>
         </div>
@@ -36,7 +36,7 @@ export default function OurMedia() {
           {/* Video card */}
           <Link
             to="/gallery"
-            className="group relative aspect-video rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 block"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-zinc-200 bg-white block"
           >
             <img
               src="/assets/heating-Cimz2wTQ.png"
@@ -49,16 +49,16 @@ export default function OurMedia() {
             </span>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-14 h-14 rounded-full bg-white/15 border border-white/30 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-400 transition-all">
-                <Play size={20} className="text-white group-hover:text-black fill-current ml-0.5" />
+                <Play size={20} className="text-zinc-900 group-hover:text-black fill-current ml-0.5" />
               </div>
             </div>
             <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-white font-bold text-sm">The Technology Behind Better Living</p>
+              <p className="text-zinc-900 font-bold text-sm">The Technology Behind Better Living</p>
             </div>
           </Link>
 
           {/* Image carousel */}
-          <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950">
+          <div className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-200 bg-white">
             {CAROUSEL_IMAGES.map((img, i) => (
               <img
                 key={img.id}
@@ -76,7 +76,7 @@ export default function OurMedia() {
               type="button"
               onClick={prev}
               aria-label="Previous image"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center transition cursor-pointer"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/50 hover:bg-amber-400 hover:text-black text-zinc-900 flex items-center justify-center transition cursor-pointer"
             >
               <ChevronLeft size={16} />
             </button>
@@ -84,7 +84,7 @@ export default function OurMedia() {
               type="button"
               onClick={next}
               aria-label="Next image"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/50 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center transition cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/50 hover:bg-amber-400 hover:text-black text-zinc-900 flex items-center justify-center transition cursor-pointer"
             >
               <ChevronRight size={16} />
             </button>
