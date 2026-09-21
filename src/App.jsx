@@ -34,6 +34,8 @@ import Events from './pages/Events';
 import TrackOrder from './pages/TrackOrder';
 import ProductAuthentication from './pages/ProductAuthentication';
 import ComplaintRegistration from './pages/ComplaintRegistration';
+import RaiseTicket from './pages/RaiseTicket';
+import MyTickets from './pages/MyTickets';
 import ServiceCenters from './pages/ServiceCenters';
 import BulkEnquiry from './pages/BulkEnquiry';
 import OEMEnquiry from './pages/OEMEnquiry';
@@ -82,6 +84,8 @@ export default function App() {
             <Route path="/track-order" element={<TrackOrder />} />
             <Route path="/product-authentication" element={<ProductAuthentication />} />
             <Route path="/complaint-registration" element={<ComplaintRegistration />} />
+            <Route path="/raise-ticket" element={<RaiseTicket />} />
+            <Route path="/my-tickets" element={<MyTickets />} />
             <Route path="/service-centers" element={<ServiceCenters />} />
 
             {/* Enquiries */}

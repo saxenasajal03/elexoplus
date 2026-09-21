@@ -126,12 +126,12 @@ export default function Checkout() {
         </Link>
         <h1 className="text-2xl md:text-3xl font-black mb-8">Checkout</h1>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="lg:col-span-2 space-y-6 lg:space-y-8 min-w-0">
             {/* Step 1 — Delivery Address */}
             <section>
               <h2 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 mb-4 flex items-center gap-2">
-                <MapPin size={16} className="text-amber-600" /> 1. Delivery Address
+                <MapPin size={16} className="text-amber-600 shrink-0" /> 1. Delivery Address
               </h2>
               <AddressBook mode="select" selectedId={selectedAddress?.id} onSelect={setSelectedAddress} />
             </section>
@@ -139,14 +139,15 @@ export default function Checkout() {
             {/* Step 2 — Payment Method */}
             <section>
               <h2 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 mb-4 flex items-center gap-2">
-                <ShieldCheck size={16} className="text-amber-600" /> 2. Payment Method
+                <ShieldCheck size={16} className="text-amber-600 shrink-0" /> 2. Payment Method
               </h2>
               <PaymentModeSelector settings={settings} selected={selectedMode} onSelect={setSelectedMode} total={total} />
             </section>
           </div>
 
-          {/* Order Summary */}
-          <div className="bg-white border border-zinc-200 rounded-2xl p-6 h-fit sticky top-32">
+          {/* Order Summary — sticky on desktop only; flows normally in the
+              mobile stack instead of floating oddly over one-column content */}
+          <div className="bg-white border border-zinc-200 rounded-2xl p-5 sm:p-6 h-fit lg:sticky lg:top-32 min-w-0">
             <h2 className="text-lg font-extrabold mb-4">Order Summary</h2>
 
             {savings > 0 && (

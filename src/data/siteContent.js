@@ -57,6 +57,9 @@ export const ENDPOINTS = {
   productAuthentication: `${API_BASE}/support/product-authentication.php`,
   complaint: `${API_BASE}/support/complaint.php`,
   enquiry: `${API_BASE}/support/enquiry.php`,
+  tickets: `${API_BASE}/support/tickets.php`,
+  ticketReply: `${API_BASE}/support/ticket-reply.php`,
+  ticketUpload: `${API_BASE}/support/ticket-upload.php`,
 
   // cms
   cmsContent: `${API_BASE}/cms/content.php`,

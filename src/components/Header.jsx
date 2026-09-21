@@ -9,7 +9,8 @@ import {
   ChevronDown, Search, ShoppingCart, User, Menu, X,
   Building2, Users, Image as ImageIcon, FileText, Newspaper,
   CalendarDays, MapPin, Briefcase, LandPlot, LifeBuoy, PackageSearch,
-  ShieldCheck, MessageSquareWarning, Wrench, ArrowRight
+  ShieldCheck, MessageSquareWarning, Wrench, ArrowRight,
+  Package, UserCircle, ShoppingBag, LogOut, Ticket, ChevronRight
 } from 'lucide-react';
 
 // ---------------------------------------------------------------------------
@@ -39,6 +40,8 @@ const supportMenu = [
   { to: '/warranty-registration', label: 'Warranty Registration', icon: ShieldCheck, desc: 'Activate product warranty' },
   { to: '/product-authentication', label: 'Product Authentication', icon: ShieldCheck, desc: 'Verify serial / QR code' },
   { to: '/complaint-registration', label: 'Register a Complaint', icon: MessageSquareWarning, desc: 'Raise a service ticket' },
+  { to: '/raise-ticket', label: 'Raise a Support Ticket', icon: Ticket, desc: 'Order, scheme, loyalty & more' },
+  { to: '/my-tickets', label: 'My Tickets', icon: Ticket, desc: 'Track & reply to your tickets' },
   { to: '/service-centers', label: 'Service Centers', icon: Wrench, desc: 'Find authorized service near you' },
 ];
 
@@ -49,7 +52,7 @@ function MegaDropdown({ label, items, isOpen, onEnter, onLeave, wide }) {
       <button
         type="button"
         className={`flex items-center gap-1 transition-colors duration-300 cursor-pointer ${
-          isOpen ? 'text-amber-400' : 'text-white hover:text-amber-400'
+          isOpen ? 'text-amber-600' : 'text-zinc-800 hover:text-amber-600'
         }`}
       >
         {label}
@@ -58,19 +61,19 @@ function MegaDropdown({ label, items, isOpen, onEnter, onLeave, wide }) {
 
       {isOpen && (
         <div
-          className={`absolute left-1/2 -translate-x-1/2 top-full mt-4 ${wide ? 'w-[560px]' : 'w-72'} bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl shadow-black/60 p-3 grid ${wide ? 'grid-cols-2' : 'grid-cols-1'} gap-1 animate-fadeIn z-40`}
+          className={`absolute left-1/2 -translate-x-1/2 top-full mt-4 ${wide ? 'w-[560px]' : 'w-72'} bg-white border border-zinc-200 rounded-2xl shadow-2xl shadow-black/10 p-3 grid ${wide ? 'grid-cols-2' : 'grid-cols-1'} gap-1 animate-fadeIn z-40`}
         >
           {items.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-900 transition-colors group"
+              className="flex items-start gap-3 p-3 rounded-xl hover:bg-zinc-100 transition-colors group"
             >
-              <div className="w-9 h-9 rounded-lg bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-400 shrink-0 group-hover:bg-amber-400 group-hover:text-black transition-colors">
+              <div className="w-9 h-9 rounded-lg bg-amber-400/10 border border-amber-400/20 flex items-center justify-center text-amber-600 shrink-0 group-hover:bg-amber-400 group-hover:text-black transition-colors">
                 <item.icon size={16} />
               </div>
               <div>
-                <p className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">{item.label}</p>
+                <p className="text-sm font-bold text-zinc-900 group-hover:text-amber-600 transition-colors">{item.label}</p>
                 <p className="text-[11px] text-zinc-500 mt-0.5">{item.desc}</p>
               </div>
             </Link>
@@ -90,7 +93,7 @@ function ProductsDropdown({ isOpen, onEnter, onLeave }) {
       <button
         type="button"
         className={`flex items-center gap-1 transition-colors duration-300 cursor-pointer ${
-          isOpen ? 'text-amber-400' : 'text-white hover:text-amber-400'
+          isOpen ? 'text-amber-600' : 'text-zinc-800 hover:text-amber-600'
         }`}
       >
         Products
@@ -98,7 +101,7 @@ function ProductsDropdown({ isOpen, onEnter, onLeave }) {
       </button>
 
       {isOpen && (
-        <div className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[640px] bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl shadow-black/60 p-5 animate-fadeIn z-40">
+        <div className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-[640px] bg-white border border-zinc-200 rounded-2xl shadow-2xl shadow-black/10 p-5 animate-fadeIn z-40">
           <div className="grid grid-cols-4 gap-4">
             {defaultCategories.map((cat) => (
               <button
@@ -107,22 +110,22 @@ function ProductsDropdown({ isOpen, onEnter, onLeave }) {
                 onClick={() => navigate(`/store?category=${encodeURIComponent(cat.name)}`)}
                 className="text-left group cursor-pointer"
               >
-                <div className="rounded-xl overflow-hidden border border-zinc-800 group-hover:border-amber-400/60 transition-colors aspect-square bg-zinc-900">
+                <div className="rounded-xl overflow-hidden border border-zinc-200 group-hover:border-amber-400/60 transition-colors aspect-square bg-zinc-100">
                   <img src={cat.image} alt={cat.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <p className="text-xs font-bold text-white mt-2 group-hover:text-amber-400 transition-colors">{cat.name}</p>
+                <p className="text-xs font-bold text-zinc-900 mt-2 group-hover:text-amber-600 transition-colors">{cat.name}</p>
                 <p className="text-[10px] text-zinc-500 line-clamp-1">{cat.tagline}</p>
               </button>
             ))}
           </div>
-          <div className="flex items-center justify-between mt-5 pt-4 border-t border-zinc-800">
-            <Link to="/store" className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1">
+          <div className="flex items-center justify-between mt-5 pt-4 border-t border-zinc-200">
+            <Link to="/store" className="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1">
               View Full Catalog <ArrowRight size={12} />
             </Link>
-            <Link to="/bulk-enquiry" className="text-xs font-bold text-zinc-300 hover:text-white">
+            <Link to="/bulk-enquiry" className="text-xs font-bold text-zinc-600 hover:text-zinc-900">
               Bulk / B2B Enquiry
             </Link>
-            <Link to="/oem-enquiry" className="text-xs font-bold text-zinc-300 hover:text-white">
+            <Link to="/oem-enquiry" className="text-xs font-bold text-zinc-600 hover:text-zinc-900">
               OEM / White Label
             </Link>
           </div>
@@ -180,14 +183,14 @@ export default function Header() {
   };
 
   const navLinkClass = ({ isActive }) =>
-    isActive ? 'text-amber-400 transition-colors duration-300' : 'text-white hover:text-amber-400 transition-colors duration-300';
+    isActive ? 'text-amber-600 transition-colors duration-300' : 'text-zinc-800 hover:text-amber-600 transition-colors duration-300';
 
   return (
     <>
       <header
         className={`fixed ${
           isVisible ? 'top-4 md:top-6' : '-top-full'
-        } left-4 right-4 md:left-10 lg:left-16 md:right-10 lg:right-16 bg-black bg-opacity-90 z-30 p-2 md:p-4 shadow-lg rounded-md border-b-2 border-gray-700 transition-all duration-300 ease-in-out font-sans`}
+        } left-4 right-4 md:left-10 lg:left-16 md:right-10 lg:right-16 bg-white/95 backdrop-blur-md z-30 p-2 md:p-4 shadow-lg shadow-black/5 rounded-md border-b border-zinc-200 transition-all duration-300 ease-in-out font-sans`}
       >
         <div className="w-full flex items-center justify-between px-2 md:px-6">
           {/* Hamburger (mobile) */}
@@ -195,7 +198,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white focus:outline-none p-1"
+              className="text-zinc-900 focus:outline-none p-1"
               aria-label="Toggle navigation menu"
             >
               <Menu size={26} />
@@ -257,13 +260,13 @@ export default function Header() {
           <div className="flex items-center space-x-2 md:space-x-4 relative">
             <form
               onSubmit={handleSearch}
-              className="hidden md:flex relative items-center bg-white/10 border border-white/30 rounded-full px-3 py-1.5 md:px-4 md:py-2"
+              className="hidden md:flex relative items-center bg-zinc-100 border border-zinc-200 rounded-full px-3 py-1.5 md:px-4 md:py-2"
             >
-              <Search size={16} className="text-gray-400 mr-2" />
+              <Search size={16} className="text-zinc-400 mr-2" />
               <input
                 type="text"
                 placeholder="Search..."
-                className="bg-transparent text-white focus:outline-none placeholder-gray-500 w-24 md:w-32 lg:w-48 text-sm"
+                className="bg-transparent text-zinc-900 focus:outline-none placeholder-zinc-500 w-24 md:w-32 lg:w-48 text-sm"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -272,13 +275,13 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="text-amber-400 hover:text-white transition-colors duration-300 md:hidden p-1"
+              className="text-amber-600 hover:text-zinc-900 transition-colors duration-300 md:hidden p-1"
               aria-label="Open search bar"
             >
               <Search size={22} />
             </button>
 
-            <NavLink to="/cart" className="text-amber-400 hover:text-white transition-colors duration-300 relative p-1" aria-label="Shopping Cart">
+            <NavLink to="/cart" className="text-amber-600 hover:text-zinc-900 transition-colors duration-300 relative p-1" aria-label="Shopping Cart">
               <ShoppingCart size={24} />
               {totalCartQty > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold">
@@ -293,7 +296,7 @@ export default function Header() {
                   <button
                     type="button"
                     onClick={(e) => { e.stopPropagation(); setProfileDropdown(!profileDropdown); }}
-                    className="w-8 h-8 md:w-9 md:h-9 bg-amber-400 text-black rounded-full flex items-center justify-center font-bold cursor-pointer hover:scale-105 transition"
+                    className="w-8 h-8 md:w-9 md:h-9 bg-amber-400 text-black rounded-full flex items-center justify-center font-bold cursor-pointer hover:scale-105 transition ring-2 ring-transparent hover:ring-amber-400/30"
                     aria-label="Open user menu"
                   >
                     {(user?.name?.charAt(0) || user?.email?.charAt(0) || 'U').toUpperCase()}
@@ -302,23 +305,42 @@ export default function Header() {
                   {profileDropdown && (
                     <div
                       onClick={(e) => e.stopPropagation()}
-                      className="absolute right-0 mt-3 w-56 bg-white text-black rounded-xl shadow-2xl overflow-hidden border border-gray-200 z-50 text-sm"
+                      className="absolute right-0 mt-3 w-64 bg-white text-zinc-900 rounded-2xl shadow-2xl shadow-black/10 overflow-hidden border border-zinc-200 z-50 text-sm animate-scaleIn origin-top-right"
                     >
-                      <div className="bg-gray-100 px-4 py-3 border-b border-gray-200">
-                        <p className="text-xs text-gray-500">Logged in as</p>
-                        <p className="font-semibold text-black truncate">{user?.name || user?.email}</p>
+                      <div className="bg-zinc-50 px-4 py-3.5 border-b border-zinc-200 flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full bg-amber-400 text-black flex items-center justify-center font-bold shrink-0">
+                          {(user?.name?.charAt(0) || user?.email?.charAt(0) || 'U').toUpperCase()}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[10px] text-zinc-500 uppercase tracking-wide font-bold">Logged in as</p>
+                          <p className="font-bold text-zinc-900 truncate text-sm">{user?.name || user?.email}</p>
+                        </div>
                       </div>
-                      <div className="flex flex-col py-1">
-                        <Link to="/orders" className="px-4 py-2.5 hover:bg-gray-100 transition flex items-center gap-2" onClick={() => setProfileDropdown(false)}>📦 My Orders</Link>
-                        <Link to="/profile" className="px-4 py-2.5 hover:bg-gray-100 transition flex items-center gap-2" onClick={() => setProfileDropdown(false)}>👤 My Profile</Link>
-                        <Link to="/cart" className="px-4 py-2.5 hover:bg-gray-100 transition flex items-center gap-2" onClick={() => setProfileDropdown(false)}>🛒 My Cart</Link>
-                        <hr className="my-1 border-gray-200" />
+                      <div className="flex flex-col py-1.5">
+                        <Link to="/orders" className="px-4 py-2.5 hover:bg-zinc-50 transition flex items-center gap-3 group" onClick={() => setProfileDropdown(false)}>
+                          <Package size={16} className="text-zinc-400 group-hover:text-amber-600 transition-colors shrink-0" />
+                          <span className="font-medium">My Orders</span>
+                        </Link>
+                        <Link to="/my-tickets" className="px-4 py-2.5 hover:bg-zinc-50 transition flex items-center gap-3 group" onClick={() => setProfileDropdown(false)}>
+                          <Ticket size={16} className="text-zinc-400 group-hover:text-amber-600 transition-colors shrink-0" />
+                          <span className="font-medium">My Tickets</span>
+                        </Link>
+                        <Link to="/profile" className="px-4 py-2.5 hover:bg-zinc-50 transition flex items-center gap-3 group" onClick={() => setProfileDropdown(false)}>
+                          <UserCircle size={16} className="text-zinc-400 group-hover:text-amber-600 transition-colors shrink-0" />
+                          <span className="font-medium">My Profile</span>
+                        </Link>
+                        <Link to="/cart" className="px-4 py-2.5 hover:bg-zinc-50 transition flex items-center gap-3 group" onClick={() => setProfileDropdown(false)}>
+                          <ShoppingBag size={16} className="text-zinc-400 group-hover:text-amber-600 transition-colors shrink-0" />
+                          <span className="font-medium">My Cart</span>
+                        </Link>
+                        <hr className="my-1.5 border-zinc-200" />
                         <button
                           type="button"
                           onClick={() => { logout(); setProfileDropdown(false); }}
-                          className="text-left px-4 py-2.5 hover:bg-red-50 text-red-600 transition flex items-center gap-2 w-full"
+                          className="text-left px-4 py-2.5 hover:bg-rose-50 text-rose-600 transition flex items-center gap-3 w-full cursor-pointer group"
                         >
-                          🚪 Logout
+                          <LogOut size={16} className="text-rose-400 group-hover:text-rose-600 transition-colors shrink-0" />
+                          <span className="font-medium">Logout</span>
                         </button>
                       </div>
                     </div>
@@ -328,7 +350,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setAuthOpen(true)}
-                  className="text-amber-400 hover:text-white transition-colors duration-300 p-1"
+                  className="text-amber-600 hover:text-zinc-900 transition-colors duration-300 p-1"
                   aria-label="Sign In"
                 >
                   <User size={24} />
@@ -341,12 +363,12 @@ export default function Header() {
         {/* Mobile expandable search */}
         {isMobileSearchOpen && (
           <div className="pt-2 px-2 md:hidden">
-            <form onSubmit={handleSearch} className="flex items-center bg-white/10 border border-white/30 rounded-full px-3 py-1.5 w-full">
-              <Search size={16} className="text-gray-400 mr-2" />
+            <form onSubmit={handleSearch} className="flex items-center bg-zinc-100 border border-zinc-200 rounded-full px-3 py-1.5 w-full">
+              <Search size={16} className="text-zinc-400 mr-2" />
               <input
                 type="text"
                 placeholder="Search products..."
-                className="bg-transparent text-white focus:outline-none placeholder-gray-500 w-full text-xs"
+                className="bg-transparent text-zinc-900 focus:outline-none placeholder-zinc-500 w-full text-xs"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 autoFocus
@@ -358,22 +380,22 @@ export default function Header() {
 
       {/* Mobile Slide-Out Drawer */}
       <div
-        className={`fixed top-0 left-0 h-full w-full bg-black bg-opacity-97 z-50 transform ${
+        className={`fixed top-0 left-0 h-full w-full bg-white z-50 transform ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out lg:hidden flex flex-col overflow-y-auto`}
       >
-        <div className="flex justify-between items-center p-6 border-b border-gray-800 sticky top-0 bg-black z-10">
+        <div className="flex justify-between items-center p-6 border-b border-zinc-200 sticky top-0 bg-white z-10">
           <img src={logo} alt="ElexoPlus" className="w-24 object-contain" />
-          <button type="button" onClick={() => setIsMenuOpen(false)} className="text-white focus:outline-none p-2" aria-label="Close navigation menu">
+          <button type="button" onClick={() => setIsMenuOpen(false)} className="text-zinc-900 focus:outline-none p-2" aria-label="Close navigation menu">
             <X size={26} />
           </button>
         </div>
 
         <nav className="flex flex-col p-6 space-y-1 text-base">
-          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `py-3 border-b border-zinc-900 ${isActive ? 'text-amber-400 font-bold' : 'text-white'}`}>
+          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `py-3 border-b border-zinc-200 ${isActive ? 'text-amber-600 font-bold' : 'text-zinc-900'}`}>
             Home
           </NavLink>
-          <NavLink to="/store" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `py-3 border-b border-zinc-900 ${isActive ? 'text-amber-400 font-bold' : 'text-white'}`}>
+          <NavLink to="/store" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `py-3 border-b border-zinc-200 ${isActive ? 'text-amber-600 font-bold' : 'text-zinc-900'}`}>
             All Products
           </NavLink>
 
@@ -382,19 +404,19 @@ export default function Header() {
             { key: 'insights', label: 'Insights', items: insightsMenu },
             { key: 'support', label: 'Support', items: supportMenu },
           ].map((section) => (
-            <div key={section.key} className="border-b border-zinc-900">
+            <div key={section.key} className="border-b border-zinc-200">
               <button
                 type="button"
                 onClick={() => setMobileAccordion(mobileAccordion === section.key ? null : section.key)}
-                className="w-full flex items-center justify-between py-3 text-white font-semibold cursor-pointer"
+                className="w-full flex items-center justify-between py-3 text-zinc-900 font-semibold cursor-pointer"
               >
                 {section.label}
-                <ChevronDown size={18} className={`transition-transform ${mobileAccordion === section.key ? 'rotate-180 text-amber-400' : ''}`} />
+                <ChevronDown size={18} className={`transition-transform ${mobileAccordion === section.key ? 'rotate-180 text-amber-600' : ''}`} />
               </button>
               {mobileAccordion === section.key && (
                 <div className="pb-3 pl-3 flex flex-col space-y-3">
                   {section.items.map((item) => (
-                    <Link key={item.to} to={item.to} onClick={() => setIsMenuOpen(false)} className="text-sm text-zinc-400 hover:text-amber-400">
+                    <Link key={item.to} to={item.to} onClick={() => setIsMenuOpen(false)} className="text-sm text-zinc-500 hover:text-amber-600">
                       {item.label}
                     </Link>
                   ))}

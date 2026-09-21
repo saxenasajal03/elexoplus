@@ -202,7 +202,7 @@ export default function AddressBook({ mode = 'select', selectedId, onSelect }) {
             </div>
 
             {mode === 'manage' && (
-              <div className="flex items-center gap-4 mt-3 pt-3 border-t border-zinc-200 pl-8">
+              <div className="flex items-center gap-4 flex-wrap mt-3 pt-3 border-t border-zinc-200 pl-8">
                 <button type="button" onClick={(e) => { e.stopPropagation(); setEditing(addr); setShowForm(true); }} className="text-xs font-bold text-zinc-500 hover:text-amber-600 flex items-center gap-1 cursor-pointer">
                   <Pencil size={12} /> Edit
                 </button>

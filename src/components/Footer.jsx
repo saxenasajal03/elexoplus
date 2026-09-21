@@ -94,6 +94,8 @@ export default function Footer() {
             <li><Link to="/warranty-registration" className="hover:text-zinc-200 transition">Warranty Activation</Link></li>
             <li><Link to="/product-authentication" className="hover:text-zinc-200 transition">Product Authentication</Link></li>
             <li><Link to="/complaint-registration" className="hover:text-zinc-200 transition">Register a Complaint</Link></li>
+            <li><Link to="/raise-ticket" className="hover:text-zinc-200 transition">Raise a Support Ticket</Link></li>
+            <li><Link to="/my-tickets" className="hover:text-zinc-200 transition">My Tickets</Link></li>
             <li><Link to="/service-centers" className="hover:text-zinc-200 transition">Service Centers</Link></li>
             <li><Link to="/policy" className="hover:text-zinc-200 transition">Policies</Link></li>
           </ul>

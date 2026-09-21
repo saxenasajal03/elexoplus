@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Zap } from 'lucide-react';
-import logo from '../../assets/elexoplus-logo-BJqIBdaq.png';
 
 // A mix of on-brand ElexoPlus one-liners and short, well-known public-domain
-// quotes about invention, quality and electricity — kept light and quick to
-// read during the brief moment a page is loading.
+// quotes about invention and quality — kept light and quick to read during
+// the brief moment a page is loading.
 const QUOTES = [
   { text: "A fan doesn't just move air — it moves comfort.", author: 'ElexoPlus' },
   { text: 'Genius is one percent inspiration, ninety-nine percent perspiration.', author: 'Thomas Edison' },
@@ -30,7 +28,7 @@ function pickQuote(excludeText) {
   return next;
 }
 
-const MIN_VISIBLE_MS = 550;
+const MIN_VISIBLE_MS = 600;
 
 export default function RouteLoader() {
   const { pathname } = useLocation();
@@ -57,24 +55,39 @@ export default function RouteLoader() {
   }, [pathname]);
 
   return (
-    <div
-      aria-hidden={!visible}
-      className={`fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black transition-opacity duration-300 ${
-        visible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-      }`}
-    >
-      <img src={logo} alt="" className="w-20 object-contain mb-6 animate-pulse" />
-
-      <div className="relative w-10 h-10 mb-8">
-        <div className="absolute inset-0 border-2 border-zinc-800 rounded-full" />
-        <div className="absolute inset-0 border-2 border-transparent border-t-amber-400 rounded-full animate-spin" />
-        <Zap size={14} className="absolute inset-0 m-auto text-amber-400" />
+    <>
+      {/* Slim indeterminate progress bar — the modern, unobtrusive pattern
+          used by GitHub/Linear/Vercel for page transitions. Sits above
+          everything, including the (also light, now) header. */}
+      <div
+        aria-hidden={!visible}
+        className={`fixed top-0 left-0 right-0 z-[210] h-[3px] bg-amber-400/15 overflow-hidden transition-opacity duration-200 ${
+          visible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <div className="loader-bar-track h-full w-1/3 bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 rounded-full" />
       </div>
 
-      <div className="max-w-sm text-center px-8">
-        <p className="text-zinc-200 text-sm md:text-base font-medium leading-relaxed">"{quote.text}"</p>
-        <p className="text-amber-400 text-xs font-bold uppercase tracking-widest mt-3">— {quote.author}</p>
+      {/* Light glass overlay with the quote card. Backdrop-blurred rather
+          than a solid flash, so the transition feels quick and premium
+          instead of jarring — the page behind is still faintly visible. */}
+      <div
+        aria-hidden={!visible}
+        className={`fixed inset-0 z-[200] flex items-center justify-center bg-white/60 backdrop-blur-sm transition-opacity duration-300 ${
+          visible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="max-w-xs w-full mx-4 bg-white border border-zinc-200 rounded-2xl shadow-xl shadow-black/5 px-6 py-6 flex flex-col items-center animate-scaleIn">
+          {/* Minimal dual-ring spinner — no logo, no icon, just motion */}
+          <div className="relative w-9 h-9 mb-5">
+            <div className="absolute inset-0 border-[3px] border-zinc-100 rounded-full" />
+            <div className="absolute inset-0 border-[3px] border-transparent border-t-amber-400 border-r-amber-400 rounded-full animate-spin" />
+          </div>
+
+          <p className="text-zinc-700 text-sm text-center font-medium leading-relaxed">"{quote.text}"</p>
+          <p className="text-amber-600 text-[11px] font-bold uppercase tracking-widest mt-3">— {quote.author}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

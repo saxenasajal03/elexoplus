@@ -36,13 +36,13 @@ export default function AboutUs() {
             <p className="fancy-underline text-lg md:text-xl text-gray-600 uppercase tracking-widest mb-6">
               ABOUT US
             </p>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-yellow mb-4 text-glow-yellow">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-amber-600 mb-4">
               Comfort Without Compromise
             </h1>
           </div>
 
           {/* Our Story Section */}
-          <div className="backdrop-blur-md bg-opacity-70 p-8 md:p-12 rounded-2xl border border-gray-300/50 shadow-lg animate-fadeInSlideUp animate-delay-200">
+          <div className="backdrop-blur-md bg-white/80 p-8 md:p-12 rounded-2xl border border-gray-200 shadow-lg animate-fadeInSlideUp animate-delay-200">
             <h2 className="text-3xl font-bold text-zinc-900 mb-6">Our Journey</h2>
             <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
               <p>
@@ -50,13 +50,13 @@ export default function AboutUs() {
               </p>
 
               {/* Highlighted ELEXO PLUS Callout Card */}
-              <div className="bg-yellow-900 bg-opacity-30 border border-yellow-500/70 p-6 rounded-xl relative overflow-hidden group">
-                <span className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-yellow-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-                <p className="relative z-10 text-yellow-100 italic font-semibold text-xl md:text-2xl text-center mb-4">
+              <div className="bg-amber-50 border border-amber-200 p-6 rounded-xl relative overflow-hidden group">
+                <span className="absolute inset-0 bg-gradient-to-br from-amber-400/10 via-transparent to-amber-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                <p className="relative z-10 text-zinc-800 italic font-semibold text-xl md:text-2xl text-center mb-4">
                   A New Chapter Unfolds: ELEXO PLUS
                 </p>
-                <p className="relative z-10 text-yellow-50 text-base md:text-lg text-center">
-                  In 2022, a new chapter unfolded as Mr. Somil Jain, inspired by our rich heritage and driven by innovation, unveiled <span className="text-yellow-400 font-bold">ELEXO PLUS</span>. This visionary brand symbolizes our unwavering commitment to surpassing customer expectations and pushing the boundaries of quality and service.
+                <p className="relative z-10 text-zinc-600 text-base md:text-lg text-center">
+                  In 2022, a new chapter unfolded as Mr. Somil Jain, inspired by our rich heritage and driven by innovation, unveiled <span className="text-amber-600 font-bold">ElexoPlus</span>. This visionary brand symbolizes our unwavering commitment to surpassing customer expectations and pushing the boundaries of quality and service.
                 </p>
               </div>
 
@@ -69,8 +69,8 @@ export default function AboutUs() {
           {/* Mission & Vision Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 animate-fadeInSlideUp animate-delay-400">
             {/* Our Mission Card */}
-            <div className="backdrop-blur-md bg-opacity-70 p-8 rounded-2xl border border-yellow-400/30 shadow-lg">
-              <h2 className="text-3xl font-bold text-yellow mb-4">OUR MISSION</h2>
+            <div className="backdrop-blur-md bg-white/80 p-8 rounded-2xl border border-amber-400/30 shadow-lg">
+              <h2 className="text-3xl font-bold text-amber-600 mb-4">OUR MISSION</h2>
               <ul className="space-y-4 text-gray-600 text-lg list-disc list-inside">
                 <li>
                   We will strive to become leading manufacturers of Home Appliances products by Consistently raising the standards in product utility, innovation and durability.
@@ -85,8 +85,8 @@ export default function AboutUs() {
             </div>
 
             {/* Our Vision Card */}
-            <div className="backdrop-blur-md bg-opacity-70 p-8 rounded-2xl border border-gray-300 shadow-lg">
-              <h2 className="text-3xl font-bold text-yellow mb-4">OUR VISION</h2>
+            <div className="backdrop-blur-md bg-white/80 p-8 rounded-2xl border border-gray-200 shadow-lg">
+              <h2 className="text-3xl font-bold text-amber-600 mb-4">OUR VISION</h2>
               <ul className="space-y-4 text-gray-600 text-lg list-disc list-inside">
                 <li>
                   To provide consumer new innovation, technology, best product quality, service at affordable price.
@@ -101,13 +101,13 @@ export default function AboutUs() {
           {/* Core Values Section */}
           <div className="animate-fadeInSlideUp animate-delay-600">
             <h2 className="text-4xl font-bold text-center text-zinc-900 mb-16">
-              Our Core <span className="text-yellow-400">Values</span>
+              Our Core <span className="text-amber-600">Values</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {/* Value 1: Innovation */}
               <div className="text-center p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
-                  <InnovationIcon className="w-10 h-10 text-yellow-400" />
+                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-amber-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
+                  <InnovationIcon className="w-10 h-10 text-amber-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-zinc-900 mb-2">Innovation</h3>
                 <p className="text-gray-500">Constantly pushing boundaries and challenging the status quo.</p>
@@ -115,8 +115,8 @@ export default function AboutUs() {
 
               {/* Value 2: Integrity */}
               <div className="text-center p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
-                  <IntegrityIcon className="w-10 h-10 text-yellow-400" />
+                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-amber-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
+                  <IntegrityIcon className="w-10 h-10 text-amber-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-zinc-900 mb-2">Integrity</h3>
                 <p className="text-gray-500">Doing the right thing, always. Our business is built on trust.</p>
@@ -124,8 +124,8 @@ export default function AboutUs() {
 
               {/* Value 3: Quality */}
               <div className="text-center p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-yellow-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
-                  <QualityIcon className="w-10 h-10 text-yellow-400" />
+                <div className="flex items-center justify-center w-20 h-20 bg-gray-100 border-2 border-amber-400/50 rounded-full mb-5 shadow-lg transform transition-transform duration-300 hover:scale-110">
+                  <QualityIcon className="w-10 h-10 text-amber-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-zinc-900 mb-2">Quality</h3>
                 <p className="text-gray-500">Unwavering commitment to exceptional products and service.</p>
@@ -134,7 +134,7 @@ export default function AboutUs() {
           </div>
 
           {/* Call to Action Section */}
-          <div className="backdrop-blur-md bg-opacity-70 text-center p-10 md:p-16 rounded-2xl border border-yellow-400/30 shadow-lg animate-fadeInSlideUp animate-delay-800">
+          <div className="backdrop-blur-md bg-white/80 text-center p-10 md:p-16 rounded-2xl border border-amber-400/30 shadow-lg animate-fadeInSlideUp animate-delay-800">
             <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4">Ready to build the future together?</h2>
             <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto">
               We're always looking for passionate partners and brilliant minds. Let's connect.
@@ -142,7 +142,7 @@ export default function AboutUs() {
             <button 
               type="button"
               onClick={() => navigate('/contact')}
-              className="bg-yellow-400 text-gray-900 font-bold text-lg px-10 py-3 rounded-lg hover:bg-yellow-500 transition-colors duration-300 shadow-lg hover:shadow-yellow-400/50 transform hover:scale-105 cursor-pointer"
+              className="bg-amber-400 text-black font-bold text-lg px-10 py-3 rounded-lg hover:bg-amber-500 transition-colors duration-300 shadow-lg hover:shadow-amber-400/50 transform hover:scale-105 cursor-pointer"
             >
               Get In Touch
             </button>

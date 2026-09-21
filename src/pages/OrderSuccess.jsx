@@ -123,12 +123,12 @@ export default function OrderSuccess() {
         </div>
 
         <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 print:bg-white print:border-none">
-          <div className="mb-6 border-b border-zinc-200 pb-4 flex justify-between items-start print:border-black/20">
+          <div className="mb-6 border-b border-zinc-200 pb-4 flex flex-col sm:flex-row justify-between items-start gap-4 print:border-black/20">
             <img src={logo} alt="ElexoPlus" className="w-28 object-contain" />
-            <div className="text-right text-xs text-zinc-500 print:text-black">
+            <div className="text-left sm:text-right text-xs text-zinc-500 print:text-black">
               <h2 className="text-base font-extrabold text-zinc-900 print:text-black">ORDER RECEIPT</h2>
-              <p className="mt-0.5">Ref: {order.order_ref}</p>
-              {invoiceNoFromCheckout && <p>Invoice: {invoiceNoFromCheckout}</p>}
+              <p className="mt-0.5 break-all">Ref: {order.order_ref}</p>
+              {invoiceNoFromCheckout && <p className="break-all">Invoice: {invoiceNoFromCheckout}</p>}
               <p>{new Date(order.placed_on).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
               <span className="inline-block mt-1 bg-amber-400/10 text-amber-600 border border-amber-400/20 px-2 py-0.5 rounded-full font-bold uppercase text-[10px] print:hidden">
                 {order.status}

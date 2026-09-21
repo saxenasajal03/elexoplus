@@ -48,8 +48,8 @@ export default function ContactUs() {
         <div className="container mx-auto max-w-6xl">
           
           {/* Top Hero Banner */}
-          <div className="w-full max-w-5xl text-center mx-auto mb-16 md:my-16 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-gray-300/50 shadow-lg">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">
+          <div className="w-full max-w-5xl text-center mx-auto mb-16 md:my-16 backdrop-blur-md bg-white/80 p-8 md:p-12 rounded-2xl border border-gray-200 shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-amber-600">
               We're Here to Help
             </h1>
             <p className="text-base md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto leading-relaxed">
@@ -58,14 +58,14 @@ export default function ContactUs() {
             <button
               type="button"
               onClick={handleScrollToForm}
-              className="bg-yellow-400 text-black font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 cursor-pointer"
+              className="bg-amber-400 text-black font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-amber-500 transition-all duration-300 transform hover:scale-105 cursor-pointer"
             >
               Get Started
             </button>
           </div>
 
           {/* Section Header */}
-          <div className="border-b-2 border-white/40 mb-8 w-max">
+          <div className="border-b-2 border-amber-400/40 mb-8 w-max">
             <h2 className="text-3xl font-bold text-zinc-900 mb-2 pr-7 md:pr-10">
               Find Us
             </h2>
@@ -76,7 +76,7 @@ export default function ContactUs() {
             
             {/* Column 1: Map */}
             <div className="w-full h-full order-2 md:order-1">
-              <div className="relative w-full h-[450px] md:h-[550px] rounded-2xl shadow-xl overflow-hidden border border-yellow-400/30">
+              <div className="relative w-full h-[450px] md:h-[550px] rounded-2xl shadow-xl overflow-hidden border border-amber-400/30">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56193.0863335528!2d76.8152197486328!3d28.204364100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d30a501abb637%3A0x133d03d86dcfc79!2sBhiwadi%2C%20Rajasthan!5e0!3m2!1sen!2sin!4v1671234567890!5m2!1sen!2sin"
                   className="absolute top-0 left-0 w-full h-full"
@@ -104,7 +104,7 @@ export default function ContactUs() {
                     placeholder="Name"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                   />
                 </div>
 
@@ -116,7 +116,7 @@ export default function ContactUs() {
                     placeholder="Contact"
                     value={form.contact}
                     onChange={(e) => setForm({ ...form, contact: e.target.value })}
-                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                   />
                 </div>
 
@@ -128,7 +128,7 @@ export default function ContactUs() {
                     placeholder="Email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                   />
                 </div>
 
@@ -140,7 +140,7 @@ export default function ContactUs() {
                     placeholder="Message"
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                    className="w-full p-4 bg-gray-100 border border-gray-300 rounded-xl text-zinc-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                   ></textarea>
                 </div>
 
@@ -148,7 +148,7 @@ export default function ContactUs() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full bg-yellow-400 text-gray-900 font-bold text-lg px-8 py-3.5 rounded-lg hover:bg-yellow-500 transition-colors duration-300 shadow-lg hover:shadow-yellow-400/50 cursor-pointer ${
+                    className={`w-full bg-amber-400 text-black font-bold text-lg px-8 py-3.5 rounded-lg hover:bg-amber-500 transition-colors duration-300 shadow-lg hover:shadow-amber-400/50 cursor-pointer ${
                       loading ? "opacity-60 cursor-not-allowed" : ""
                     }`}
                   >
@@ -158,7 +158,7 @@ export default function ContactUs() {
               </form>
 
               {status && (
-                <p className="mt-4 text-center md:text-left text-yellow-300 font-semibold text-sm">
+                <p className="mt-4 text-center md:text-left text-amber-600 font-semibold text-sm">
                   {status}
                 </p>
               )}

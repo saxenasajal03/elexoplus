@@ -67,7 +67,7 @@ export default function Policy() {
         <ul className="space-y-3">
           {Object.keys(policies).map(key => (
             <li key={key}>
-              <Link to={`/policy/${key}`} className="text-yellow-400 hover:underline text-lg">
+              <Link to={`/policy/${key}`} className="text-amber-600 hover:underline text-lg">
                 {policies[key].title}
               </Link>
             </li>

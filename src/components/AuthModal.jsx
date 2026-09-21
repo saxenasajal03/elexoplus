@@ -96,7 +96,7 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
       });
       if (googleBtnRef.current) {
         window.google.accounts.id.renderButton(googleBtnRef.current, {
-          theme: 'filled_black',
+          theme: 'outline',
           size: 'large',
           shape: 'pill',
           text: 'continue_with',
@@ -250,11 +250,11 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
       className={`fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] p-4 transition-opacity duration-200 ${closing ? 'opacity-0' : 'opacity-100 animate-fadeIn'}`}
       onMouseDown={(e) => { if (e.target === e.currentTarget) handleClose(); }}
     >
-      <div className={`bg-zinc-950 w-full max-w-[400px] rounded-3xl border border-zinc-800 relative shadow-2xl shadow-black/60 overflow-hidden ${closing ? '' : 'animate-scaleIn'}`}>
+      <div className={`bg-white w-full max-w-[400px] rounded-3xl border border-zinc-200 relative shadow-2xl shadow-black/20 overflow-hidden ${closing ? '' : 'animate-scaleIn'}`}>
         <button
           type="button"
           onClick={handleClose}
-          className="absolute top-4 right-4 text-zinc-500 hover:text-amber-400 transition-colors p-1.5 z-20 cursor-pointer"
+          className="absolute top-4 right-4 text-zinc-400 hover:text-amber-600 transition-colors p-1.5 z-20 cursor-pointer"
           aria-label="Close"
         >
           <X size={18} />
@@ -262,8 +262,8 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
 
         {success ? (
           <div className="flex flex-col items-center justify-center py-16 px-8 text-center">
-            <CheckCircle2 size={48} className="text-emerald-400 animate-scaleIn" />
-            <p className="text-white font-extrabold text-lg mt-5">
+            <CheckCircle2 size={48} className="text-emerald-600 animate-scaleIn" />
+            <p className="text-zinc-900 font-extrabold text-lg mt-5">
               {isLogin ? 'Welcome back!' : 'Account created!'}
             </p>
             <p className="text-zinc-500 text-xs mt-2">Redirecting you now...</p>
@@ -272,14 +272,14 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
           <>
             <div className="text-center pt-8 pb-2 px-8">
               <img src={logo} alt="ElexoPlus" className="h-8 mx-auto mb-4 object-contain" />
-              <h2 className="text-xl font-black text-white tracking-tight">
+              <h2 className="text-xl font-black text-zinc-900 tracking-tight">
                 {!isLogin && signupStep === 'verify'
                   ? 'Verify Your Email'
                   : title || (isLogin ? 'Welcome Back' : 'Create Your Account')}
               </h2>
               <p className="text-xs text-zinc-500 mt-1">
                 {!isLogin && signupStep === 'verify'
-                  ? <>We sent a 6-digit code to <span className="text-zinc-300">{form.email}</span></>
+                  ? <>We sent a 6-digit code to <span className="text-zinc-700">{form.email}</span></>
                   : subtitle || (isLogin ? 'Sign in to track orders & manage your account' : 'Join ElexoPlus for faster checkout & order tracking')}
               </p>
             </div>
@@ -287,17 +287,17 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
             {/* Tab switch — hidden mid-verification to avoid an awkward half-state */}
             {signupStep === 'details' && (
               <div className="px-8 pt-5">
-                <div className="relative bg-zinc-900 border border-zinc-800 rounded-xl p-1 flex">
+                <div className="relative bg-zinc-100 border border-zinc-200 rounded-xl p-1 flex">
                   <div
                     className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-amber-400 rounded-lg transition-transform duration-300 ease-out"
                     style={{ transform: isLogin ? 'translateX(0%)' : 'translateX(calc(100% + 8px))' }}
                   />
                   <button type="button" onClick={() => switchMode(true)}
-                    className={`relative z-10 flex-1 py-2 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-colors cursor-pointer ${isLogin ? 'text-black' : 'text-zinc-400 hover:text-white'}`}>
+                    className={`relative z-10 flex-1 py-2 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-colors cursor-pointer ${isLogin ? 'text-black' : 'text-zinc-500 hover:text-zinc-900'}`}>
                     Log In
                   </button>
                   <button type="button" onClick={() => switchMode(false)}
-                    className={`relative z-10 flex-1 py-2 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-colors cursor-pointer ${!isLogin ? 'text-black' : 'text-zinc-400 hover:text-white'}`}>
+                    className={`relative z-10 flex-1 py-2 text-xs font-extrabold uppercase tracking-wider rounded-lg transition-colors cursor-pointer ${!isLogin ? 'text-black' : 'text-zinc-500 hover:text-zinc-900'}`}>
                     Sign Up
                   </button>
                 </div>
@@ -309,12 +309,12 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
               <div className="px-8 pt-5">
                 <div ref={googleBtnRef} className="flex justify-center [&>div]:!w-full" />
                 {!googleReady && (
-                  <div className="h-11 rounded-full bg-zinc-900 border border-zinc-800 animate-pulse" />
+                  <div className="h-11 rounded-full bg-zinc-100 border border-zinc-200 animate-pulse" />
                 )}
                 <div className="flex items-center gap-3 mt-5">
-                  <div className="h-px bg-zinc-800 flex-1" />
-                  <span className="text-[10px] text-zinc-600 uppercase font-bold tracking-wider">or continue with email</span>
-                  <div className="h-px bg-zinc-800 flex-1" />
+                  <div className="h-px bg-zinc-200 flex-1" />
+                  <span className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">or continue with email</span>
+                  <div className="h-px bg-zinc-200 flex-1" />
                 </div>
               </div>
             )}
@@ -325,7 +325,7 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
                 <>
                   <div>
                     <div className="relative">
-                      <ShieldCheck size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600" />
+                      <ShieldCheck size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                       <input
                         type="text"
                         inputMode="numeric"
@@ -334,18 +334,18 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
                         placeholder="000000"
                         value={form.otp}
                         onChange={(e) => update('otp')({ target: { value: e.target.value.replace(/\D/g, '').slice(0, 6) } })}
-                        className={`w-full pl-10 pr-3.5 py-3 bg-zinc-900 border rounded-xl text-white text-lg tracking-[0.5em] text-center placeholder-zinc-700 focus:outline-none focus:ring-2 transition ${
-                          errors.otp ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-800 focus:ring-amber-400'
+                        className={`w-full pl-10 pr-3.5 py-3 bg-zinc-50 border rounded-xl text-zinc-900 text-lg tracking-[0.5em] text-center placeholder-zinc-300 focus:outline-none focus:ring-2 transition ${
+                          errors.otp ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-200 focus:ring-amber-400'
                         }`}
                       />
                     </div>
-                    {errors.otp && <p className="text-rose-400 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.otp}</p>}
+                    {errors.otp && <p className="text-rose-600 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.otp}</p>}
                   </div>
 
                   {serverError && (
                     <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-2.5 flex items-start gap-2">
                       <AlertCircle size={14} className="text-rose-400 shrink-0 mt-0.5" />
-                      <p className="text-rose-300 text-xs">{serverError}</p>
+                      <p className="text-rose-700 text-xs">{serverError}</p>
                     </div>
                   )}
 
@@ -361,7 +361,7 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
                     <button
                       type="button"
                       onClick={resetOtpState}
-                      className="text-xs font-bold text-zinc-500 hover:text-white transition cursor-pointer flex items-center gap-1"
+                      className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition cursor-pointer flex items-center gap-1"
                     >
                       <ArrowLeft size={12} /> Change details
                     </button>
@@ -369,7 +369,7 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
                       type="button"
                       onClick={sendOtp}
                       disabled={resendIn > 0 || otpSending}
-                      className="text-xs font-bold text-amber-400 hover:underline transition cursor-pointer disabled:text-zinc-600 disabled:no-underline flex items-center gap-1"
+                      className="text-xs font-bold text-amber-600 hover:underline transition cursor-pointer disabled:text-zinc-300 disabled:no-underline flex items-center gap-1"
                     >
                       {otpSending ? <Loader2 size={11} className="animate-spin" /> : <RotateCw size={11} />}
                       {resendIn > 0 ? `Resend in ${resendIn}s` : 'Resend code'}
@@ -381,60 +381,60 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
                 <>
                   <div className={`overflow-hidden transition-all duration-300 ease-out ${!isLogin ? 'max-h-24 opacity-100 mb-0' : 'max-h-0 opacity-0'}`}>
                     <div className="relative">
-                      <UserIcon size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600" />
+                      <UserIcon size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                       <input
                         type="text"
                         placeholder="Full Name"
                         value={form.name}
                         onChange={update('name')}
-                        className={`w-full pl-10 pr-3.5 py-3 bg-zinc-900 border rounded-xl text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
-                          errors.name ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-800 focus:ring-amber-400'
+                        className={`w-full pl-10 pr-3.5 py-3 bg-zinc-50 border rounded-xl text-zinc-900 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 transition ${
+                          errors.name ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-200 focus:ring-amber-400'
                         }`}
                       />
                     </div>
-                    {errors.name && <p className="text-rose-400 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.name}</p>}
+                    {errors.name && <p className="text-rose-600 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.name}</p>}
                   </div>
 
                   <div>
                     <div className="relative">
-                      <Mail size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600" />
+                      <Mail size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                       <input
                         type="email"
                         placeholder="email@company.com"
                         value={form.email}
                         onChange={update('email')}
-                        className={`w-full pl-10 pr-3.5 py-3 bg-zinc-900 border rounded-xl text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
-                          errors.email ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-800 focus:ring-amber-400'
+                        className={`w-full pl-10 pr-3.5 py-3 bg-zinc-50 border rounded-xl text-zinc-900 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 transition ${
+                          errors.email ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-200 focus:ring-amber-400'
                         }`}
                       />
                     </div>
-                    {errors.email && <p className="text-rose-400 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.email}</p>}
+                    {errors.email && <p className="text-rose-600 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.email}</p>}
                   </div>
 
                   <div>
                     <div className="relative">
-                      <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-600" />
+                      <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                       <input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="••••••••"
                         value={form.password}
                         onChange={update('password')}
-                        className={`w-full pl-10 pr-10 py-3 bg-zinc-900 border rounded-xl text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-2 transition ${
-                          errors.password ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-800 focus:ring-amber-400'
+                        className={`w-full pl-10 pr-10 py-3 bg-zinc-50 border rounded-xl text-zinc-900 text-sm placeholder-zinc-400 focus:outline-none focus:ring-2 transition ${
+                          errors.password ? 'border-rose-500/60 focus:ring-rose-500/40' : 'border-zinc-200 focus:ring-amber-400'
                         }`}
                       />
                       <button type="button" onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-300 cursor-pointer" tabIndex={-1}>
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 cursor-pointer" tabIndex={-1}>
                         {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                       </button>
                     </div>
-                    {errors.password && <p className="text-rose-400 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.password}</p>}
+                    {errors.password && <p className="text-rose-600 text-[11px] mt-1.5 flex items-center gap-1"><AlertCircle size={11} /> {errors.password}</p>}
                   </div>
 
                   {serverError && (
                     <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl px-4 py-2.5 flex items-start gap-2">
                       <AlertCircle size={14} className="text-rose-400 shrink-0 mt-0.5" />
-                      <p className="text-rose-300 text-xs">{serverError}</p>
+                      <p className="text-rose-700 text-xs">{serverError}</p>
                     </div>
                   )}
 
@@ -448,7 +448,7 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
                     ) : isLogin ? 'Log In' : 'Send Verification Code'}
                   </button>
                   {!isLogin && (
-                    <p className="text-[10px] text-zinc-600 text-center">
+                    <p className="text-[10px] text-zinc-400 text-center">
                       We'll email you a 6-digit code to confirm it's really you.
                     </p>
                   )}
@@ -458,9 +458,9 @@ export default function AuthModal({ onClose, onSuccess, title, subtitle }) {
 
             {signupStep === 'details' && (
               <div className="px-8 pb-6 -mt-2 text-center">
-                <button type="button" onClick={() => switchMode(!isLogin)} className="text-xs font-bold text-zinc-500 hover:text-amber-400 transition cursor-pointer">
+                <button type="button" onClick={() => switchMode(!isLogin)} className="text-xs font-bold text-zinc-500 hover:text-amber-600 transition cursor-pointer">
                   {isLogin ? "New to ElexoPlus? " : "Already have an account? "}
-                  <span className="text-amber-400">{isLogin ? 'Create one' : 'Log in'}</span>
+                  <span className="text-amber-600">{isLogin ? 'Create one' : 'Log in'}</span>
                 </button>
               </div>
             )}
