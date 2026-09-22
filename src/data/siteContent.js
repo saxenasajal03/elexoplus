@@ -26,7 +26,7 @@ export const B2B_API_BASE = "https://b2b.elexoplus.in/api_2";
 // "Sign in with Google" — public Client ID (safe to expose; see .env.example).
 // The Google button in AuthModal only renders when this is non-empty, so the
 // site works exactly the same with or without it configured.
-export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '952575476613-8974iovts0j9dkcdtv3b2vb467tnjdhs.apps.googleusercontent.com';
 
 // ---------------------------------------------------------------------------
 // Named endpoint map for api_2. Kept centralised so the whole site can be

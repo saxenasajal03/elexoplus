@@ -48,7 +48,7 @@ export default function ProductCard({ product }) {
           </span>
         )}
         {hasDiscount && (
-          <span className="bg-rose-600 text-zinc-900 text-[9px] sm:text-[10px] font-black uppercase px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow">
+          <span className="bg-rose-600 text-white text-[9px] sm:text-[10px] font-black uppercase px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md shadow">
             {discountPercent}% OFF
           </span>
         )}
@@ -128,7 +128,7 @@ export default function ProductCard({ product }) {
               !inStock
                 ? 'bg-zinc-100 text-zinc-600 border border-zinc-200 cursor-not-allowed'
                 : added
-                ? 'bg-emerald-600 text-zinc-900'
+                ? 'bg-emerald-600 text-white'
                 : 'bg-zinc-100 text-zinc-900 hover:bg-amber-400 hover:text-black border border-zinc-300 hover:border-amber-400 cursor-pointer'
             }`}
           >

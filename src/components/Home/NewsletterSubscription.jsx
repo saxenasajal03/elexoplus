@@ -40,7 +40,7 @@ export default function NewsletterSubscription() {
 
   return (
     <section className="bg-white py-16 px-4 font-sans">
-      <div className="max-w-4xl mx-auto relative overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-zinc-950 via-zinc-900 to-indigo-950/40 p-8 md:p-12 shadow-2xl">
+      <div className="max-w-4xl mx-auto relative overflow-hidden rounded-3xl border border-zinc-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-8 md:p-12 shadow-xl">
         {/* Ambient Glow Effects */}
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-rose-600/10 blur-3xl pointer-events-none" />

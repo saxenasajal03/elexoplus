@@ -1,16 +1,18 @@
 # Elexoplus
 
-Elexoplus is a modern e-commerce storefront for home appliances and everyday essentials. The application is built with React and Vite, featuring a polished shopping experience with product discovery, cart management, checkout flows, and account-related interactions.
+Elexoplus is a modern React storefront for consumer electronics and home essentials. The app is designed to feel premium and conversion-focused, with product discovery, authenticated user flows, cart management, and guided checkout experiences.
 
-## Highlights
+## Overview
 
-- Responsive storefront experience for desktop and mobile devices
-- Hero, category, catalog, product carousel, and media sections
-- Product detail pages with tabbed information
-- Cart, checkout, and order-success flows
-- User authentication flow and profile support
-- Address book, payment selection, and order tracking features
-- Clean UI built with React, Tailwind CSS, and custom motion styling
+This project includes:
+
+- A responsive storefront landing page
+- Product listing and detail pages
+- Category-driven shopping flows
+- Shopping cart and checkout journey
+- Order tracking, tickets, and profile management
+- User authentication modal and gated access flows
+- Address management and payment selection UX
 
 ## Tech Stack
 
@@ -23,9 +25,9 @@ Elexoplus is a modern e-commerce storefront for home appliances and everyday ess
 
 ## Prerequisites
 
-Before running the project, ensure you have the following installed:
+Before running the app, install:
 
-- Node.js 18 or later
+- Node.js 18+
 - npm
 
 ## Getting Started
@@ -42,9 +44,9 @@ npm install
 npm run dev
 ```
 
-This starts the Vite dev server. The local URL will be shown in the terminal.
+The local development URL will be shown in the terminal.
 
-### 3. Build for production
+### 3. Create a production build
 
 ```bash
 npm run build
@@ -60,8 +62,8 @@ npm run preview
 
 ```bash
 npm run dev     # start the Vite development server
-npm run build   # create a production build
-npm run preview # preview the production build locally
+npm run build   # build the app for production
+npm run preview # preview the production build
 ```
 
 ## Project Structure
@@ -84,13 +86,14 @@ npm run preview # preview the production build locally
 ├── vite.config.js
 ├── .gitignore
 ├── README.md
-└── package-lock.json
+├── package-lock.json
+└── public/
 ```
 
 ## Repository
 
 - GitHub: https://github.com/saxenasajal03/elexoplus
 
-## License
+## Notes
 
-This project is intended for demonstration and educational purposes.
+This project is intended for demonstration and learning purposes and can be extended into a production-ready commerce platform with backend integration, payment processing, and inventory management.

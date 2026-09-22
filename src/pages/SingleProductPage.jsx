@@ -111,7 +111,7 @@ export default function SingleProductPage() {
                 />
               ))}
             </div>
-            <div className="flex-1 bg-gradient-to-b from-zinc-950 via-zinc-900 to-black rounded-3xl border border-zinc-200/80 flex items-center justify-center p-8 min-h-[420px] shadow-2xl relative overflow-hidden">
+            <div className="flex-1 bg-gradient-to-b from-zinc-50 via-white to-zinc-50 rounded-3xl border border-zinc-200/80 flex items-center justify-center p-8 min-h-[420px] shadow-xl relative overflow-hidden">
               <div className="absolute top-4 right-4 bg-amber-400/10 text-amber-600 border border-amber-400/20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
                 Verified Authentic
               </div>
@@ -138,7 +138,7 @@ export default function SingleProductPage() {
             <div className="py-2 border-y border-zinc-200/80 space-y-2">
               <div className="flex items-baseline gap-3 flex-wrap">
                 {hasDiscount && (
-                  <span className="bg-rose-600 text-zinc-900 text-xs font-black px-2.5 py-1 rounded-md">
+                  <span className="bg-rose-600 text-white text-xs font-black px-2.5 py-1 rounded-md">
                     {discountPercent}% OFF
                   </span>
                 )}
@@ -216,7 +216,7 @@ export default function SingleProductPage() {
                     !inStock
                       ? 'bg-zinc-100 text-zinc-600 border border-zinc-200 cursor-not-allowed'
                       : added
-                      ? 'bg-emerald-600 text-zinc-900 cursor-pointer'
+                      ? 'bg-emerald-600 text-white cursor-pointer'
                       : 'bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border border-zinc-300 cursor-pointer'
                   }`}
                 >

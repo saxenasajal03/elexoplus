@@ -73,7 +73,7 @@ export default function Home() {
         {/* <ProductCarousel title="Trending Now in Indian Homes" /> */}
 
         {/* 6. Brand Quality & Certification Showcase (SRS Reference Feature) */}
-        <section className="bg-gradient-to-b from-black to-zinc-950 py-16 px-6 border-y border-zinc-200 my-10 rounded-3xl mx-4 md:mx-0">
+        <section className="bg-gradient-to-b from-amber-50/50 to-white py-16 px-6 border-y border-zinc-200 my-10 rounded-3xl mx-4 md:mx-0">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <span className="text-amber-600 text-xs font-extrabold uppercase tracking-widest bg-amber-400/10 px-3.5 py-1.5 rounded-full border border-amber-400/20 inline-block">
@@ -116,7 +116,7 @@ export default function Home() {
                 <Link to="/b2b-login" className="bg-amber-400 hover:bg-amber-500 text-black px-6 py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-2">
                   <Zap size={16} /> Open B2B Dealer Portal
                 </Link>
-                <Link to="/contact" className="bg-zinc-200 hover:bg-zinc-700 text-zinc-900 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition border border-zinc-300">
+                <Link to="/contact" className="bg-zinc-200 hover:bg-zinc-300 text-zinc-900 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition border border-zinc-300">
                   Request OEM / Bulk Quote
                 </Link>
               </div>

@@ -204,14 +204,14 @@ export default function ProductCarousel({ title, limit }) {
         <div className="relative">
           {/* Left Edge Fade */}
           <div
-            className={`pointer-events-none absolute left-0 top-0 bottom-4 w-12 z-20 bg-gradient-to-r from-black to-transparent transition-opacity duration-300 ${
+            className={`pointer-events-none absolute left-0 top-0 bottom-4 w-12 z-20 bg-gradient-to-r from-white to-transparent transition-opacity duration-300 ${
               canScrollLeft ? 'opacity-100' : 'opacity-0'
             }`}
           />
 
           {/* Right Edge Fade */}
           <div
-            className={`pointer-events-none absolute right-0 top-0 bottom-4 w-12 z-20 bg-gradient-to-l from-black to-transparent transition-opacity duration-300 ${
+            className={`pointer-events-none absolute right-0 top-0 bottom-4 w-12 z-20 bg-gradient-to-l from-white to-transparent transition-opacity duration-300 ${
               canScrollRight ? 'opacity-100' : 'opacity-0'
             }`}
           />
